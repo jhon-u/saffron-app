@@ -1,13 +1,14 @@
 import 'App.css';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, createContext } from 'react';
 import Button from '@mui/material/Button';
+import SideBar from 'components/SideBar';
 
 import BasicGrid from './components/Grid';
 
 export default function App() {
   const [status, setStatus] = useState({});
-
+  const context = createContext('Test')
   useEffect(() => {
     axios.get('/api/status')
       .then((res) => {
@@ -19,21 +20,19 @@ export default function App() {
       });
   }, []);
 
+  const displayRecipe = status.results?.map((recipe) => {
+    return (
+      <li key={recipe.id}>
+        {recipe.title}
+      </li>
+    )
+  })
+
   return (
-    <div className="App">
-      <h1>Hello React World</h1>
 
-      <section>
-        {!status.error &&
-          <>API Data: <code>{status.version}</code></>}
-        {status.error &&
-          <>API Error: <code>{status.error}</code></>}
-      </section>
-      <div>
-        <Button variant="contained">Hello World</Button>
-      </div>
-
-      <BasicGrid />
+    <div>
+      
+      <SideBar />
     </div>
   );
 }

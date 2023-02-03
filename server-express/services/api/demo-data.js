@@ -1,4 +1,4 @@
-{
+const data = {
   "results": [
       {
           "id": 782585,
@@ -125,3 +125,5 @@
   "number": 20,
   "totalResults": 5221
 }
+
+module.exports = { data };

@@ -6,7 +6,9 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 const { callSpoonacular } = require('../services/api/spoonnacular');
-const demoData = require('../services/api/demo-data');
+// const demoData = require('../services/api/demo-data');
+const { data } = require('../services/api/demo-data');
+
 
 // serve static files from ../build (needed for React)
 const cwd = process.cwd();
@@ -22,7 +24,8 @@ app.get("/api/status", (req, res) => {
   // callSpoonacular().then((data) => {
     
   // })
-  res.json({version: "1.01", demoData});
+  console.log(data.results);
+  res.json({version: "1.01", results:data.results});
 });
 
 app.use(function(req, res) {
