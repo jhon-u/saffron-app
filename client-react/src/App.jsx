@@ -7,32 +7,25 @@ import SideBar from 'components/SideBar';
 import BasicGrid from './components/Grid';
 
 export default function App() {
-  const [status, setStatus] = useState({});
+  const [recipes, setRecipes] = useState({});
   const context = createContext('Test')
   useEffect(() => {
     axios.get('/api/status')
       .then((res) => {
         console.log('RES: ', res)
-        setStatus(res.data);
+        setRecipes(res.data);
       })
       .catch((err) => {
-        setStatus({ error: err.message });
+        setRecipes({ error: err.message });
       });
   }, []);
-
-  const displayRecipe = status.results?.map((recipe) => {
-    return (
-      <li key={recipe.id}>
-        {recipe.title}
-      </li>
-    )
-  })
 
   return (
 
     <div>
-      
-      <SideBar />
+        {!recipes.error &&
+      <SideBar recipes={recipes} />
+        }
     </div>
   );
 }

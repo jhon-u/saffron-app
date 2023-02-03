@@ -27,3 +27,9 @@ code {
     monospace;
   color:  #E51670;
 }
+
+.recipeList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5em;
+}
