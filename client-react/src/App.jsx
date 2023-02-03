@@ -1,6 +1,9 @@
 import 'App.css';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import Button from '@mui/material/Button';
+
+import BasicGrid from './components/Grid';
 
 export default function App() {
   const [status, setStatus] = useState({});
@@ -8,6 +11,7 @@ export default function App() {
   useEffect(() => {
     axios.get('/api/status')
       .then((res) => {
+        console.log('RES: ', res)
         setStatus(res.data);
       })
       .catch((err) => {
@@ -21,10 +25,15 @@ export default function App() {
 
       <section>
         {!status.error &&
-          <>API Version: <code>{status.version}</code></>}
+          <>API Data: <code>{status.version}</code></>}
         {status.error &&
           <>API Error: <code>{status.error}</code></>}
       </section>
+      <div>
+        <Button variant="contained">Hello World</Button>
+      </div>
+
+      <BasicGrid />
     </div>
   );
 }
