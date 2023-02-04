@@ -18,6 +18,7 @@ import ModalBox from './ModalBox';
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import { NavLink } from 'react-router-dom';
 
 
 const style = {
@@ -43,10 +44,12 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
+
+
 export default function RecipeCard(props) {
   const [expanded, setExpanded] = React.useState(false);
-
   const [open, setOpen] = React.useState(false);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -54,12 +57,16 @@ export default function RecipeCard(props) {
     setExpanded(!expanded);
   };
 
+  const handleIdURL = (id) => {
+
+  }
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+            S
           </Avatar>
         }
         action={
@@ -70,12 +77,19 @@ export default function RecipeCard(props) {
         title={props.title}
         subheader="September 14, 2016"
       />
-      <CardMedia onClick={handleOpen}
-        component="img"
-        height="194"
-        image={props.image}
-        alt={props.title}
-      />
+      <NavLink to={`/receipes/${props.id}`} state={props.id}>
+        <CardMedia 
+          // onClick={handleOpen}
+          // onClick={() => props.onClick(props.id)}
+          onClick={() => console.log('Image clicked')}
+          component="img"
+          height="194"
+          image={props.image}
+          alt={props.title}
+        />
+      </NavLink>
+
+
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           This impressive paella is a perfect party dish and a fun meal to cook
@@ -128,12 +142,14 @@ export default function RecipeCard(props) {
           </Typography>
         </CardContent>
       </Collapse>
-      <ModalBox
+
+      {/* <ModalBox
         open={open}
         onClose={handleClose}
         title={props.title}
         id={props.id}
-        />
+        /> */}
+
     </Card>
 
   );

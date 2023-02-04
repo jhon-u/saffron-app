@@ -86,7 +86,9 @@ export default function SideBar(props) {
 
           {['Recipes', 'Grocery List'].map((text, index) => (
             <ListItem key={text}  disablePadding sx={{ display: 'block' }}>
-              <ListItemButton component={Link} to={urls[index]}
+              <ListItemButton 
+                component={Link} 
+                to={urls[index]}
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
