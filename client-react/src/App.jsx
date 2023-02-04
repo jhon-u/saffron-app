@@ -2,16 +2,20 @@ import React from "react";
 import "App.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import SideBar from "components/SideBar";
+import { Route, Routes, useLocation } from "react-router-dom";
 
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 
-
+// Components
 import AppToolbar from "./components/AppToolbar";
-import Recipes from "./pages/Recipes";
+import SideBar from "components/SideBar";
 
+//Pages
+import Recipes from "./pages/Recipes";
+import GroceryList from "./pages/GroceryList";
+import RecipeDetails from "./components/RecipeDetails";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -24,8 +28,9 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export default function App() {
   const [recipes, setRecipes] = useState({});
-  const [open, setOpen] = React.useState(false);
-
+  const [open, setOpen] = useState(false);
+  const recipeId = useLocation()
+  
   const handleDrawerOpen = () => {
     console.log("I was called");
     setOpen(true);
@@ -55,9 +60,14 @@ export default function App() {
             <CssBaseline />
             <AppToolbar handleDrawerOpen={handleDrawerOpen} open={open} />
             <SideBar handleDrawerClose={handleDrawerClose} open={open} />
+            
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
               <DrawerHeader />
-              <Recipes recipes={recipes}/>
+              <Routes>
+                <Route path="/" element={<Recipes recipes={recipes} />} />
+                <Route path="/receipes/:id" element={<RecipeDetails id={recipeId}/>} />
+                <Route path="/grocery-list" element={<GroceryList />} />
+              </Routes>
             </Box>
           </Box>
         </>

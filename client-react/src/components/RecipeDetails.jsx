@@ -4,6 +4,9 @@ import { Typography, Box, Grid, Paper } from "@mui/material"
 import { styled } from '@mui/material/styles';
 import StarIcon from '@mui/icons-material/Star';
 import CardMedia from '@mui/material/CardMedia';
+import {Button} from '@mui/material';
+
+import { useNavigate } from 'react-router-dom';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -29,10 +32,11 @@ const style = {
 export default function RecipeDetails(props) {
   const [recipeDetails, setRecipeDetails] = useState({});
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate()
+  
   useEffect(() => {
     axios.get(`/api/recipes/:${props.id}`)
       .then((res) => {
-        console.log('RES: ', res)
         setRecipeDetails(res.data);
         setLoading(true);
       })
@@ -42,7 +46,6 @@ export default function RecipeDetails(props) {
   }, []);
 
   const dishTypes = recipeDetails.dishTypes?.map((type) => {
-    console.log("dishTypes", type)
     return (
       <li key={type}>
         {type}
@@ -67,10 +70,11 @@ export default function RecipeDetails(props) {
   })
 
   return (
-    <Box sx={style}>
+    <>
       {loading &&
 
         <Grid container spacing={2}>
+          <Button onClick={() => navigate(-1)}>Back</Button>
           <Grid item xs={3}>
             <Item>
               <CardMedia
@@ -99,6 +103,6 @@ export default function RecipeDetails(props) {
           </Grid>
         </Grid>
       }
-    </Box>
+    </>
   )
 }

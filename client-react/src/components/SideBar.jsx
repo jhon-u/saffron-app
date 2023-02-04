@@ -12,6 +12,10 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
+import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
+
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -66,6 +70,9 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export default function SideBar(props) {
   const theme = useTheme();
+
+  const sidebarIcons = [<RestaurantIcon />, <LocalGroceryStoreIcon />]
+  const urls =['/', 'grocery-list']
  
   return (
       <Drawer variant="permanent" open={props.open}>
@@ -76,9 +83,12 @@ export default function SideBar(props) {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
+
+          {['Recipes', 'Grocery List'].map((text, index) => (
+            <ListItem key={text}  disablePadding sx={{ display: 'block' }}>
+              <ListItemButton 
+                component={Link} 
+                to={urls[index]}
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
@@ -92,37 +102,13 @@ export default function SideBar(props) {
                     justifyContent: 'center',
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  { sidebarIcons[index] } 
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
           ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+
         </List>
       </Drawer>
   );

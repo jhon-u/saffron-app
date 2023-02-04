@@ -42,7 +42,7 @@ export default function AppToolbar(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Mini variant drawer
+            Saffron
           </Typography>
         </Toolbar>
       </AppBar>
