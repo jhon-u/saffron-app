@@ -8,8 +8,10 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 
-import RecipeCard from "./components/RecipeCard";
+
 import AppToolbar from "./components/AppToolbar";
+import Recipes from "./pages/Recipes";
+
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -45,17 +47,6 @@ export default function App() {
       });
   }, []);
 
-  const displayRecipe = recipes.results?.map((recipe) => {
-    return (
-      <RecipeCard
-        key={recipe.id}
-        id={recipe.id}
-        title={recipe.title}
-        image={recipe.image}
-      />
-    );
-  });
-
   return (
     <div>
       {!recipes.error && (
@@ -66,7 +57,7 @@ export default function App() {
             <SideBar handleDrawerClose={handleDrawerClose} open={open} />
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
               <DrawerHeader />
-              <div className="recipeList">{displayRecipe}</div>
+              <Recipes recipes={recipes}/>
             </Box>
           </Box>
         </>
