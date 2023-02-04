@@ -14,10 +14,11 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import RecipeDetails from './RecipeDetails';
+import ModalBox from './ModalBox';
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+
 
 const style = {
   position: "absolute",
@@ -127,7 +128,7 @@ export default function RecipeCard(props) {
           </Typography>
         </CardContent>
       </Collapse>
-      <RecipeDetails
+      <ModalBox
         open={open}
         onClose={handleClose}
         title={props.title}

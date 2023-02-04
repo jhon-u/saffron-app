@@ -43,14 +43,13 @@ app.get("/api/recipes/:id", (req, res) => {
   
   const instructions = (instructionData) => {
     const steps = instructionData[0].steps;
-    const result = {}
+    const result = []
     for (const i in steps) {
-      console.log('STEP', steps[i]);
-    result[steps[i].number] = steps[i].step;
+    result.push(steps[i].step)
     }
     return result;
   }
-instructions(instructionData);
+
   res.json({
     id:recipeDetails.id, 
     title:recipeDetails.title,
@@ -59,7 +58,8 @@ instructions(instructionData);
     diet:recipeDetails.diet,
     source:recipeDetails.spoonacularSourceUrl,
     ingredients:recipeDetails.extendedIngredients,
-    instructions:instructions(instructionData)
+    instructions:instructions(instructionData),
+    dishTypes:recipeDetails.dishTypes
   });
 });
 
