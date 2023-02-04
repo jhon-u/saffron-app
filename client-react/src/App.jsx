@@ -10,7 +10,7 @@ export default function App() {
   const [recipes, setRecipes] = useState({});
   const context = createContext('Test')
   useEffect(() => {
-    axios.get('/api/status')
+    axios.get('/api/recipes')
       .then((res) => {
         console.log('RES: ', res)
         setRecipes(res.data);

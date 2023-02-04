@@ -14,6 +14,22 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import RecipeDetails from './RecipeDetails';
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -28,6 +44,10 @@ const ExpandMore = styled((props) => {
 
 export default function RecipeCard(props) {
   const [expanded, setExpanded] = React.useState(false);
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -49,7 +69,7 @@ export default function RecipeCard(props) {
         title={props.title}
         subheader="September 14, 2016"
       />
-      <CardMedia
+      <CardMedia onClick={handleOpen}
         component="img"
         height="194"
         image={props.image}
@@ -107,6 +127,13 @@ export default function RecipeCard(props) {
           </Typography>
         </CardContent>
       </Collapse>
+      <RecipeDetails
+        open={open}
+        onClose={handleClose}
+        title={props.title}
+        id={props.id}
+        />
     </Card>
+
   );
 }
