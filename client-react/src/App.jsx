@@ -11,6 +11,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 // Components
 import AppToolbar from "./components/AppToolbar";
 import SideBar from "components/SideBar";
+import AdvancedSearch from "./components/AdvancedSearch";
 
 //Pages
 import Recipes from "./pages/Recipes";
@@ -67,6 +68,7 @@ export default function App() {
                 <Route path="/" element={<Recipes recipes={recipes} />} />
                 <Route path="/receipes/:id" element={<RecipeDetails id={recipeId}/>} />
                 <Route path="/grocery-list" element={<GroceryList />} />
+                <Route path="/advanced-search" element={<AdvancedSearch />} />
               </Routes>
             </Box>
           </Box>

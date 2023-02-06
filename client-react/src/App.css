@@ -2,6 +2,10 @@
   margin: 1em;
 }
 
+body {
+  overflow-y: scroll
+}
+
 h4 {
   padding: 0px;
   margin: 0.2em;
@@ -35,5 +39,6 @@ li:hover {
 li:hover a {
   color: white;
 }
+
 
 
