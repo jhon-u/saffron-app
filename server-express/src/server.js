@@ -3,19 +3,24 @@ const express = require("express");
 const path = require('path');
 
 const app = express();
+const morgan = require('morgan');
 const PORT = process.env.PORT || 8080;
+app.use(morgan('dev'));
 
 const { callSpoonacular } = require('../services/api/spoonnacular');
 // const demoData = require('../services/api/demo-data');
 const { data } = require('../services/api/demo-data');
 const { instructionData } = require('../services/api/instructions');
 const { recipeDetails } = require('../services/api/recipe-details');
+const { getAllUsers, getUserById } = require('../db/queries/users');
+const db = require('../configs/db.config');
 
 // serve static files from ../build (needed for React)
 const cwd = process.cwd();
 const public = path.join(cwd, '..', 'public');
 console.log("public dir: ", public);
 app.use(express.static(public));
+
 
 // Do Not make a route for "/" or it will override public
 
@@ -62,6 +67,32 @@ app.get("/api/recipes/:id", (req, res) => {
     dishTypes:recipeDetails.dishTypes
   });
 });
+
+app.get("/users", (req, res) => {
+  getAllUsers().then(data => {
+    console.log(data)
+    return res.json(data)
+})
+})
+
+// routes to add favourites to database
+app.post("/favourites", (req, res) => {
+  console.log("hit favourites route")
+  const data = req.body
+  console.log("check req.body data in server side", data)
+  const values = [];
+  const addFavQuery = `
+  INSERT INTO favourites (user_id, recipeid, title, image)
+  VALUES ($1, $2, $3, $4)
+  RETURNING *;
+  `;
+
+  db.query(addFavQuery, values)
+    .then((result) => {
+      res.json({status: 'success'})
+    })
+    .catch((err) => res.send(err))
+})
 
 app.use(function(req, res) {
   res.status(404);

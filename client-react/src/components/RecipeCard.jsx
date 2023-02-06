@@ -19,6 +19,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
 
 
 const style = {
@@ -49,6 +50,7 @@ const ExpandMore = styled((props) => {
 export default function RecipeCard(props) {
   const [expanded, setExpanded] = React.useState(false);
   const [open, setOpen] = React.useState(false);
+  const [data, setData] = React.useState({});
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -60,6 +62,14 @@ export default function RecipeCard(props) {
   const handleIdURL = (id) => {
 
   }
+  const sendFavouritesData = () => {
+    
+    setData(props);
+    console.log("state data check fav:", data)
+    axios.post('/favourites', data)
+      .then(res => console.log(res))
+      .catch(err => console.error(err))
+  };
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -98,7 +108,7 @@ export default function RecipeCard(props) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton aria-label="add to favorites" onClick={() => sendFavouritesData()}>
           <FavoriteIcon />
         </IconButton>
         <IconButton aria-label="share">
