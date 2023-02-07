@@ -7,6 +7,9 @@ import Box from "@mui/material/Box";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import TuneIcon from "@mui/icons-material/Tune";
+import LoginButton from "./LoginButton";
+import { authContext } from "Providers/AuthProvider"
+import { useContext } from "react";
 
 const drawerWidth = 240;
 
@@ -71,6 +74,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function AppToolbar(props) {
+  const { auth, user } = useContext(authContext)
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" open={props.open}>
@@ -95,6 +100,10 @@ export default function AppToolbar(props) {
           >
             Saffron
           </Typography>
+          {auth && <Typography sx={{mr: 1}}>
+            {user.email}
+          </Typography> }
+          <LoginButton/>
           <Search sx={{display: 'flex', alignItems: 'center'}}>
             <SearchIconWrapper>
               <SearchIcon />
