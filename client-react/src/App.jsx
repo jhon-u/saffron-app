@@ -71,7 +71,7 @@ export default function App() {
               <DrawerHeader />
               <Routes>
                 <Route path="/" element={<Recipes recipes={recipes} advSearch={isVisible}/>} />
-                <Route path="/receipes/:id" element={<RecipeDetails id={recipeId}/>} />
+                <Route path="/receipes/:id" element={<RecipeDetails />} />
                 <Route path="/grocery-list" element={<GroceryList />} />
               </Routes>
             </Box>
