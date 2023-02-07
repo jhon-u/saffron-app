@@ -1,0 +1,2 @@
+INSERT INTO favourites (id, user_id, recipeid, title, image) VALUES (1, 1, 782585, 'Cannellini Bean and Asparagus Salad with Mushrooms', 'https://spoonacular.com/recipeImages/782585-312x231.jpg');
+INSERT INTO favourites (id, user_id, recipeid, title, image) VALUES (2, 1, 716426, 'Cauliflower, Brown Rice, and Vegetable Fried Rice', 'https://spoonacular.com/recipeImages/716426-312x231.jpg');

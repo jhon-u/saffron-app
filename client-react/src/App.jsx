@@ -11,11 +11,13 @@ import CssBaseline from "@mui/material/CssBaseline";
 // Components
 import AppToolbar from "./components/AppToolbar";
 import SideBar from "components/SideBar";
+import LoginForm from "components/LoginForm"
 
 //Pages
 import Recipes from "./pages/Recipes";
 import GroceryList from "./pages/GroceryList";
 import RecipeDetails from "./components/RecipeDetails";
+import Favourites from "pages/Favourites";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -67,6 +69,8 @@ export default function App() {
                 <Route path="/" element={<Recipes recipes={recipes} />} />
                 <Route path="/receipes/:id" element={<RecipeDetails id={recipeId}/>} />
                 <Route path="/grocery-list" element={<GroceryList />} />
+                <Route path="/login" element={<LoginForm />} />
+                <Route path="/favourites" element={<Favourites />} />
               </Routes>
             </Box>
           </Box>
