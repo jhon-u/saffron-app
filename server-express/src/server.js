@@ -81,9 +81,7 @@ app.get("/users", (req, res) => {
 
 // routes to add favourites to database
 app.post("/favourites", (req, res) => {
-  console.log("#1 hit favourites route")
   const data = req.body
-  console.log("#2 check req.body data in server side", data)
   const values = [1, data.id, data.title, data.image];
   const addFavQuery = `
   INSERT INTO favourites (user_id, recipeid, title, image)
@@ -93,7 +91,7 @@ app.post("/favourites", (req, res) => {
 
   db.query(addFavQuery, values)
     .then((result) => {
-      console.log("#3 result rows check:", result.rows)
+      //result.rows is what we are looking for 
       res.json({status: 'success'})
     })
     .catch((err) => res.send(err))
