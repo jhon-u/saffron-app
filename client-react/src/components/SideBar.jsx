@@ -14,6 +14,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import { Link } from "react-router-dom";
 
@@ -71,8 +72,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function SideBar(props) {
   const theme = useTheme();
 
-  const sidebarIcons = [<RestaurantIcon />, <LocalGroceryStoreIcon />]
-  const urls =['/', 'grocery-list']
+  const sidebarIcons = [<RestaurantIcon />, <LocalGroceryStoreIcon />, <FavoriteIcon />]
+  const urls =['/', 'grocery-list', 'favourites']
  
   return (
       <Drawer variant="permanent" open={props.open}>
@@ -84,7 +85,7 @@ export default function SideBar(props) {
         <Divider />
         <List>
 
-          {['Recipes', 'Grocery List'].map((text, index) => (
+          {['Recipes', 'Grocery List', 'Favourites'].map((text, index) => (
             <ListItem key={text}  disablePadding sx={{ display: 'block' }}>
               <ListItemButton 
                 component={Link} 

@@ -1,15 +1,24 @@
 require('dotenv').config();
 const express = require("express");
 const path = require('path');
-
+const bodyParser = require('body-parser')
 const app = express();
+const morgan = require('morgan');
 const PORT = process.env.PORT || 8080;
+app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({extended: true})); 
+app.use(bodyParser.json())
 
 const { callSpoonacular } = require('../services/api/spoonnacular');
 // const demoData = require('../services/api/demo-data');
 const { data } = require('../services/api/demo-data');
 const { instructionData } = require('../services/api/instructions');
 const { recipeDetails } = require('../services/api/recipe-details');
+const { getAllUsers, getUserById } = require('../db/queries/users');
+const db = require('../configs/db.config');
+const { getFavourites } = require('../db/queries/favourites');
+
+
 
 // serve static files from ../build (needed for React)
 const cwd = process.cwd();
@@ -62,6 +71,37 @@ app.get("/api/recipes/:id", (req, res) => {
     dishTypes:recipeDetails.dishTypes
   });
 });
+
+app.get("/users", (req, res) => {
+  getAllUsers().then(data => {
+    console.log(data)
+    return res.json(data)
+})
+})
+
+// routes to add favourites to database
+app.post("/favourites", (req, res) => {
+  const data = req.body
+  const values = [1, data.id, data.title, data.image];
+  const addFavQuery = `
+  INSERT INTO favourites (user_id, recipeid, title, image)
+  VALUES ($1, $2, $3, $4)
+  RETURNING *;
+  `;
+
+  db.query(addFavQuery, values)
+    .then((result) => {
+      //result.rows is what we are looking for 
+      res.json({status: 'success'})
+    })
+    .catch((err) => res.send(err))
+})
+
+// routes to get favourites from database
+app.get("/favourites", (req, res) => {
+  getFavourites()
+    .then(results => res.json(results))
+})
 
 app.use(function(req, res) {
   res.status(404);
