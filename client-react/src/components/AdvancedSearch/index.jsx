@@ -17,7 +17,7 @@ export default function AdvancedSearch() {
         }}
       >
         <Grid container spacing={2}>
-          <Typography variant="h5" gutterBottom>
+          <Typography variant="h5" sx={{ m: 1 }}gutterBottom>
             Advanced Search
           </Typography>
           <Grid container spacing={2}>
