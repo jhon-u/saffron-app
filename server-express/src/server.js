@@ -14,7 +14,7 @@ const { callSpoonacular } = require('../services/api/spoonnacular');
 const { data } = require('../services/api/demo-data');
 const { instructionData } = require('../services/api/instructions');
 const { recipeDetails } = require('../services/api/recipe-details');
-const { getAllUsers, getUserById } = require('../db/queries/users');
+const { getAllUsers, getUserById, getUserByEmail } = require('../db/queries/users');
 const db = require('../configs/db.config');
 const { getFavourites } = require('../db/queries/favourites');
 
@@ -72,8 +72,9 @@ app.get("/api/recipes/:id", (req, res) => {
   });
 });
 
-app.get("/users", (req, res) => {
-  getAllUsers().then(data => {
+app.post("/users", (req, res) => {
+  console.log("server /users req.body", req.body)
+  getUserByEmail(req.body.email).then(data => {
     console.log(data)
     return res.json(data)
 })
