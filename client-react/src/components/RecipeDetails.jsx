@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CardMedia from '@mui/material/CardMedia';
-import { Button } from '@mui/material';
+import { Button, Box } from '@mui/material';
 import Rating from '@mui/material/Rating';
 
 import 'components/RecipeDetails.css';
@@ -94,7 +94,7 @@ export default function RecipeDetails(props) {
           </Item>
         </Grid>
         <Grid item xs={6}>
-        <Item>{<ul>{dishTypes}</ul>} <br /><item><LocalDiningIcon /> Servings: {recipeDetails.servings} &nbsp; &nbsp; &nbsp; <AccessTimeIcon /> Ready in: {recipeDetails.readyInMinutes} minutes</item></Item>
+        <Item>{<ul>{dishTypes}</ul>} <br /><Item><LocalDiningIcon /> Servings: {recipeDetails.servings} &nbsp; &nbsp; &nbsp; <AccessTimeIcon /> Ready in: {recipeDetails.readyInMinutes} minutes</Item></Item>
         </Grid>
         <Grid item xs={12}>
         </Grid>

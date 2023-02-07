@@ -62,12 +62,12 @@ export default function RecipeCard(props) {
   const handleIdURL = (id) => {
 
   }
-  const sendFavouritesData = () => {
+  const sendFavouritesData = (data) => {
 
     alert("clicked on add to fav")
     // setData({...props});
-    console.log("state data check fav:", props)
-    axios.post('/favourites', props)
+    console.log("state data check fav:", data)
+    axios.post('/favourites', data)
       .then(res => console.log(res))
       .catch(err => console.error(err))
   };
@@ -109,7 +109,8 @@ export default function RecipeCard(props) {
         </Typography> */}
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites" onClick={() => sendFavouritesData()}>
+        {/* TODO: We need to pass the User ID to the database on the next line. */}
+        <IconButton aria-label="add to favorites" onClick={() => sendFavouritesData({recipeid: props.id, title: props.title, image: props.image })}>
           <FavoriteIcon />
         </IconButton>
         <IconButton aria-label="share">
