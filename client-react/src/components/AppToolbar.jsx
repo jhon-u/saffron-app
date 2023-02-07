@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 import { Toolbar, IconButton, Typography } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import MuiAppBar from "@mui/material/AppBar";
@@ -106,12 +104,10 @@ export default function AppToolbar(props) {
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
-          <Link to={"advanced-search"} style={{textDecoration: 'none'}}>
             <TuneIcon
               sx={{ color: 'white', ml: 1, "& :hover": { color: "red", cursor: "pointer" } }}
-              onClick={() => console.log("I was clicked")}
+              onClick={props.advSearch}
             />
-          </Link>
         </Toolbar>
       </AppBar>
     </Box>

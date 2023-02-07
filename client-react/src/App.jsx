@@ -30,6 +30,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export default function App() {
   const [recipes, setRecipes] = useState({});
   const [open, setOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const recipeId = useLocation()
   
   const handleDrawerOpen = () => {
@@ -40,6 +41,10 @@ export default function App() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleVisibility = () => {
+    setIsVisible(!isVisible)
+  }
 
   useEffect(() => {
     axios
@@ -59,16 +64,15 @@ export default function App() {
         <>
           <Box sx={{ display: "flex" }}>
             <CssBaseline />
-            <AppToolbar handleDrawerOpen={handleDrawerOpen} open={open} />
+            <AppToolbar handleDrawerOpen={handleDrawerOpen} open={open} advSearch={handleVisibility}/>
             <SideBar handleDrawerClose={handleDrawerClose} open={open} />
             
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
               <DrawerHeader />
               <Routes>
-                <Route path="/" element={<Recipes recipes={recipes} />} />
+                <Route path="/" element={<Recipes recipes={recipes} advSearch={isVisible}/>} />
                 <Route path="/receipes/:id" element={<RecipeDetails id={recipeId}/>} />
                 <Route path="/grocery-list" element={<GroceryList />} />
-                <Route path="/advanced-search" element={<AdvancedSearch />} />
               </Routes>
             </Box>
           </Box>

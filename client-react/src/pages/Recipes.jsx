@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useRef } from "react";
 import RecipeCard from "../components/RecipeCard";
+import AdvancedSearch from "../components/AdvancedSearch";
 import { useState } from "react";
 
-export default function Recipes(props) {
+import Collapse from "@mui/material/Collapse";
+import { Box } from "@mui/system";
 
-  const [recipeId, setRecipeId] = useState(null)
+export default function Recipes(props) {
+  const [recipeId, setRecipeId] = useState(null);
 
   const getRecipeId = (id) => {
-    console.log('RECIPE ID', id)
-    setRecipeId(id)
-  }
-  
+    console.log("RECIPE ID", id);
+    setRecipeId(id);
+  };
+
   const displayRecipe = props.recipes.results?.map((recipe) => {
     return (
       <RecipeCard
@@ -24,6 +27,11 @@ export default function Recipes(props) {
   });
 
   return (
+    <Box>
+      <Collapse in={props.advSearch} timeout={"auto"}>
+        <AdvancedSearch />
+      </Collapse>
       <div className="recipeList">{displayRecipe}</div>
-  )
+    </Box>
+  );
 }

@@ -5,7 +5,7 @@ import RangeSlider from "./RangeSlider";
 
 export default function AdvancedSearch() {
   return (
-    <Box sx={{ width: "90vw", height: 200 }}>
+    <Box sx={{ width: "100%", height: 350 }}>
       <Paper
         sx={{
           p: 2,
@@ -38,7 +38,7 @@ export default function AdvancedSearch() {
             </Grid>
           </Grid>
           
-          <Box component="span" sx={{ m: 1, p: 2, border: '1px solid lightgrey', borderRadius: 1 }}>
+          <Box sx={{ m: 1, p: 2, border: '1px solid lightgrey', borderRadius: 1, width: '100%' }}>
             <Grid container spacing={2}>
               <Grid item xs={4}>
                 <RangeSlider
