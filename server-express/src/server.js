@@ -82,7 +82,8 @@ app.get("/users", (req, res) => {
 // routes to add favourites to database
 app.post("/favourites", (req, res) => {
   const data = req.body
-  const values = [1, data.id, data.title, data.image];
+  console.log('FAVOURITE DATA', data)
+  const values = [1, data.recipeid, data.title, data.image];
   const addFavQuery = `
   INSERT INTO favourites (user_id, recipeid, title, image)
   VALUES ($1, $2, $3, $4)

@@ -62,31 +62,31 @@ export default function RecipeCard(props) {
   const handleIdURL = (id) => {
 
   }
-  const sendFavouritesData = () => {
+  const sendFavouritesData = (data) => {
 
     alert("clicked on add to fav")
     // setData({...props});
-    console.log("state data check fav:", props)
-    axios.post('/favourites', props)
+    console.log("state data check fav:", data)
+    axios.post('/favourites', data)
       .then(res => console.log(res))
       .catch(err => console.error(err))
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 300 }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
             S
           </Avatar>
         }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
+        // action={
+        //   <IconButton aria-label="settings">
+        //     <MoreVertIcon />
+        //   </IconButton>
+        // }
         title={props.title}
-        subheader="September 14, 2016"
+        // subheader="September 14, 2016"
       />
       <NavLink to={`/receipes/${props.id}`} state={props.id}>
         <CardMedia 
@@ -102,29 +102,30 @@ export default function RecipeCard(props) {
 
 
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
+        {/* <Typography variant="body2" color="text.secondary">
           This impressive paella is a perfect party dish and a fun meal to cook
           together with your guests. Add 1 cup of frozen peas along with the mussels,
           if you like.
-        </Typography>
+        </Typography> */}
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites" onClick={() => sendFavouritesData()}>
+        {/* TODO: We need to pass the User ID to the database on the next line. */}
+        <IconButton aria-label="add to favorites" onClick={() => sendFavouritesData({recipeid: props.id, title: props.title, image: props.image })}>
           <FavoriteIcon />
         </IconButton>
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
-        <ExpandMore
+        {/* <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
         >
           <ExpandMoreIcon />
-        </ExpandMore>
+        </ExpandMore> */}
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Method:</Typography>
           <Typography paragraph>
@@ -152,14 +153,7 @@ export default function RecipeCard(props) {
             Set aside off of the heat to let rest for 10 minutes, and then serve.
           </Typography>
         </CardContent>
-      </Collapse>
-
-      {/* <ModalBox
-        open={open}
-        onClose={handleClose}
-        title={props.title}
-        id={props.id}
-        /> */}
+      </Collapse> */}
 
     </Card>
 

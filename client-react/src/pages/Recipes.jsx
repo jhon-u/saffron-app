@@ -1,29 +1,40 @@
-import React from "react";
+import React, { useRef } from "react";
 import RecipeCard from "../components/RecipeCard";
+import AdvancedSearch from "../components/AdvancedSearch";
 import { useState } from "react";
 
-export default function Recipes(props) {
+import { Collapse, Grid } from "@mui/material";
+import { Box } from "@mui/system";
 
-  const [recipeId, setRecipeId] = useState(null)
+export default function Recipes(props) {
+  const [recipeId, setRecipeId] = useState(null);
 
   const getRecipeId = (id) => {
-    console.log('RECIPE ID', id)
-    setRecipeId(id)
-  }
-  
+    console.log("RECIPE ID", id);
+    setRecipeId(id);
+  };
+
   const displayRecipe = props.recipes.results?.map((recipe) => {
     return (
-      <RecipeCard
-        key={recipe.id}
-        id={recipe.id}
-        title={recipe.title}
-        image={recipe.image}
-        onClick={getRecipeId}
-      />
+      <Grid key={recipe.id} item xs={12} sm={6} md={4} lg={2}>
+        <RecipeCard
+          id={recipe.id}
+          title={recipe.title}
+          image={recipe.image}
+          onClick={getRecipeId}
+        />
+      </Grid>
     );
   });
 
   return (
-      <div className="recipeList">{displayRecipe}</div>
-  )
+    <Box>
+      <Collapse in={props.advSearch} timeout={"auto"}>
+        <AdvancedSearch />
+      </Collapse>
+      <Grid container spacing={2} justify="center">
+        {displayRecipe}
+      </Grid>
+    </Box>
+  );
 }
