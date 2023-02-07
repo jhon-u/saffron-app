@@ -3,7 +3,7 @@ import RecipeCard from "../components/RecipeCard";
 import AdvancedSearch from "../components/AdvancedSearch";
 import { useState } from "react";
 
-import Collapse from "@mui/material/Collapse";
+import { Collapse, Grid } from "@mui/material";
 import { Box } from "@mui/system";
 
 export default function Recipes(props) {
@@ -16,13 +16,14 @@ export default function Recipes(props) {
 
   const displayRecipe = props.recipes.results?.map((recipe) => {
     return (
-      <RecipeCard
-        key={recipe.id}
-        id={recipe.id}
-        title={recipe.title}
-        image={recipe.image}
-        onClick={getRecipeId}
-      />
+      <Grid key={recipe.id} item xs={12} sm={6} md={4} lg={2}>
+        <RecipeCard
+          id={recipe.id}
+          title={recipe.title}
+          image={recipe.image}
+          onClick={getRecipeId}
+        />
+      </Grid>
     );
   });
 
@@ -31,7 +32,9 @@ export default function Recipes(props) {
       <Collapse in={props.advSearch} timeout={"auto"}>
         <AdvancedSearch />
       </Collapse>
-      <div className="recipeList">{displayRecipe}</div>
+      <Grid container spacing={2} justify="center">
+        {displayRecipe}
+      </Grid>
     </Box>
   );
 }
