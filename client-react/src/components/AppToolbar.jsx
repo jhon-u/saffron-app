@@ -95,7 +95,7 @@ export default function AppToolbar(props) {
           >
             Saffron
           </Typography>
-          <Search>
+          <Search sx={{display: 'flex', alignItems: 'center'}}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -103,11 +103,11 @@ export default function AppToolbar(props) {
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
             />
-          </Search>
             <TuneIcon
-              sx={{ color: 'white', ml: 1, "& :hover": { color: "red", cursor: "pointer" } }}
+              sx={{ color: 'white', mr: 1, "& :hover": { color: "blue", cursor: "pointer" } }}
               onClick={props.advSearch}
             />
+          </Search>
         </Toolbar>
       </AppBar>
     </Box>
