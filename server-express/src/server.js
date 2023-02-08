@@ -90,12 +90,11 @@ app.post("/api/search", (req, res) => {
 app.post('/api/recipes/delete', function(req, res) {
   const value = [req.body.recipeid]
   const deleteQuery = `
-  DELETE FROM favourites WHERE recipeid = $1;
+  DELETE FROM favourites WHERE recipeid = $1
   `
-
   db.query(deleteQuery, value)
   .then((result) => {
-    res.json({status: 'success'}); 
+    res.json(result.rows); 
   })
   .catch((err) => res.send(err));
 })
