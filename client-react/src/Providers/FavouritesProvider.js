@@ -4,16 +4,12 @@ import axios from 'axios';
 export const favouritesContext = createContext();
 
 const FavouritesProvider = function (props) {
-
-
   const [favourites, setFavourites] = useState([])
-  const [favouriteIds, setFavouriteIds] = useState([])
-
+  
   const saveFavourites = (data) => {
-    console.log("data check saveFavourites", data)
     axios.post('/favourites', data)
       .then(res => {
-        console.log("axios check result after database favourites", res.data)
+        console.log(`RECIPE ID ${data.recipeid} has been saved`)
         setFavourites([...favourites, res.data[0]])
       })
       .catch(err => console.error(err))
@@ -31,6 +27,19 @@ const FavouritesProvider = function (props) {
       });
   }
 
+  const deleteFavourite = (recipeid) => {
+    
+    axios.post(`/api/recipes/delete`, {recipeid})
+    .then((res) => {
+        console.log(`RECIPE ID ${recipeid} has been deleted`)
+        setFavourites([...favourites, ...res.data]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+
   const isFavourite = (id) => {
     const favIds = favourites.map((favourite) => favourite.recipeid)
     return favIds.includes(id)
@@ -39,7 +48,7 @@ const FavouritesProvider = function (props) {
 
 
 
-  const value = { favourites, setFavourites, saveFavourites, getFavourites, isFavourite }
+  const value = { favourites, setFavourites, saveFavourites, getFavourites, isFavourite, deleteFavourite }
 
   return (
     <favouritesContext.Provider value={value}>
