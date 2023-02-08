@@ -16,6 +16,7 @@ import { authContext } from "Providers/AuthProvider"
 import { useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { favouritesContext } from 'Providers/FavouritesProvider';
 
 function Copyright(props) {
   return (
@@ -32,18 +33,16 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function LoginForm() {
+export default function LoginForm(props) {
   const navigate = useNavigate()
 
   const { auth, user, login, logout } = useContext(authContext)
+  const { getFavourites } = useContext(favouritesContext)
   
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    
     const userData = {
       email: data.get('email'),
       password: data.get('password'),
@@ -54,11 +53,11 @@ export default function LoginForm() {
         login(
           data.get('email')
         )
-        navigate("/");
       })
+      .then(() => getFavourites())
+      .then(() => props.path ? navigate(props.path) : navigate("/"))
       .catch(error => console.log(error))
 
-    
   };
 
 

@@ -20,6 +20,8 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
+import { useContext } from 'react';
+import { favouritesContext } from 'Providers/FavouritesProvider';
 
 
 const style = {
@@ -51,10 +53,9 @@ export default function RecipeCard(props) {
   const [expanded, setExpanded] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [data, setData] = React.useState({});
-
+  const { favourites, setFavourites, saveFavourites, isFavourite } = useContext(favouritesContext)
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -62,16 +63,15 @@ export default function RecipeCard(props) {
   const handleIdURL = (id) => {
 
   }
-  const sendFavouritesData = (data) => {
+  // const sendFavouritesData = (data) => {
 
-    alert("clicked on add to fav")
-    // setData({...props});
-    console.log("state data check fav:", data)
-    axios.post('/favourites', data)
-      .then(res => console.log(res))
-      .catch(err => console.error(err))
-  };
-
+  //   alert("clicked on add to fav")
+  //   // setData({...props});
+  //   // axios.post('/favourites', data)
+  //   //   .then(res => console.log(res))
+  //   //   .catch(err => console.error(err))
+  // };
+  console.log("isFavourite check", isFavourite(props.id), props.id)
   return (
     <Card sx={{ maxWidth: 300 }}>
       <CardHeader
@@ -110,8 +110,9 @@ export default function RecipeCard(props) {
       </CardContent>
       <CardActions disableSpacing>
         {/* TODO: We need to pass the User ID to the database on the next line. */}
-        <IconButton aria-label="add to favorites" onClick={() => sendFavouritesData({recipeid: props.id, title: props.title, image: props.image })}>
-          <FavoriteIcon />
+        <IconButton aria-label="add to favorites" onClick={() => saveFavourites({recipeid: props.id, title: props.title, image: props.image })}>
+          {isFavourite(props.id) && <FavoriteIcon style={{ color: 'red' }}/>}
+          {!isFavourite(props.id) && <FavoriteIcon />}
         </IconButton>
         <IconButton aria-label="share">
           <ShareIcon />

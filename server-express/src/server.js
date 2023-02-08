@@ -17,6 +17,7 @@ const { recipeDetails } = require('../services/api/recipe-details');
 const { getAllUsers, getUserById, getUserByEmail } = require('../db/queries/users');
 const db = require('../configs/db.config');
 const { getFavourites } = require('../db/queries/favourites');
+const { default: axios } = require('axios');
 
 
 
@@ -72,10 +73,24 @@ app.get("/api/recipes/:id", (req, res) => {
   });
 });
 
+app.post("/api/search", (req, res) => {
+  console.log("api/search req.body check", req.body)
+  
+  const dietString = req.body.diet.toString()
+  const intolerancesString = req.body.intolerances.toString()
+
+  const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.API_KEY}&diet=${dietString}&intolerances=${intolerancesString}&minProtein=${req.body.protein[0]}&maxProtein=${req.body.protein[1]}&minFat=${req.body.fat[0]}&maxFat=${req.body.fat[1]}&minCarbs=${req.body.carbs[0]}&maxCarbs=${req.body.carbs[1]}&number=10&nutrition=false`
+
+  axios.get(url)
+    .then((result) => console.log(result.data.results))
+    .catch((error) => console.log(error))
+
+})
+
 app.post("/users", (req, res) => {
-  console.log("server /users req.body", req.body)
+  
   getUserByEmail(req.body.email).then(data => {
-    console.log(data)
+    
     return res.json(data)
 })
 })
@@ -83,7 +98,6 @@ app.post("/users", (req, res) => {
 // routes to add favourites to database
 app.post("/favourites", (req, res) => {
   const data = req.body
-  console.log('FAVOURITE DATA', data)
   const values = [1, data.recipeid, data.title, data.image];
   const addFavQuery = `
   INSERT INTO favourites (user_id, recipeid, title, image)
@@ -94,7 +108,7 @@ app.post("/favourites", (req, res) => {
   db.query(addFavQuery, values)
     .then((result) => {
       //result.rows is what we are looking for 
-      res.json({status: 'success'})
+      res.json(result.rows)
     })
     .catch((err) => res.send(err))
 })
