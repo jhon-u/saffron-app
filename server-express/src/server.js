@@ -108,7 +108,7 @@ app.post("/favourites", (req, res) => {
   db.query(addFavQuery, values)
     .then((result) => {
       //result.rows is what we are looking for 
-      res.json({status: 'success'})
+      res.json(result.rows)
     })
     .catch((err) => res.send(err))
 })

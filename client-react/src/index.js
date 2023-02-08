@@ -5,6 +5,7 @@ import App from "App";
 import "./index.css";
 import AuthProvider from "Providers/AuthProvider";
 import SearchProvider from "Providers/SearchProvider";
+import FavouritesProvider from "Providers/FavouritesProvider";
 
 
 const container = document.getElementById("root");
@@ -13,9 +14,11 @@ root.render(
   <React.StrictMode>
     <AuthProvider>
       <SearchProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <FavouritesProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </FavouritesProvider>
       </SearchProvider>
     </AuthProvider>
   </React.StrictMode>

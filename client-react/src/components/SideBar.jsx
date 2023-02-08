@@ -15,6 +15,8 @@ import MailIcon from '@mui/icons-material/Mail';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useContext } from 'react';
+import { favouritesContext } from 'Providers/FavouritesProvider';
 
 import { Link } from "react-router-dom";
 
@@ -71,6 +73,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export default function SideBar(props) {
   const theme = useTheme();
+  // const { getFavourites } = useContext(favouritesContext)
 
   const sidebarIcons = [<RestaurantIcon />, <LocalGroceryStoreIcon />, <FavoriteIcon />]
   const urls =['/', 'grocery-list', 'favourites']
