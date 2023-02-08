@@ -1,10 +1,22 @@
 import { useState } from "react";
 import { Slider, Typography, Box } from "@mui/material";
+import { useContext } from "react";
+import { searchContext } from "Providers/SearchProvider";
 
 export default function RangeSlider(props) {
-  const [value, setValue] = useState([10, 50]);
+  const {carbs, setCarbs, setFat, setProtein} = useContext(searchContext)
+  const [value, setValue] = useState(carbs);
 
   const handleChange = (event, newValue) => {
+    if (props.name === "Protein") {
+      setProtein(newValue)
+    }
+    if (props.name === "Fat") {
+      setFat(newValue)
+    }
+    if (props.name === "Carbs") {
+      setCarbs(newValue)
+    }
     setValue(newValue);
   };
 

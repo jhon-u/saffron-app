@@ -36,7 +36,6 @@ export default function App() {
   const recipeId = useLocation()
   
   const handleDrawerOpen = () => {
-    console.log("I was called");
     setOpen(true);
   };
 
@@ -52,7 +51,6 @@ export default function App() {
     axios
       .get("/api/recipes")
       .then((res) => {
-        console.log("RES: ", res);
         setRecipes(res.data);
       })
       .catch((err) => {

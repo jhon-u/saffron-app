@@ -7,6 +7,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
+import { useContext } from "react";
+import { searchContext } from "Providers/SearchProvider";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -19,18 +21,6 @@ const MenuProps = {
   },
 };
 
-const values = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
-];
 
 function getStyles(name, option, theme) {
   return {
@@ -41,18 +31,31 @@ function getStyles(name, option, theme) {
   };
 }
 
+
+
 export default function DropDowns(props) {
+const { setDiet, setIntolerances } = useContext(searchContext);
+
   const theme = useTheme();
   const [option, setOption] = React.useState([]);
 
-  const handleChange = (event) => {
+  const handleChange = (event, name) => {
     const {
       target: { value },
     } = event;
+
+    if (name === "Diets") {
+      setDiet( typeof value === 'string' ? value.split(',') : value )
+    }
+    if (name === "Intolerances") {
+      setIntolerances( typeof value === 'string' ? value.split(',') : value )
+    }
     setOption(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
+   
+
   };
 
   return (
@@ -64,7 +67,7 @@ export default function DropDowns(props) {
           id="demo-multiple-chip"
           multiple
           value={option}
-          onChange={handleChange}
+          onChange={(event) => handleChange(event, props.name)}
           input={<OutlinedInput id="select-multiple-chip" label={props.name} />}
           renderValue={(selected) => (
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
@@ -75,7 +78,7 @@ export default function DropDowns(props) {
           )}
           MenuProps={MenuProps}
         >
-          {values.map((value) => (
+          {props.data.map((value) => (
             <MenuItem
               key={value}
               value={value}

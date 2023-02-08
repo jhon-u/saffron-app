@@ -10,7 +10,7 @@ export default function Recipes(props) {
   const [recipeId, setRecipeId] = useState(null);
 
   const getRecipeId = (id) => {
-    console.log("RECIPE ID", id);
+   
     setRecipeId(id);
   };
 

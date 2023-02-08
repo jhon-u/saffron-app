@@ -15,7 +15,6 @@ const getUserById = id => {
 }
 
 const getUserByEmail = email => {
-  console.log("query email check", email)
 	return db.query('SELECT * FROM users WHERE email = $1;', [email]).then(data => {
 		return data.rows;
 	})

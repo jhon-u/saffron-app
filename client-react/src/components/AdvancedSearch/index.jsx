@@ -2,8 +2,27 @@ import * as React from "react";
 import { Paper, Box, Grid, Button, Typography } from "@mui/material";
 import DropDowns from "./DropDowns";
 import RangeSlider from "./RangeSlider";
+import { useContext } from "react";
+import { searchContext } from "Providers/SearchProvider";
+import axios from "axios";
+
+const dietChoices = ["Gluten Free", "Ketogenic", "Vegan", "Vegetarian", "Paleo"]
+const intoleranceChoices = ["Dairy", "Egg", "Shellfish", "Seafood", "Peanut", "Soy", "Gluten", "Grain", "Wheat", "Sulfite"]
 
 export default function AdvancedSearch() {
+
+const { diet, setDiet, intolerances, setIntolerances, carbs, setCarbs, fat, setFat, protein, setProtein
+} = useContext(searchContext)
+
+const searchData = () => {
+  const data = { diet, intolerances, carbs, fat, protein }
+  axios.post("/api/search", data)
+    .then((result) => console.log(result))
+    .catch((error) => console.log(error))
+} 
+
+
+
   return (
     <Box sx={{ width: "100%", height: 350 }}>
       <Paper
@@ -22,16 +41,17 @@ export default function AdvancedSearch() {
           </Typography>
           <Grid container spacing={2}>
             <Grid item xs={5}>
-              <DropDowns name={"Diet"} />
+              <DropDowns data={dietChoices} name={"Diets"} />
             </Grid>
             <Grid item xs={5}>
-              <DropDowns name={"Intolerance"} />
+              <DropDowns data={intoleranceChoices} name={"Intolerances"} />
             </Grid>
             <Grid item xs={2} sx={{ display: "flex", alignItems: "center" }}>
               <Button
                 variant="contained"
                 size="large"
                 sx={{ m: 1, minWidth: "90%" }}
+                onClick={ searchData }
               >
                 Search
               </Button>

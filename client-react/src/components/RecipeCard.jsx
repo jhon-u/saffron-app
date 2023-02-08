@@ -66,7 +66,6 @@ export default function RecipeCard(props) {
 
     alert("clicked on add to fav")
     // setData({...props});
-    console.log("state data check fav:", data)
     axios.post('/favourites', data)
       .then(res => console.log(res))
       .catch(err => console.error(err))

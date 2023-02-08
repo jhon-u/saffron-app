@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "App";
 import "./index.css";
 import AuthProvider from "Providers/AuthProvider";
+import SearchProvider from "Providers/SearchProvider";
 
 
 const container = document.getElementById("root");
@@ -11,9 +12,11 @@ const root = createRoot(container); // createRoot(container!) if you use TypeScr
 root.render(
   <React.StrictMode>
     <AuthProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+      <SearchProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </SearchProvider>
     </AuthProvider>
   </React.StrictMode>
 );
