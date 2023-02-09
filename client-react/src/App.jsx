@@ -12,7 +12,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import AppToolbar from "./components/AppToolbar";
 import SideBar from "components/SideBar";
 import AdvancedSearch from "./components/AdvancedSearch";
-import LoginForm from "components/LoginForm"
+import LoginForm from "components/LoginForm";
 
 //Pages
 import Recipes from "./pages/Recipes";
@@ -33,8 +33,8 @@ export default function App() {
   const [recipes, setRecipes] = useState({});
   const [open, setOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const recipeId = useLocation()
-  
+  const recipeId = useLocation();
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -44,8 +44,8 @@ export default function App() {
   };
 
   const handleVisibility = () => {
-    setIsVisible(!isVisible)
-  }
+    setIsVisible(!isVisible);
+  };
 
   useEffect(() => {
     axios
@@ -64,13 +64,20 @@ export default function App() {
         <>
           <Box sx={{ display: "flex" }}>
             <CssBaseline />
-            <AppToolbar handleDrawerOpen={handleDrawerOpen} open={open} advSearch={handleVisibility}/>
+            <AppToolbar
+              handleDrawerOpen={handleDrawerOpen}
+              open={open}
+              advSearch={handleVisibility}
+            />
             <SideBar handleDrawerClose={handleDrawerClose} open={open} />
-            
+
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
               <DrawerHeader />
               <Routes>
-                <Route path="/" element={<Recipes recipes={recipes} advSearch={isVisible}/>} />
+                <Route
+                  path="/"
+                  element={<Recipes recipes={recipes} advSearch={isVisible} />}
+                />
                 <Route path="/receipes/:id" element={<RecipeDetails />} />
                 <Route path="/grocery-list" element={<GroceryList />} />
                 <Route path="/login" element={<LoginForm />} />

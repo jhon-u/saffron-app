@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios';
 import { Grid, Paper } from "@mui/material"
 import { styled } from '@mui/material/styles';
@@ -8,7 +8,9 @@ import CardMedia from '@mui/material/CardMedia';
 import { Button, Box } from '@mui/material';
 import Rating from '@mui/material/Rating';
 
-import 'components/RecipeDetails.css';
+import { recipeDetailsContext } from '../../Providers/RecipeDetailsProvider';
+
+import './index.css'
 
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -21,14 +23,17 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function RecipeDetails(props) {
-  const [recipeDetails, setRecipeDetails] = useState({});
+  // const [recipeDetails, setRecipeDetails] = useState({});
   const [loading, setLoading] = useState(false);
+  const { recipeDetails, setRecipeDetails } = useContext(recipeDetailsContext);
+
   const navigate = useNavigate()
   const params = useParams()
   
   useEffect(() => {
     axios.get(`/api/recipes/:${params.id}`)
       .then((res) => {
+        console.log('RES DATA', res.data)
         setRecipeDetails(res.data);
         setLoading(true);
       })

@@ -6,7 +6,7 @@ import "./index.css";
 import AuthProvider from "Providers/AuthProvider";
 import SearchProvider from "Providers/SearchProvider";
 import FavouritesProvider from "Providers/FavouritesProvider";
-
+import RecipeDetailsProvider from "./Providers/RecipeDetailsProvider";
 
 const container = document.getElementById("root");
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
@@ -15,9 +15,11 @@ root.render(
     <AuthProvider>
       <SearchProvider>
         <FavouritesProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
+          <RecipeDetailsProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </RecipeDetailsProvider>
         </FavouritesProvider>
       </SearchProvider>
     </AuthProvider>
