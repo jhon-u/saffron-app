@@ -77,7 +77,7 @@ export default function AppToolbar(props) {
   const { auth, user } = useContext(authContext)
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box>
       <AppBar position="fixed" open={props.open}>
         <Toolbar>
           <IconButton
