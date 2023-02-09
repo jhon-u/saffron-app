@@ -5,10 +5,12 @@ import { styled } from "@mui/material/styles";
 import LocalDiningIcon from "@mui/icons-material/LocalDining";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CardMedia from "@mui/material/CardMedia";
-import { Button, Box } from "@mui/material";
+import { Button, Box,Typography } from "@mui/material";
 import Rating from "@mui/material/Rating";
 
 import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
+
+import Ingredients from "./Ingredients";
 
 import "./index.css";
 
@@ -86,8 +88,8 @@ export default function RecipeDetails(props) {
           <Grid item xs={12} md={12} lg={12}>
             <CardMedia
               component="img"
-              height="210"
-              width="100"
+              height="240"
+              width="240"
               image={recipeDetails.image}
               alt={props.title}
             />
@@ -112,8 +114,11 @@ export default function RecipeDetails(props) {
 
         {/* Body Right */}
         <Grid container item xs={12} md={8} lg={9}>
-          <Grid item xs={12} md={12} lg={12}>
-            <Item>Ingredients</Item>
+          <Grid container item xs={12} md={12} lg={12}>
+            <Grid item xs={12} md={12} lg={12}>
+              <Typography variant="h4" sx={{mb: 3}}>Ingredients</Typography>
+            </Grid>
+              <Ingredients />
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
             <Item>Measures and Toggle</Item>
