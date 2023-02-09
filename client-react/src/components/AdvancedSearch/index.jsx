@@ -11,16 +11,27 @@ const intoleranceChoices = ["Dairy", "Egg", "Shellfish", "Seafood", "Peanut", "S
 
 export default function AdvancedSearch() {
 
-const { diet, setDiet, intolerances, setIntolerances, carbs, setCarbs, fat, setFat, protein, setProtein
+const { diet, intolerances, carbs, fat, protein, setSearchResults, setLoading, setShowSearch
 } = useContext(searchContext)
 
 const searchData = () => {
+  setLoading(true)
+  setShowSearch(true)
+
   const data = { diet, intolerances, carbs, fat, protein }
   axios.post("/api/search", data)
-    .then((result) => console.log(result))
+    .then((result) => {
+      console.log(result.data)
+      setSearchResults(result.data)
+      setLoading(false)
+    })
     .catch((error) => console.log(error))
 } 
 
+const clearSearch = () => {
+  setSearchResults([])
+  setShowSearch(false)
+}
 
 
   return (
@@ -54,6 +65,14 @@ const searchData = () => {
                 onClick={ searchData }
               >
                 Search
+              </Button>
+              <Button
+                variant="contained"
+                size="large"
+                sx={{ m: 1, minWidth: "90%" }}
+                onClick={ clearSearch }
+              >
+                Clear
               </Button>
             </Grid>
           </Grid>

@@ -73,8 +73,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export default function SideBar(props) {
   const theme = useTheme();
-  // const { getFavourites } = useContext(favouritesContext)
-
   const sidebarIcons = [<RestaurantIcon />, <LocalGroceryStoreIcon />, <FavoriteIcon />]
   const urls =['/', 'grocery-list', 'favourites']
  

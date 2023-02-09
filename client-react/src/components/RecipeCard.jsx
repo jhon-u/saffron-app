@@ -17,9 +17,9 @@ export default function RecipeCard(props) {
   const { saveFavourites, isFavourite, deleteFavourite } =
     useContext(favouritesContext);
 
-  const handleFavouriteState = (recipeid) => {
+  const handleFavouriteState = async (recipeid) => {
     if (isFavourite(recipeid)) {
-      deleteFavourite(recipeid);
+      await deleteFavourite(recipeid);
     } else {
       saveFavourites({
         recipeid: props.id,
