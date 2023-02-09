@@ -51,10 +51,10 @@ const clearSearch = () => {
             Advanced Search
           </Typography>
           <Grid container spacing={2}>
-            <Grid item xs={5}>
+            <Grid item xs={4}>
               <DropDowns data={dietChoices} name={"Diets"} />
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={4}>
               <DropDowns data={intoleranceChoices} name={"Intolerances"} />
             </Grid>
             <Grid item xs={2} sx={{ display: "flex", alignItems: "center" }}>
@@ -66,7 +66,9 @@ const clearSearch = () => {
               >
                 Search
               </Button>
-              <Button
+            </Grid>
+            <Grid item xs={2} sx={{ display: "flex", alignItems: "center" }}>
+            <Button
                 variant="contained"
                 size="large"
                 sx={{ m: 1, minWidth: "90%" }}
