@@ -14,6 +14,7 @@ const { callSpoonacular } = require('../services/api/spoonnacular');
 const { data } = require('../services/api/demo-data');
 const { instructionData } = require('../services/api/instructions');
 const { recipeDetails } = require('../services/api/recipe-details');
+const { search } = require('../services/api/advanced-search');
 const { getAllUsers, getUserById, getUserByEmail } = require('../db/queries/users');
 const db = require('../configs/db.config');
 const { getFavourites } = require('../db/queries/favourites');
@@ -79,11 +80,21 @@ app.post("/api/search", (req, res) => {
   const dietString = req.body.diet.toString()
   const intolerancesString = req.body.intolerances.toString()
 
-  const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.API_KEY}&diet=${dietString}&intolerances=${intolerancesString}&minProtein=${req.body.protein[0]}&maxProtein=${req.body.protein[1]}&minFat=${req.body.fat[0]}&maxFat=${req.body.fat[1]}&minCarbs=${req.body.carbs[0]}&maxCarbs=${req.body.carbs[1]}&number=10&nutrition=false`
+  // const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.API_KEY}&diet=${dietString}&intolerances=${intolerancesString}&minProtein=${req.body.protein[0]}&maxProtein=${req.body.protein[1]}&minFat=${req.body.fat[0]}&maxFat=${req.body.fat[1]}&minCarbs=${req.body.carbs[0]}&maxCarbs=${req.body.carbs[1]}&number=10&nutrition=false`
 
-  axios.get(url)
-    .then((result) => console.log(result.data.results))
-    .catch((error) => console.log(error))
+  setTimeout(() => {
+    res.json(search)
+  }, 1000);
+
+
+  // axios.get(url)
+  //   .then((result) => {
+  //     console.log(result.data.results)
+  //     res.json({
+  //       data: result.data.results
+  //     })
+  //   })
+  //   .catch((error) => console.log(error))
 
 })
 
