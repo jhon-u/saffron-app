@@ -5,6 +5,13 @@ import { styled } from "@mui/material/styles";
 import CardMedia from "@mui/material/CardMedia";
 import { Box,Typography } from "@mui/material";
 import Rating from "@mui/material/Rating";
+import Glycemic from "./Glycemic";
+import NutritionScore from "./NutritionScore";
+import NutritionList from "./NutritionList";
+import Title from "./Title";
+import Description from "./Description";
+import Url from "./Url";
+import CookTime from "./CookTime";
 
 import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
 
@@ -28,7 +35,7 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function RecipeDetails(props) {
   const { recipeDetails, setRecipeDetails, setServings, setIngredients } = useContext(recipeDetailsContext);
   const params = useParams();
-
+  console.log("recipeDetails check", recipeDetails)
   useEffect(() => {
     axios
       .get(`/api/recipes/:${params.id}`)
@@ -97,16 +104,17 @@ export default function RecipeDetails(props) {
         {/* Header right */}
         <Grid container item xs={12} md={8} lg={10}>
           <Grid item xs={12} md={12} lg={12}>
-            <Item>Title</Item>
+            <Title />
+            <RandomStarRating />
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
-            <Item>URL</Item>
+            <Url />
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
-            <Item>Summary</Item>
+            <Description />
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
-            Prep and cook time
+            <CookTime />
           </Grid>
         </Grid>
 
@@ -141,13 +149,13 @@ export default function RecipeDetails(props) {
         {/* Body Left */}
         <Grid container item xs={12} md={4} lg={3}>
           <Grid item xs={12} md={12} lg={12}>
-            <Item>Health Score</Item>
+            <Item>{loading && <NutritionScore />}</Item>
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
-            <Item>Nutrition</Item>
+            <Item>{loading && <NutritionList /> }</Item>
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
-            <Item>Glycemic Index</Item>
+            <Item>{loading && <Glycemic />}</Item>
           </Grid>
         </Grid>
       </Grid>
