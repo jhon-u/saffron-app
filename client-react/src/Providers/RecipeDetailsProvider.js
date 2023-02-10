@@ -8,6 +8,8 @@ const RecipeDetailsProvider = function (props) {
   const [amounts, setAmounts] = useState(0);
   const [measurementUnit, setMeasurementUnit] = useState("us");
 
+  const [openGroceriesModal, setOpenGroceriesModal] = useState(false);
+
   const updateAmounts = (value) => {
     setAmounts(value);
   };
@@ -24,6 +26,8 @@ const RecipeDetailsProvider = function (props) {
     updateAmounts,
     measurementUnit,
     setMeasurementUnit,
+    openGroceriesModal,
+    setOpenGroceriesModal
   };
 
   return (

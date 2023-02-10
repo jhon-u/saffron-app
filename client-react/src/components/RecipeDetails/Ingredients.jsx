@@ -62,7 +62,7 @@ export default function Ingredients() {
 
   const ingredientsList = ingredients?.map((ingredient) => {
     return (
-      <Grid key={ingredient.id} container item xs={12} md={6} lg={6}>
+      <Grid key={ingredient.id} container item xs={12} md={12} lg={6}>
         <Grid item xs={1} md={1} lg={1}>
           <CardMedia
             component="img"

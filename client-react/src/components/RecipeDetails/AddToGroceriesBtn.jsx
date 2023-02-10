@@ -1,20 +1,24 @@
 import { useState, useContext } from "react";
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
+
+import ModalList from "../GroceryList/ModalList";
 import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
 
 export default function AddToGroceriesBtn() {
-  const { ingredients } = useContext(recipeDetailsContext);
+  const { ingredients, setOpenGroceriesModal } =
+    useContext(recipeDetailsContext);
 
   const handleClick = (event) => {
-    console.log('INGREDIENTS', ingredients);
+    console.log("INGREDIENTS", ingredients);
+    setOpenGroceriesModal(true);
   };
 
   return (
-    <Button
-      variant="contained"
-      onClick={handleClick}
-    >
-      Add to Groceries
-    </Button>
+    <Box>
+      <Button variant="contained" onClick={handleClick}>
+        Add to Groceries
+      </Button>
+      <ModalList />
+    </Box>
   );
 }
