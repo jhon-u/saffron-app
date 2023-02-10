@@ -1,23 +1,17 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useEffect, useContext, useRef } from "react";
 import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
-import { Box, Grid, CardMedia, Typography } from "@mui/material";
+import { Grid, CardMedia, Typography } from "@mui/material";
 
-export default function Ingredients(props) {
+export default function Ingredients() {
   const {
-    recipeDetails,
     servings,
-    amounts,
-    setAmounts,
     ingredients,
-    updateAmounts,
     setIngredients,
     measure
   } = useContext(recipeDetailsContext);
-  console.log("INGREDIENTS", recipeDetails.ingredients);
-  console.log("servings", servings);
-
+  
   const toFraction = (value) => { // decimal to fraction
-    if (measure === 'metric') return Math.floor(value)
+    if (measure === 'metric') return value
 
     if (Math.floor(value) == value) return value;
     value = Math.abs(value);
@@ -37,7 +31,6 @@ export default function Ingredients(props) {
 
   const usePrevious = (value) => {
     const ref = useRef();
-  
     useEffect(() => {
       ref.current = value;
     }, [value]);
@@ -52,8 +45,6 @@ export default function Ingredients(props) {
       const newAmountMetric = ingredient.measures.us.amount * servings / previousServing
       const newAmountUS = ingredient.measures.us.amount * servings / previousServing
 
-      console.log('newAmountUS', ingredient.measures.us.amount, servings, previousServing)
-
       return {
         ...ingredient,
         measures: {
@@ -63,11 +54,8 @@ export default function Ingredients(props) {
       };
     });
 
-    console.log("Servings changed", servings);
     setIngredients(newIngredients)
   }, [servings]);
-
-  console.log('INGREDIENTS NEW', ingredients)
 
   const ingredientsList = ingredients?.map((ingredient) => {
     return (

@@ -10,7 +10,6 @@ const RecipeDetailsProvider = function(props) {
   const [measure, setMeasure] = useState('us');
 
   const updateAmounts = (value) => {
-    console.log('Amount: ', value)
     setAmounts(value)
   }
 

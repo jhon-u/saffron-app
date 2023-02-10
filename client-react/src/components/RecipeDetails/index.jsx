@@ -2,10 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Grid, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import LocalDiningIcon from "@mui/icons-material/LocalDining";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CardMedia from "@mui/material/CardMedia";
-import { Button, Box,Typography } from "@mui/material";
+import { Box,Typography } from "@mui/material";
 import Rating from "@mui/material/Rating";
 
 import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
@@ -17,7 +15,7 @@ import AddToGroceriesBtn from "./AddToGroceriesBtn";
 
 import "./index.css";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -28,11 +26,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function RecipeDetails(props) {
-  // const [recipeDetails, setRecipeDetails] = useState({});
-  const [loading, setLoading] = useState(false);
   const { recipeDetails, setRecipeDetails, setServings, setIngredients } = useContext(recipeDetailsContext);
-
-  const navigate = useNavigate();
   const params = useParams();
 
   useEffect(() => {
@@ -43,7 +37,6 @@ export default function RecipeDetails(props) {
         setRecipeDetails(res.data);
         setServings(res.data.servings)
         setIngredients(res.data.ingredients)
-        setLoading(true);
       })
       .catch((err) => {
         setRecipeDetails({ error: err.message });

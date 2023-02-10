@@ -11,7 +11,6 @@ export default function MeasuresSelector() {
 
   const handleChange = (event) => {
     setMeasure(event.target.value);
-    console.log(event.target.value)
   };
 
   return (
