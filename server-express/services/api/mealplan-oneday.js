@@ -40,3 +40,5 @@ const oneDayMealPlan = {
       "carbohydrates": 253.85
   }
 }
+
+module.exports = {oneDayMealPlan};
