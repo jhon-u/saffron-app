@@ -7,6 +7,9 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CardMedia from "@mui/material/CardMedia";
 import { Button, Box } from "@mui/material";
 import Rating from "@mui/material/Rating";
+import Glycemic from "./Glycemic";
+import NutritionScore from "./NutritionScore";
+import NutritionList from "./NutritionList";
 
 import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
 
@@ -29,7 +32,7 @@ export default function RecipeDetails(props) {
 
   const navigate = useNavigate();
   const params = useParams();
-
+  console.log("recipeDetails check", recipeDetails)
   useEffect(() => {
     axios
       .get(`/api/recipes/:${params.id}`)
@@ -126,13 +129,13 @@ export default function RecipeDetails(props) {
         {/* Body Left */}
         <Grid container item xs={12} md={4} lg={3}>
           <Grid item xs={12} md={12} lg={12}>
-            <Item>Health Score</Item>
+            <Item>{loading && <NutritionScore />}</Item>
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
-            <Item>Nutrition</Item>
+            <Item>{loading && <NutritionList /> }</Item>
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
-            <Item>Glycemic Index</Item>
+            <Item>{loading && <Glycemic />}</Item>
           </Grid>
         </Grid>
       </Grid>
