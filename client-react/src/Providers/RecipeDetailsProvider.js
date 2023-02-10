@@ -1,40 +1,36 @@
-import {useState, createContext, useEffect} from 'react';
+import { useState, createContext, useEffect } from "react";
 export const recipeDetailsContext = createContext();
 
-
-const RecipeDetailsProvider = function(props) {
+const RecipeDetailsProvider = function (props) {
   const [recipeDetails, setRecipeDetails] = useState({});
   const [servings, setServings] = useState(0);
-  const [ingredients, setIngredients] = useState([])
-  const [amounts, setAmounts] = useState(0)
-  const [measure, setMeasure] = useState('us');
+  const [ingredients, setIngredients] = useState([]);
+  const [amounts, setAmounts] = useState(0);
+  const [measurementUnit, setMeasurementUnit] = useState("us");
 
   const updateAmounts = (value) => {
-    setAmounts(value)
-  }
+    setAmounts(value);
+  };
 
-  const value = { 
+  const value = {
     recipeDetails,
     setRecipeDetails,
     servings,
-    setServings, 
+    setServings,
     amounts,
     setAmounts,
     ingredients,
     setIngredients,
     updateAmounts,
-    measure,
-    setMeasure
-  }
-
-
-
+    measurementUnit,
+    setMeasurementUnit,
+  };
 
   return (
-    <recipeDetailsContext.Provider value={value}> 
+    <recipeDetailsContext.Provider value={value}>
       {props.children}
     </recipeDetailsContext.Provider>
-  )
-}
+  );
+};
 
 export default RecipeDetailsProvider;

@@ -38,7 +38,7 @@ const StyledInput = styled(TextField)({
 });
 
 export default function Servings() {
-  const { servings, setServings, recipeDetails, setAmount, updateAmount } = useContext(recipeDetailsContext);
+  const { servings, setServings } = useContext(recipeDetailsContext);
 
   const handleChange = (event) => {
     setServings(Math.max(Number(event.target.value), 1));

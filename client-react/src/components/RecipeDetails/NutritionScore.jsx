@@ -4,8 +4,12 @@ import { Box } from "@mui/material";
 
 export default function NutritionScore(props) {
   const { recipeDetails } = useContext(recipeDetailsContext)
-  const nutritionScore = recipeDetails.nutritionProperties["Nutrition Score"]?.amount
+  
+  let nutritionScore = 0;
 
+  if (Object.keys(recipeDetails).length > 0) {
+    nutritionScore = recipeDetails?.nutritionProperties["Nutrition Score"].amount
+  }
 
   return (
     <>

@@ -7,11 +7,13 @@ export default function Ingredients() {
     servings,
     ingredients,
     setIngredients,
-    measure
+    measurementUnit
   } = useContext(recipeDetailsContext);
   
   const toFraction = (value) => { // decimal to fraction
-    if (measure === 'metric') return value
+    console.log('VLAUE', value, measurementUnit)
+    if (!value) return ""
+    if (measurementUnit === 'metric') return Math.floor(value)
 
     if (Math.floor(value) == value) return value;
     value = Math.abs(value);
@@ -42,14 +44,15 @@ export default function Ingredients() {
 
   useEffect(() => {
     const newIngredients = ingredients?.map((ingredient) => {
-      const newAmountMetric = ingredient.measures.us.amount * servings / previousServing
-      const newAmountUS = ingredient.measures.us.amount * servings / previousServing
-
+      const measurement = ingredient.measures
+      const newAmountMetric = measurement.metric.amount * servings / previousServing
+      const newAmountUS = measurement.us.amount * servings / previousServing
+      
       return {
         ...ingredient,
         measures: {
-          metric: {amount: newAmountMetric, unitShort: 'Tbsp', unitLong: 'Tbsp'},
-	        us: {amount: newAmountUS, unitShort: 'Tbsp', unitLong: 'Tbsp'}
+          metric: {amount: newAmountMetric, unitShort: measurement.metric.unitShort, unitLong: measurement.metric.unitLong},
+	        us: {amount: newAmountUS, unitShort: measurement.us.unitShort, unitLong: measurement.us.unitLong}
         },
       };
     });
@@ -72,8 +75,8 @@ export default function Ingredients() {
         <Grid item xs={11} md={11} lg={11}>
           <Typography sx={{ m: 1 }}>
             <Typography component={"span"} sx={{ fontWeight: "bold" }}>
-              {toFraction(ingredient.measures[measure].amount)}{" "}
-              {ingredient.measures[measure].unitLong}
+              {toFraction(ingredient.measures[measurementUnit].amount)}{" "}
+              {ingredient.measures[measurementUnit].unitLong}
             </Typography>{" "}
             {ingredient.originalName}
           </Typography>

@@ -7,19 +7,19 @@ import FormLabel from '@mui/material/FormLabel';
 import { recipeDetailsContext } from '../../Providers/RecipeDetailsProvider';
 
 export default function MeasuresSelector() {
-  const { measure, setMeasure } = useContext(recipeDetailsContext);
+  const { measurementUnit, setMeasurementUnit } = useContext(recipeDetailsContext);
 
   const handleChange = (event) => {
-    setMeasure(event.target.value);
+    setMeasurementUnit(event.target.value);
   };
 
   return (
     <FormControl>
-      <FormLabel id="demo-controlled-radio-buttons-group">Measure</FormLabel>
+      <FormLabel id="demo-controlled-radio-buttons-group">Measurement Units</FormLabel>
       <RadioGroup
         aria-labelledby="demo-controlled-radio-buttons-group"
         name="controlled-radio-buttons-group"
-        value={measure}
+        value={measurementUnit}
         onChange={handleChange}
         row
       >
