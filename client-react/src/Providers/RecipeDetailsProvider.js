@@ -7,6 +7,7 @@ const RecipeDetailsProvider = function(props) {
   const [servings, setServings] = useState(0);
   const [ingredients, setIngredients] = useState([])
   const [amounts, setAmounts] = useState(0)
+  const [measure, setMeasure] = useState('us');
 
   const updateAmounts = (value) => {
     console.log('Amount: ', value)
@@ -22,7 +23,9 @@ const RecipeDetailsProvider = function(props) {
     setAmounts,
     ingredients,
     setIngredients,
-    updateAmounts 
+    updateAmounts,
+    measure,
+    setMeasure
   }
 
 

@@ -11,12 +11,14 @@ export default function Ingredients(props) {
     ingredients,
     updateAmounts,
     setIngredients,
+    measure
   } = useContext(recipeDetailsContext);
   console.log("INGREDIENTS", recipeDetails.ingredients);
   console.log("servings", servings);
 
-  const toFraction = (value) => {
-    // decimal to fraction
+  const toFraction = (value) => { // decimal to fraction
+    if (measure === 'metric') return Math.floor(value)
+
     if (Math.floor(value) == value) return value;
     value = Math.abs(value);
     let ret = 0.01, // rounding error tolerance
@@ -82,8 +84,8 @@ export default function Ingredients(props) {
         <Grid item xs={11} md={11} lg={11}>
           <Typography sx={{ m: 1 }}>
             <Typography component={"span"} sx={{ fontWeight: "bold" }}>
-              {toFraction(ingredient.measures.us.amount)}{" "}
-              {ingredient.measures.us.unitLong}
+              {toFraction(ingredient.measures[measure].amount)}{" "}
+              {ingredient.measures[measure].unitLong}
             </Typography>{" "}
             {ingredient.originalName}
           </Typography>

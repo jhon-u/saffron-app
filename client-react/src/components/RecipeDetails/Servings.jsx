@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { Container, ButtonGroup, Button, TextField } from "@mui/material";
+import { Container, ButtonGroup, Button, TextField, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { blueGrey } from "@mui/material/colors";
 import AddIcon from "@mui/icons-material/Add";
@@ -53,7 +53,7 @@ export default function Servings() {
   }
 
   return (
-    <Container>
+    <Container sx={{display: 'flex', alignItems: 'center'}}>
       <ButtonGroup>
         <StyledButton
           onClick={removeServing}
@@ -66,6 +66,7 @@ export default function Servings() {
           <AddIcon fontSize="small" />
         </StyledButton>
       </ButtonGroup>
+      <Typography component={'span'} variant="body" sx={{ml: 2}}>Servings</Typography>
     </Container>
   );
 }

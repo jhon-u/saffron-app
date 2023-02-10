@@ -12,6 +12,7 @@ import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
 
 import Ingredients from "./Ingredients";
 import Servings from "./Servings";
+import MeasuresSelector from "./MeasuresSelector";
 
 import "./index.css";
 
@@ -123,9 +124,19 @@ export default function RecipeDetails(props) {
             </Grid>
               <Ingredients />
           </Grid>
-          <Grid item xs={12} md={12} lg={12}>
-            <Servings />
+          
+          <Grid container item xs={12} md={12} lg={12}>
+            <Grid item xs={12} md={4} lg={4}>
+              <Servings /> 
+            </Grid>
+            <Grid item xs={12} md={4} lg={4}>
+              <MeasuresSelector /> 
+            </Grid>
+            <Grid item xs={12} md={4} lg={4}>
+              Add to Grocery 
+            </Grid>
           </Grid>
+          
           <Grid item xs={12} md={12} lg={12}>
             <Item>Steps</Item>
           </Grid>
