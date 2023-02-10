@@ -1,10 +1,19 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
 import { Box, Grid, CardMedia, Typography } from "@mui/material";
 
 export default function Ingredients(props) {
-  const { recipeDetails, setRecipeDetails } = useContext(recipeDetailsContext);
+  const {
+    recipeDetails,
+    servings,
+    amounts,
+    setAmounts,
+    ingredients,
+    updateAmounts,
+    setIngredients,
+  } = useContext(recipeDetailsContext);
   console.log("INGREDIENTS", recipeDetails.ingredients);
+  console.log("servings", servings);
 
   const toFraction = (value) => {
     // decimal to fraction
@@ -24,7 +33,41 @@ export default function Ingredients(props) {
     return Math.round(d * value) + "/" + Math.round(d);
   };
 
-  const ingredients = recipeDetails.ingredients?.map((ingredient) => {
+  const usePrevious = (value) => {
+    const ref = useRef();
+  
+    useEffect(() => {
+      ref.current = value;
+    }, [value]);
+  
+    return ref.current;
+  };
+
+  const previousServing = usePrevious(servings);
+
+  useEffect(() => {
+    const newIngredients = ingredients?.map((ingredient) => {
+      const newAmountMetric = ingredient.measures.us.amount * servings / previousServing
+      const newAmountUS = ingredient.measures.us.amount * servings / previousServing
+
+      console.log('newAmountUS', ingredient.measures.us.amount, servings, previousServing)
+
+      return {
+        ...ingredient,
+        measures: {
+          metric: {amount: newAmountMetric, unitShort: 'Tbsp', unitLong: 'Tbsp'},
+	        us: {amount: newAmountUS, unitShort: 'Tbsp', unitLong: 'Tbsp'}
+        },
+      };
+    });
+
+    console.log("Servings changed", servings);
+    setIngredients(newIngredients)
+  }, [servings]);
+
+  console.log('INGREDIENTS NEW', ingredients)
+
+  const ingredientsList = ingredients?.map((ingredient) => {
     return (
       <Grid key={ingredient.id} container item xs={12} md={6} lg={6}>
         <Grid item xs={1} md={1} lg={1}>
@@ -37,17 +80,17 @@ export default function Ingredients(props) {
           />
         </Grid>
         <Grid item xs={11} md={11} lg={11}>
-          <Typography sx={{m: 1}}>
-            <Typography component={"span"} sx={{fontWeight: 'bold'}}>
+          <Typography sx={{ m: 1 }}>
+            <Typography component={"span"} sx={{ fontWeight: "bold" }}>
               {toFraction(ingredient.measures.us.amount)}{" "}
               {ingredient.measures.us.unitLong}
-            </Typography>
-            {" "}{ingredient.originalName}
+            </Typography>{" "}
+            {ingredient.originalName}
           </Typography>
         </Grid>
       </Grid>
     );
   });
 
-  return <> {ingredients}</>;
+  return <> {ingredientsList}</>;
 }

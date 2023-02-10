@@ -11,6 +11,7 @@ import Rating from "@mui/material/Rating";
 import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
 
 import Ingredients from "./Ingredients";
+import Servings from "./Servings";
 
 import "./index.css";
 
@@ -27,7 +28,7 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function RecipeDetails(props) {
   // const [recipeDetails, setRecipeDetails] = useState({});
   const [loading, setLoading] = useState(false);
-  const { recipeDetails, setRecipeDetails } = useContext(recipeDetailsContext);
+  const { recipeDetails, setRecipeDetails, setServings, setIngredients } = useContext(recipeDetailsContext);
 
   const navigate = useNavigate();
   const params = useParams();
@@ -38,6 +39,8 @@ export default function RecipeDetails(props) {
       .then((res) => {
         console.log("RES DATA", res.data);
         setRecipeDetails(res.data);
+        setServings(res.data.servings)
+        setIngredients(res.data.ingredients)
         setLoading(true);
       })
       .catch((err) => {
@@ -121,7 +124,7 @@ export default function RecipeDetails(props) {
               <Ingredients />
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
-            <Item>Measures and Toggle</Item>
+            <Servings />
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
             <Item>Steps</Item>
