@@ -21,8 +21,6 @@ export default function Recipes(props) {
       setRecipeId(id);
   };
   
-  console.log("ffavourites check on recipe card", favourites)
-  
   const displayRecipes = (data) => {
     return data?.map((recipe) => {
       return (

@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import axios from "axios";
 import { Grid, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import LocalDiningIcon from "@mui/icons-material/LocalDining";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CardMedia from "@mui/material/CardMedia";
-import { Button, Box } from "@mui/material";
+import { Box,Typography } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import Glycemic from "./Glycemic";
 import NutritionScore from "./NutritionScore";
@@ -17,9 +15,14 @@ import CookTime from "./CookTime";
 
 import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
 
+import Ingredients from "./Ingredients";
+import Servings from "./Servings";
+import MeasuresSelector from "./MeasuresSelector";
+import AddToGroceriesBtn from "./AddToGroceriesBtn";
+
 import "./index.css";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -30,62 +33,72 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function RecipeDetails(props) {
-  // const [recipeDetails, setRecipeDetails] = useState({});
-  const [loading, setLoading] = useState(false);
-  const { recipeDetails, setRecipeDetails } = useContext(recipeDetailsContext);
-
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true)
+  const [starRating, setStarRating] = useState(Math.floor(Math.random() * 5) + 1);
+  const { recipeDetails, setRecipeDetails, setServings, setIngredients } = useContext(recipeDetailsContext);
   const params = useParams();
   console.log("recipeDetails check", recipeDetails)
+  
   useEffect(() => {
+    
     axios
       .get(`/api/recipes/:${params.id}`)
       .then((res) => {
         console.log("RES DATA", res.data);
         setRecipeDetails(res.data);
-        setLoading(true);
+        setServings(res.data.servings)
+        setIngredients(res.data.ingredients)
+        setLoading(false)
       })
       .catch((err) => {
         setRecipeDetails({ error: err.message });
       });
   }, [params.id]);
 
-  const dishTypes = recipeDetails.dishTypes?.map((type) => {
-    return <li key={type}>{type}</li>;
-  });
+  // const dishTypes = recipeDetails.dishTypes?.map((type) => {
+  //   return <li key={type}>{type}</li>;
+  // });
 
-  const steps = recipeDetails.instructions?.map((step, index) => {
-    return <li key={index}>{step}</li>;
-  });
+  // const steps = recipeDetails.instructions?.map((step, index) => {
+  //   return <li key={index}>{step}</li>;
+  // });
 
-  const ingredients = recipeDetails.ingredients?.map((ingredient, index) => {
-    return (
-      <li key={index}>
-        {
-          <>
-            <span>{ingredient.amount} </span>
-            <span>
-              {ingredient.unit} {ingredient.name}
-            </span>
-          </>
-        }
-      </li>
-    );
-  });
+  // const ingredients = recipeDetails.ingredients?.map((ingredient, index) => {
+  //   return (
+  //     <li key={index}>
+  //       {
+  //         <>
+  //           <span>{ingredient.amount} </span>
+  //           <span>
+  //             {ingredient.unit} {ingredient.name}
+  //           </span>
+  //         </>
+  //       }
+  //     </li>
+  //   );
+  // });
 
+  const usePrevious = (value) => {
+    const ref = useRef();
+    useEffect(() => {
+      ref.current = value;
+    }, [value]);
+  
+    return ref.current;
+  };
+
+  const previousRating = usePrevious(starRating);
+  
   const RandomStarRating = () => {
-    const [starRating, setStarRating] = useState(
-      Math.floor(Math.random() * 5) + 1
-    );
-
     return (
       <Box sx={{ "& > legend": { mt: 2 } }}>
-        <Rating name="read-only" value={starRating} readOnly />
+        <Rating name="read-only" value={previousRating} readOnly />
       </Box>
     );
   };
 
   return (
+
     <Box>
       <Grid container spacing={2}>
         {/* Header left, aka Image */}
@@ -93,8 +106,8 @@ export default function RecipeDetails(props) {
           <Grid item xs={12} md={12} lg={12}>
             <CardMedia
               component="img"
-              height="210"
-              width="100"
+              height="240"
+              width="240"
               image={recipeDetails.image}
               alt={props.title}
             />
@@ -120,30 +133,47 @@ export default function RecipeDetails(props) {
 
         {/* Body Right */}
         <Grid container item xs={12} md={8} lg={9}>
-          <Grid item xs={12} md={12} lg={12}>
-            <Item>Ingredients</Item>
+          <Grid container item xs={12} md={12} lg={12}>
+            <Grid item xs={12} md={12} lg={12}>
+              <Typography variant="h4" sx={{mb: 3}}>Ingredients</Typography>
+            </Grid>
+              {!loading && <Ingredients />}
           </Grid>
-          <Grid item xs={12} md={12} lg={12}>
-            <Item>Measures and Toggle</Item>
+          
+          {/* Servings, Measurements and Add to Groceries */}
+          <Grid sx={{mt: 3}} container item xs={12} md={12} lg={12}>
+            <Grid item xs={12} md={4} lg={4}>
+            {!loading &&  <Servings /> }
+            </Grid>
+            <Grid item xs={12} md={4} lg={4}>
+            {!loading && <MeasuresSelector /> }
+            </Grid>
+            <Grid item xs={12} md={4} lg={4}>
+            {!loading && <AddToGroceriesBtn /> }
+            </Grid>
           </Grid>
+          
+          {/* Instructions */}
           <Grid item xs={12} md={12} lg={12}>
             <Item>Steps</Item>
           </Grid>
         </Grid>
 
         {/* Body Left */}
+        
         <Grid container item xs={12} md={4} lg={3}>
           <Grid item xs={12} md={12} lg={12}>
-            <Item>{loading && <NutritionScore />}</Item>
+            {!loading && <NutritionScore />}
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
-            <Item>{loading && <NutritionList /> }</Item>
+          {!loading && <NutritionList />}
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
-            <Item>{loading && <Glycemic />}</Item>
+          {!loading && <Glycemic />}
           </Grid>
         </Grid>
       </Grid>
     </Box>
+   
   );
 }
