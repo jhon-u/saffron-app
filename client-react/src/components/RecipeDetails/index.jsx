@@ -10,6 +10,10 @@ import Rating from "@mui/material/Rating";
 import Glycemic from "./Glycemic";
 import NutritionScore from "./NutritionScore";
 import NutritionList from "./NutritionList";
+import Title from "./Title";
+import Description from "./Description";
+import Url from "./Url";
+import CookTime from "./CookTime";
 
 import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
 
@@ -100,16 +104,17 @@ export default function RecipeDetails(props) {
         {/* Header right */}
         <Grid container item xs={12} md={8} lg={10}>
           <Grid item xs={12} md={12} lg={12}>
-            <Item>Title</Item>
+            <Title />
+            <RandomStarRating />
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
-            <Item>URL</Item>
+            <Url />
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
-            <Item>Summary</Item>
+            <Description />
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
-            Prep and cook time
+            <CookTime />
           </Grid>
         </Grid>
 
