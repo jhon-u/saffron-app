@@ -179,3 +179,5 @@ const oneWeekMealPlan = {
       }
   ]
 }
+
+module.exports = {oneWeekMealPlan};

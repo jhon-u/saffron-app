@@ -16,6 +16,7 @@ const { instructionData } = require("../services/api/instructions");
 const { recipeDetails } = require("../services/api/recipe-details");
 const { search } = require("../services/api/advanced-search");
 const { nutritionData } = require("../services/api/nutrition");
+const { oneWeekMealPlan } = require("../services/api/mealplan-oneweek");
 
 const {
   getAllUsers,
@@ -115,6 +116,12 @@ app.get("/api/recipes/:id", (req, res) => {
     nutritionProperties: nutritionProperties(recipeDetails.nutrition.properties)
   });
 });
+
+app.get("/api/mealplan", (req, res) => {
+  setTimeout(() => {
+    res.json(oneWeekMealPlan);
+  }, 1000);
+})
 
 app.post("/api/search", (req, res) => {
   console.log("api/search req.body check", req.body);
