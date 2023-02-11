@@ -1,6 +1,5 @@
-import React from "react";
+import { React ,useContext } from "react"
 import { Typography } from "@mui/material"
-import { useContext } from "react"
 import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
 
 export default function Description(props) {
@@ -8,7 +7,7 @@ export default function Description(props) {
   const html = recipeDetails.description
 
   return (
-    <Typography color="rgba(25,118,210,255)" font='Roboto' variant="body2">
+    <Typography color="black" font='Roboto' variant="body2">
       <div dangerouslySetInnerHTML={{
         __html: html,
       }}/>
