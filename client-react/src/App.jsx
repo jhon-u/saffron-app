@@ -19,6 +19,7 @@ import Recipes from "./pages/Recipes";
 import GroceryList from "./pages/GroceryList";
 import RecipeDetails from "./components/RecipeDetails";
 import Favourites from "pages/Favourites";
+import MealPlanner from "pages/MealPlanner";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -82,6 +83,7 @@ export default function App() {
                 <Route path="/grocery-list" element={<GroceryList />} />
                 <Route path="/login" element={<LoginForm />} />
                 <Route path="/favourites" element={<Favourites />} />
+                <Route path="/mealplanner" element={<MealPlanner />} />
               </Routes>
             </Box>
           </Box>
