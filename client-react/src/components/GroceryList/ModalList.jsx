@@ -6,7 +6,7 @@ import Modal from '@mui/material/Modal';
 
 import { recipeDetailsContext } from '../../Providers/RecipeDetailsProvider';
 import Ingredients from '../RecipeDetails/Ingredients';
-import ModalIngredients from './ModalIngredients';
+import ModalIngredients from './ShoppingList';
 
 const style = {
   position: 'absolute',

@@ -5,11 +5,9 @@ import ModalList from "../GroceryList/ModalList";
 import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
 
 export default function AddToGroceriesBtn() {
-  const { ingredients, setOpenGroceriesModal } =
-    useContext(recipeDetailsContext);
+  const { ingredients, setOpenGroceriesModal } = useContext(recipeDetailsContext);
 
   const handleClick = (event) => {
-    console.log('INGREDIENTS AT AddToGroceriesBtn', ingredients)
     setOpenGroceriesModal(true);
   };
 

@@ -1,36 +1,50 @@
-import React, { useEffect, useContext, useRef, useState } from "react";
+import React, { useContext, useState } from "react";
 import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
 import { groceryListContext } from "../../Providers/GroceryListProvider";
-import { Grid, CardMedia, Typography, Checkbox, Button } from "@mui/material";
+import {
+  Grid,
+  CardMedia,
+  Typography,
+  Checkbox,
+  Button,
+  Box,
+} from "@mui/material";
+import Spinner from "../Spinner";
 import { pink } from "@mui/material/colors";
 
-export default function Ingredients() {
-  const { ingredients, measurementUnit } =
+export default function ShoppingList() {
+  const { ingredients, measurementUnit, setOpenGroceriesModal } =
     useContext(recipeDetailsContext);
-  const {setGroceriesToAdd} = useContext(groceryListContext)
-
-  const [ingredientsToRemove, setingredientsToRemove] = useState([]);
+  const { setGroceriesToAdd, ingredientsToRemove, setIngredientsToRemove } =
+    useContext(groceryListContext);
+  const [loading, setLoading] = useState(true);
 
   const handleChange = (event, ingredientId) => {
     if (!event.target.checked) {
-      setingredientsToRemove([...ingredientsToRemove, ingredientId]);
+      setIngredientsToRemove([...ingredientsToRemove, ingredientId]);
     } else {
-      const newIngredientListToRemove = ingredientsToRemove.filter(item => item !== ingredientId)
-      setingredientsToRemove(newIngredientListToRemove)
+      const newIngredientListToRemove = ingredientsToRemove.filter(
+        (item) => item !== ingredientId
+      );
+      setIngredientsToRemove(newIngredientListToRemove);
     }
   };
 
   const handleClick = () => {
+    setLoading(true);
     const itemsToAddToShoppingList = [];
-    
     ingredients.filter((ingredient) => {
       if (ingredientsToRemove.indexOf(ingredient.id) === -1) {
-        itemsToAddToShoppingList.push(ingredient)
+        itemsToAddToShoppingList.push(ingredient);
       }
-    })
+    });
+    setGroceriesToAdd(itemsToAddToShoppingList);
 
-    setGroceriesToAdd(itemsToAddToShoppingList)
-  }
+    setTimeout(() => {
+      setLoading(false);
+      setOpenGroceriesModal(false);
+    }, 500);
+  };
 
   const toFraction = (value) => {
     // decimal to fraction
@@ -131,7 +145,11 @@ export default function Ingredients() {
   return (
     <Grid container item xs={12} md={12} lg={12}>
       {ingredientsList}
-      <Button sx={{ width: "100%", mt: 1 }} variant="contained" onClick={handleClick}>
+      <Button
+        sx={{ width: "100%", mt: 1 }}
+        variant="contained"
+        onClick={handleClick}
+      >
         Add {ingredients.length - ingredientsToRemove.length} items
       </Button>
     </Grid>
