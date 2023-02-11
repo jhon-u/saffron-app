@@ -3,17 +3,51 @@ import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
 import { Grid, CardMedia, Typography } from "@mui/material";
 
 export default function Ingredients() {
-  const {
-    servings,
-    ingredients,
-    setIngredients,
-    measurementUnit
-  } = useContext(recipeDetailsContext);
-  
-  const toFraction = (value) => { // decimal to fraction
-    console.log('VLAUE', value, measurementUnit)
-    if (!value) return ""
-    if (measurementUnit === 'metric') return Math.floor(value)
+  const { servings, ingredients, setIngredients, measurementUnit } =
+    useContext(recipeDetailsContext);
+
+  const usePrevious = (value) => {
+    const ref = useRef(servings);
+    useEffect(() => {
+      ref.current = value;
+    }, [value]);
+
+    return ref.current;
+  };
+
+  const previousServing = usePrevious(servings);
+
+  useEffect(() => {
+    const newIngredients = ingredients?.map((ingredient) => {
+      const measurement = ingredient.measures;
+      const newAmountMetric =
+        (measurement.metric.amount * servings) / previousServing;
+      const newAmountUS = (measurement.us.amount * servings) / previousServing;
+      return {
+        ...ingredient,
+        measures: {
+          metric: {
+            amount: newAmountMetric,
+            unitShort: measurement.metric.unitShort,
+            unitLong: measurement.metric.unitLong,
+          },
+          us: {
+            amount: newAmountUS,
+            unitShort: measurement.us.unitShort,
+            unitLong: measurement.us.unitLong,
+          },
+        },
+      };
+    });
+
+    setIngredients(newIngredients);
+  }, [servings]);
+
+  const toFraction = (value) => {
+    // decimal to fraction
+    console.log("VLAUE", value, measurementUnit);
+    if (!value) return "";
+    if (measurementUnit === "metric") return Math.floor(value);
 
     if (Math.floor(value) == value) return value;
     value = Math.abs(value);
@@ -30,35 +64,6 @@ export default function Ingredients() {
     }
     return Math.round(d * value) + "/" + Math.round(d);
   };
-
-  const usePrevious = (value) => {
-    const ref = useRef();
-    useEffect(() => {
-      ref.current = value;
-    }, [value]);
-  
-    return ref.current;
-  };
-
-  const previousServing = usePrevious(servings);
-
-  useEffect(() => {
-    const newIngredients = ingredients?.map((ingredient) => {
-      const measurement = ingredient.measures
-      const newAmountMetric = measurement.metric.amount * servings / previousServing
-      const newAmountUS = measurement.us.amount * servings / previousServing
-      
-      return {
-        ...ingredient,
-        measures: {
-          metric: {amount: newAmountMetric, unitShort: measurement.metric.unitShort, unitLong: measurement.metric.unitLong},
-	        us: {amount: newAmountUS, unitShort: measurement.us.unitShort, unitLong: measurement.us.unitLong}
-        },
-      };
-    });
-
-    setIngredients(newIngredients)
-  }, [servings]);
 
   const ingredientsList = ingredients?.map((ingredient) => {
     return (

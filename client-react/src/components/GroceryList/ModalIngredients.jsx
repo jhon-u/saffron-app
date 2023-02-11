@@ -1,49 +1,128 @@
-import * as React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
+import React, { useEffect, useContext, useRef, useState } from "react";
+import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
+import { Grid, CardMedia, Typography, Checkbox, Button } from "@mui/material";
+import { pink } from '@mui/material/colors';
 
-const columns = [
-  { field: 'items', headerName: 'Items to add', width: 70 },
-  { field: 'firstName', headerName: 'First name', width: 130 },
-  { field: 'lastName', headerName: 'Last name', width: 130 },
-  {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 90,
-  },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-  },
-];
+export default function Ingredients() {
+  const { servings, ingredients, setIngredients, measurementUnit } =
+    useContext(recipeDetailsContext);
 
-const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
+  const [checked, setChecked] = useState(true);
+  const [groceriesToAdd, setGroceriesToAdd] = useState([]);
 
-export default function ModalIngredients() {
+  const handleChange = (event, ingredient) => {
+    if (event.target.checked) {
+
+    }
+
+
+    setChecked(event.target.checked);
+    console.log('CHECKED', event.target.checked)
+    console.log('INGREDIENT', ingredient)
+  };
+
+  const toFraction = (value) => {
+    // decimal to fraction
+    console.log("VLAUE", value, measurementUnit);
+    if (!value) return "";
+    if (measurementUnit === "metric") return Math.floor(value);
+
+    if (Math.floor(value) == value) return value;
+    value = Math.abs(value);
+    let ret = 0.01, // rounding error tolerance
+      td = value - Math.floor(value), // trailing digits
+      r = 1 / td, // reciprocal
+      d = r, // start building denominator
+      lim = 20; // max loop limit
+    for (let i = 0; i < lim; i++) {
+      td = r - Math.floor(r);
+      if (Math.abs(r - Math.round(r)) < ret) break;
+      r = 1 / td;
+      d *= r;
+    }
+    return Math.round(d * value) + "/" + Math.round(d);
+  };
+
+  // const usePrevious = (value) => {
+  //   const ref = useRef();
+  //   useEffect(() => {
+  //     ref.current = value;
+  //   }, [value]);
+
+  //   return ref.current;
+  // };
+
+  // const previousServing = usePrevious(servings);
+
+  // useEffect(() => {
+  //   const newIngredients = ingredients?.map((ingredient) => {
+  //     const measurement = ingredient.measures;
+  //     const newAmountMetric =
+  //       (measurement.metric.amount * servings) / previousServing;
+  //     const newAmountUS = (measurement.us.amount * servings) / previousServing;
+
+  //     return {
+  //       ...ingredient,
+  //       measures: {
+  //         metric: {
+  //           amount: newAmountMetric,
+  //           unitShort: measurement.metric.unitShort,
+  //           unitLong: measurement.metric.unitLong,
+  //         },
+  //         us: {
+  //           amount: newAmountUS,
+  //           unitShort: measurement.us.unitShort,
+  //           unitLong: measurement.us.unitLong,
+  //         },
+  //       },
+  //     };
+  //   });
+
+  //   setIngredients(newIngredients);
+  // }, [servings]);
+
+  const ingredientsList = ingredients?.map((ingredient) => {
+    console.log('AMOUNTS', ingredient.measures[measurementUnit].amount)
+    return (
+      <Grid key={ingredient.id} container item xs={12} md={12} lg={12}>
+        <Grid item xs={1} md={1} lg={1}>
+          <CardMedia
+            component="img"
+            height="24"
+            width="24"
+            src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`}
+            alt={ingredient.name}
+          />
+        </Grid>
+        <Grid item xs={10} md={10} lg={10}>
+          <Typography sx={{ m: 1 }}>
+            <Typography component={"span"} sx={{ fontWeight: "bold" }}>
+              {toFraction(ingredient.measures[measurementUnit].amount)}{" "}
+              {ingredient.measures[measurementUnit].unitLong}
+            </Typography>{" "}
+            {ingredient.originalName}
+          </Typography>
+        </Grid>
+        <Grid item xs={1} md={1} lg={1}>
+          <Checkbox
+            defaultChecked
+            onChange={(event) => handleChange(event, ingredient.id)}
+            sx={{
+              color: pink[800],
+              "&.Mui-checked": {
+                color: pink[600],
+              },
+            }}
+          />
+        </Grid>
+      </Grid>
+    );
+  });
+
   return (
-    <div style={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-      />
-    </div>
+    <Grid container item xs={12} md={12} lg={12}> 
+      {ingredientsList}
+      <Button sx={{width: '100%', mt: 1}} variant="contained">Add {ingredients.length} items</Button>
+    </Grid>
   );
 }

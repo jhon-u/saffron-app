@@ -37,10 +37,8 @@ export default function RecipeDetails(props) {
   const [starRating, setStarRating] = useState(Math.floor(Math.random() * 5) + 1);
   const { recipeDetails, setRecipeDetails, setServings, setIngredients } = useContext(recipeDetailsContext);
   const params = useParams();
-  console.log("recipeDetails check", recipeDetails)
   
   useEffect(() => {
-    
     axios
       .get(`/api/recipes/:${params.id}`)
       .then((res) => {
@@ -54,29 +52,6 @@ export default function RecipeDetails(props) {
         setRecipeDetails({ error: err.message });
       });
   }, [params.id]);
-
-  // const dishTypes = recipeDetails.dishTypes?.map((type) => {
-  //   return <li key={type}>{type}</li>;
-  // });
-
-  // const steps = recipeDetails.instructions?.map((step, index) => {
-  //   return <li key={index}>{step}</li>;
-  // });
-
-  // const ingredients = recipeDetails.ingredients?.map((ingredient, index) => {
-  //   return (
-  //     <li key={index}>
-  //       {
-  //         <>
-  //           <span>{ingredient.amount} </span>
-  //           <span>
-  //             {ingredient.unit} {ingredient.name}
-  //           </span>
-  //         </>
-  //       }
-  //     </li>
-  //   );
-  // });
 
   const usePrevious = (value) => {
     const ref = useRef();

@@ -9,7 +9,7 @@ export default function AddToGroceriesBtn() {
     useContext(recipeDetailsContext);
 
   const handleClick = (event) => {
-    console.log("INGREDIENTS", ingredients);
+    console.log('INGREDIENTS AT AddToGroceriesBtn', ingredients)
     setOpenGroceriesModal(true);
   };
 

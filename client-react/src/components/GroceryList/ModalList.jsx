@@ -6,28 +6,31 @@ import Modal from '@mui/material/Modal';
 
 import { recipeDetailsContext } from '../../Providers/RecipeDetailsProvider';
 import Ingredients from '../RecipeDetails/Ingredients';
+import ModalIngredients from './ModalIngredients';
 
 const style = {
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: 500,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
+  // border: '2px solid #000',
+  borderRadius: 2,
   boxShadow: 24,
   p: 4,
 };
 
 export default function ModalList() {
-  const { openGroceriesModal, setOpenGroceriesModal } = useContext(recipeDetailsContext);
+  const { ingredients, openGroceriesModal, setOpenGroceriesModal } = useContext(recipeDetailsContext);
   // const [open, setOpen] = useState(false);
   // const handleOpen = () => setOpen(true);
   const handleClose = () => setOpenGroceriesModal(false);
 
+  console.log('INGREDIENTS AT ModalList', ingredients)
+
   return (
-    <div>
-      {/* <Button onClick={handleOpen}>Open modal</Button> */}
+    <Box>
       <Modal
         open={openGroceriesModal}
         onClose={handleClose}
@@ -36,11 +39,11 @@ export default function ModalList() {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
+            Add to Grocery List
           </Typography>
-          <Ingredients />
+          <ModalIngredients />
         </Box>
       </Modal>
-    </div>
+    </Box>
   );
 }

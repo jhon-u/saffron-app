@@ -3,7 +3,7 @@ export const recipeDetailsContext = createContext();
 
 const RecipeDetailsProvider = function (props) {
   const [recipeDetails, setRecipeDetails] = useState({});
-  const [servings, setServings] = useState(0);
+  const [servings, setServings] = useState(1);
   const [ingredients, setIngredients] = useState([]);
   const [amounts, setAmounts] = useState(0);
   const [measurementUnit, setMeasurementUnit] = useState("us");
@@ -13,6 +13,7 @@ const RecipeDetailsProvider = function (props) {
   const updateAmounts = (value) => {
     setAmounts(value);
   };
+  
 
   const value = {
     recipeDetails,
