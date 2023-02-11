@@ -1,29 +1,39 @@
 import React, { useEffect, useContext, useRef, useState } from "react";
 import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
 import { Grid, CardMedia, Typography, Checkbox, Button } from "@mui/material";
-import { pink } from '@mui/material/colors';
+import { pink } from "@mui/material/colors";
 
 export default function Ingredients() {
   const { servings, ingredients, setIngredients, measurementUnit } =
     useContext(recipeDetailsContext);
 
   const [checked, setChecked] = useState(true);
-  const [groceriesToAdd, setGroceriesToAdd] = useState([]);
+  const [groceriesToAdd, setGroceriesToAdd] = useState(ingredients);
+  const [ingredientsToRemove, setingredientsToRemove] = useState([]);
 
-  const handleChange = (event, ingredient) => {
-    if (event.target.checked) {
-
+  const handleChange = (event, ingredientId) => {
+    if (!event.target.checked) {
+      setingredientsToRemove([...ingredientsToRemove, ingredientId]);
+    } else {
+      const newIngredientListToRemove = ingredientsToRemove.filter(item => item !== ingredientId)
+      setingredientsToRemove(newIngredientListToRemove)
     }
-
-
-    setChecked(event.target.checked);
-    console.log('CHECKED', event.target.checked)
-    console.log('INGREDIENT', ingredient)
   };
+
+  const handleClick = () => {
+    const itemsToAddToShoppingList = [];
+    
+    ingredients.filter((ingredient) => {
+      if (ingredientsToRemove.indexOf(ingredient.id) === -1) {
+        itemsToAddToShoppingList.push(ingredient)
+      }
+    })
+
+    setGroceriesToAdd(itemsToAddToShoppingList)
+  }
 
   const toFraction = (value) => {
     // decimal to fraction
-    console.log("VLAUE", value, measurementUnit);
     if (!value) return "";
     if (measurementUnit === "metric") return Math.floor(value);
 
@@ -82,7 +92,6 @@ export default function Ingredients() {
   // }, [servings]);
 
   const ingredientsList = ingredients?.map((ingredient) => {
-    console.log('AMOUNTS', ingredient.measures[measurementUnit].amount)
     return (
       <Grid key={ingredient.id} container item xs={12} md={12} lg={12}>
         <Grid item xs={1} md={1} lg={1}>
@@ -120,9 +129,11 @@ export default function Ingredients() {
   });
 
   return (
-    <Grid container item xs={12} md={12} lg={12}> 
+    <Grid container item xs={12} md={12} lg={12}>
       {ingredientsList}
-      <Button sx={{width: '100%', mt: 1}} variant="contained">Add {ingredients.length} items</Button>
+      <Button sx={{ width: "100%", mt: 1 }} variant="contained" onClick={handleClick}>
+        Add {ingredients.length - ingredientsToRemove.length} items
+      </Button>
     </Grid>
   );
 }
