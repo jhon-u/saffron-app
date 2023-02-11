@@ -115,6 +115,7 @@ export default function ShoppingList() {
             width="24"
             src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`}
             alt={ingredient.name}
+            sx={{ objectFit: "contain" }}
           />
         </Grid>
         <Grid item xs={10} md={10} lg={10}>

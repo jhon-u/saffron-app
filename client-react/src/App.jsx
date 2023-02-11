@@ -71,7 +71,7 @@ export default function App() {
             />
             <SideBar handleDrawerClose={handleDrawerClose} open={open} />
 
-            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+            <Box component="main" sx={{ backgroundColor: '#f7fafc', flexGrow: 1, p: 3 }}>
               <DrawerHeader />
               <Routes>
                 <Route
