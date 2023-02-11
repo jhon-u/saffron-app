@@ -7,10 +7,7 @@ export default function Description(props) {
   const html = recipeDetails.description
 
   return (
-    <Typography color="black" font='Roboto' variant="body2">
-      <div dangerouslySetInnerHTML={{
-        __html: html,
-      }}/>
-    </Typography>
+    <Typography color="black" font='Roboto' variant="body2" dangerouslySetInnerHTML={{
+      __html: html}}/>
   );
 }
