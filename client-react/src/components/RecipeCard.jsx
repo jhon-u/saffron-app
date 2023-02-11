@@ -25,7 +25,6 @@ export default function RecipeCard(props) {
     }
   };
 
-
   return (
     <Card sx={{ maxWidth: 300 }}>
       <div style={{ position: "relative" }}>
