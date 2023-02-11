@@ -1,19 +1,15 @@
-import * as React from "react";
+import { React, useContext, useState } from "react"
 import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
-import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
 import { NavLink } from "react-router-dom";
-import { useContext } from "react";
 import { favouritesContext } from "Providers/FavouritesProvider";
 
+
+
 export default function RecipeCard(props) {
+  const [isHovered, setIsHovered] = useState(false);
   const { saveFavourites, isFavourite, deleteFavourite } =
     useContext(favouritesContext);
 
@@ -29,37 +25,52 @@ export default function RecipeCard(props) {
     }
   };
 
+  const handleHover = () => {
+    setScale(1.2);
+  };
+
+  const handleLeave = () => {
+    setScale(1);
+  };
+
+
+
   return (
     <Card sx={{ maxWidth: 300 }}>
-      <CardHeader sx={{minHeight: 100}}
-        avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            S
-          </Avatar>
-        }
-        title={props.title}
-      />
-      <NavLink to={`/receipes/${props.id}`} state={props.id}>
-        <CardMedia
-          component="img"
-          height="194"
-          image={props.image}
-          alt={props.title}
-        />
-      </NavLink>
-      <CardContent></CardContent>
-      <CardActions disableSpacing>
+      <div style={{ position: "relative" }}>
+        <NavLink to={`/receipes/${props.id}`} state={props.id}>
+          <CardMedia style={{ height: "250px", transform: `scale(${isHovered ? 1.2 : 1})`, transition: "transform 0.2s" }}
+            component="img"
+            height="194"
+            image={props.image}
+            alt={props.title}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          />
+          <div className="title" style={{
+            position: "absolute",
+            color: "white",
+            bottom: ".5em",
+            left: "50%",
+            fontFamily: "roboto",
+            fontWeight: "bold",
+            transform: `translate(-50%,0)`,
+            width: "90%"
+          }}>
+            <span style={{ textShadow: "3px 3px 6px rgba(0,0,0,1)" }}>
+              {props.title}
+            </span>
+          </div>
+        </NavLink>
         <IconButton
+          style={{ position: "absolute", top: ".2em", left: ".2em" }}
           aria-label="add to favorites"
           onClick={() => handleFavouriteState(props.id)}
         >
           {isFavourite(props.id) && <FavoriteIcon style={{ color: "red" }} />}
           {!isFavourite(props.id) && <FavoriteIcon />}
         </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-      </CardActions>
+      </div>
     </Card>
   );
 }

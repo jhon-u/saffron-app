@@ -12,6 +12,7 @@ import Title from "./Title";
 import Description from "./Description";
 import Url from "./Url";
 import CookTime from "./CookTime";
+import Instructions from "./Instructions";
 
 import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
 
@@ -155,7 +156,7 @@ export default function RecipeDetails(props) {
           
           {/* Instructions */}
           <Grid item xs={12} md={12} lg={12}>
-            <Item>Steps</Item>
+            <Instructions />
           </Grid>
         </Grid>
 
