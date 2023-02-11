@@ -5,7 +5,7 @@ import { recipeDetailsContext } from './RecipeDetailsProvider';
 
 const GroceryListProvider = function(props) {
   const { ingredients } = useContext(recipeDetailsContext);
-  const [groceriesToAdd, setGroceriesToAdd] = useState(ingredients);
+  const [groceriesToAdd, setGroceriesToAdd] = useState([]);
   const [ingredientsToRemove, setIngredientsToRemove] = useState([]);
   
   const value = { 

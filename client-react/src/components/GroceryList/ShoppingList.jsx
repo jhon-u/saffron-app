@@ -15,7 +15,7 @@ import { pink } from "@mui/material/colors";
 export default function ShoppingList() {
   const { ingredients, measurementUnit, setOpenGroceriesModal } =
     useContext(recipeDetailsContext);
-  const { setGroceriesToAdd, ingredientsToRemove, setIngredientsToRemove } =
+  const { groceriesToAdd, setGroceriesToAdd, ingredientsToRemove, setIngredientsToRemove } =
     useContext(groceryListContext);
   const [loading, setLoading] = useState(true);
 
@@ -38,7 +38,7 @@ export default function ShoppingList() {
         itemsToAddToShoppingList.push(ingredient);
       }
     });
-    setGroceriesToAdd(itemsToAddToShoppingList);
+    setGroceriesToAdd([...groceriesToAdd, ...itemsToAddToShoppingList]);
 
     setTimeout(() => {
       setLoading(false);
