@@ -7,10 +7,19 @@ export default function Description(props) {
   const html = recipeDetails.description
 
   return (
-    <Typography color="black" font='Roboto' variant="body2">
+    <Typography 
+    color="black" 
+    font='Roboto' 
+    variant="body2"
+    fontWeight='light'
+    fontSize={16}
+    sx={{ textAlign: "justify", textJustify: "inter-word" }}
+    >
       <div dangerouslySetInnerHTML={{
         __html: html,
       }}/>
     </Typography>
   );
 }
+
+

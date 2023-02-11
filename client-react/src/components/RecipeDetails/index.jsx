@@ -3,7 +3,7 @@ import axios from "axios";
 import { Grid, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import CardMedia from "@mui/material/CardMedia";
-import { Box,Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import Glycemic from "./Glycemic";
 import NutritionScore from "./NutritionScore";
@@ -39,9 +39,9 @@ export default function RecipeDetails(props) {
   const { recipeDetails, setRecipeDetails, setServings, setIngredients } = useContext(recipeDetailsContext);
   const params = useParams();
   console.log("recipeDetails check", recipeDetails)
-  
+
   useEffect(() => {
-    
+
     axios
       .get(`/api/recipes/:${params.id}`)
       .then((res) => {
@@ -84,12 +84,12 @@ export default function RecipeDetails(props) {
     useEffect(() => {
       ref.current = value;
     }, [value]);
-  
+
     return ref.current;
   };
 
   const previousRating = usePrevious(starRating);
-  
+
   const RandomStarRating = () => {
     return (
       <Box sx={{ "& > legend": { mt: 2 } }}>
@@ -100,7 +100,7 @@ export default function RecipeDetails(props) {
 
   return (
 
-    <Box>
+    <Box style={{ padding: "25px" }}>
       <Grid container spacing={2}>
         {/* Header left, aka Image */}
         <Grid container item xs={12} md={4} lg={2}>
@@ -125,10 +125,10 @@ export default function RecipeDetails(props) {
             <Url />
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
-            <Description />
+            <CookTime />
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
-            <CookTime />
+            <Description />
           </Grid>
         </Grid>
 
@@ -136,24 +136,32 @@ export default function RecipeDetails(props) {
         <Grid container item xs={12} md={8} lg={9}>
           <Grid container item xs={12} md={12} lg={12}>
             <Grid item xs={12} md={12} lg={12}>
-              <Typography variant="h4" sx={{mb: 3}}>Ingredients</Typography>
+              <Typography
+                color="rgba(25,118,210,255)"
+                font='Roboto'
+                variant="h4"
+                letterSpacing={1}
+                fontWeight='bold'
+                fontSize={30}
+                sx={{ paddingBottom: "12px" }}
+              >Ingredients</Typography>
             </Grid>
-              {!loading && <Ingredients />}
+            {!loading && <Ingredients />}
           </Grid>
-          
+
           {/* Servings, Measurements and Add to Groceries */}
-          <Grid sx={{mt: 3}} container item xs={12} md={12} lg={12}>
+          <Grid sx={{ mt: 3 }} container item xs={12} md={12} lg={12}>
             <Grid item xs={12} md={4} lg={4}>
-            {!loading &&  <Servings /> }
+              {!loading && <Servings />}
             </Grid>
             <Grid item xs={12} md={4} lg={4}>
-            {!loading && <MeasuresSelector /> }
+              {!loading && <MeasuresSelector />}
             </Grid>
             <Grid item xs={12} md={4} lg={4}>
-            {!loading && <AddToGroceriesBtn /> }
+              {!loading && <AddToGroceriesBtn />}
             </Grid>
           </Grid>
-          
+
           {/* Instructions */}
           <Grid item xs={12} md={12} lg={12}>
             <Instructions />
@@ -161,20 +169,20 @@ export default function RecipeDetails(props) {
         </Grid>
 
         {/* Body Left */}
-        
+
         <Grid container item xs={12} md={4} lg={3}>
           <Grid item xs={12} md={12} lg={12}>
             {!loading && <NutritionScore />}
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
-          {!loading && <NutritionList />}
+            {!loading && <NutritionList />}
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
-          {!loading && <Glycemic />}
+            {!loading && <Glycemic />}
           </Grid>
         </Grid>
       </Grid>
     </Box>
-   
+
   );
 }

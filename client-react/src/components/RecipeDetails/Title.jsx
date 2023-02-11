@@ -7,8 +7,16 @@ export default function Title(props) {
   const { recipeDetails } = useContext(recipeDetailsContext)
 
   return (
-    <Typography color="black" font='Roboto' variant="h5">
-      <u>{recipeDetails.title}</u>
+    <Typography 
+    color="black" 
+    fontFamily='Roboto' 
+    variant="h4"
+    letterSpacing={1}
+    fontWeight='bold'
+    fontSize={30}
+    textTransform='uppercase'
+    >
+      {recipeDetails.title}
     </Typography>
   );
 }
