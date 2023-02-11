@@ -11,6 +11,7 @@ export default function GroceryList(props) {
 
   const sortedByAisle = () => {
     const results = {};
+    console.log('CHECKING GROCERIES TO ADD', groceriesToAdd)
     for (const item of groceriesToAdd) {
       if (results.hasOwnProperty(item.aisle)) {
         results[item.aisle].push(item);

@@ -11,12 +11,17 @@ import {
 } from "@mui/material";
 import Spinner from "../Spinner";
 import { pink } from "@mui/material/colors";
+import { ConstructionOutlined, RestartAlt } from "@mui/icons-material";
 
 export default function ShoppingList() {
   const { ingredients, measurementUnit, setOpenGroceriesModal } =
     useContext(recipeDetailsContext);
-  const { groceriesToAdd, setGroceriesToAdd, ingredientsToRemove, setIngredientsToRemove } =
-    useContext(groceryListContext);
+  const {
+    groceriesToAdd,
+    setGroceriesToAdd,
+    ingredientsToRemove,
+    setIngredientsToRemove,
+  } = useContext(groceryListContext);
   const [loading, setLoading] = useState(true);
 
   const handleChange = (event, ingredientId) => {
@@ -38,12 +43,63 @@ export default function ShoppingList() {
         itemsToAddToShoppingList.push(ingredient);
       }
     });
-    setGroceriesToAdd([...groceriesToAdd, ...itemsToAddToShoppingList]);
+
+    if (groceriesToAdd.length > 0) {
+      const updatedItems = checkForDuplicateItemsInShoppingList(
+        groceriesToAdd,
+        itemsToAddToShoppingList
+      );
+      setGroceriesToAdd(updatedItems);
+    } else {
+      setGroceriesToAdd(itemsToAddToShoppingList);
+    }
 
     setTimeout(() => {
       setLoading(false);
       setOpenGroceriesModal(false);
     }, 500);
+  };
+
+  const checkForDuplicateItemsInShoppingList = (
+    existingShoppingList,
+    newShoppingList
+  ) => {
+    const newListItems = {};
+
+    for (const existingItem of existingShoppingList) {
+      if (!newListItems.hasOwnProperty(existingItem.id)) {
+        newListItems[existingItem.id] = existingItem;
+      }
+    }
+
+    for (const newItem of newShoppingList) {
+      if (newListItems.hasOwnProperty(newItem.id)) {
+        newListItems[newItem.id] = {
+          ...newItem,
+          amount: newListItems[newItem.id].amount + newItem.amount,
+          measures: {
+            metric: {
+              unitLong: newListItems[newItem.id].measures.metric.unitLong,
+              unitShort: newListItems[newItem.id].measures.metric.unitShort,
+              amount:
+                newListItems[newItem.id].measures.metric.amount +
+                newItem.measures.metric.amount,
+            },
+            us: {
+              unitLong: newListItems[newItem.id].measures.us.unitLong,
+              unitShort: newListItems[newItem.id].measures.us.unitShort,
+              amount:
+                newListItems[newItem.id].measures.us.amount +
+                newItem.measures.us.amount,
+            },
+          },
+        };
+      } else {
+        newListItems[newItem.id] = newItem;
+      }
+    }
+
+    return Object.values(newListItems)
   };
 
   const toFraction = (value) => {
@@ -66,44 +122,6 @@ export default function ShoppingList() {
     }
     return Math.round(d * value) + "/" + Math.round(d);
   };
-
-  // const usePrevious = (value) => {
-  //   const ref = useRef();
-  //   useEffect(() => {
-  //     ref.current = value;
-  //   }, [value]);
-
-  //   return ref.current;
-  // };
-
-  // const previousServing = usePrevious(servings);
-
-  // useEffect(() => {
-  //   const newIngredients = ingredients?.map((ingredient) => {
-  //     const measurement = ingredient.measures;
-  //     const newAmountMetric =
-  //       (measurement.metric.amount * servings) / previousServing;
-  //     const newAmountUS = (measurement.us.amount * servings) / previousServing;
-
-  //     return {
-  //       ...ingredient,
-  //       measures: {
-  //         metric: {
-  //           amount: newAmountMetric,
-  //           unitShort: measurement.metric.unitShort,
-  //           unitLong: measurement.metric.unitLong,
-  //         },
-  //         us: {
-  //           amount: newAmountUS,
-  //           unitShort: measurement.us.unitShort,
-  //           unitLong: measurement.us.unitLong,
-  //         },
-  //       },
-  //     };
-  //   });
-
-  //   setIngredients(newIngredients);
-  // }, [servings]);
 
   const ingredientsList = ingredients?.map((ingredient) => {
     return (
