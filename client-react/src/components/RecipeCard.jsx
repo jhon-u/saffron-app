@@ -25,15 +25,6 @@ export default function RecipeCard(props) {
     }
   };
 
-  const handleHover = () => {
-    setScale(1.2);
-  };
-
-  const handleLeave = () => {
-    setScale(1);
-  };
-
-
 
   return (
     <Card sx={{ maxWidth: 300 }}>
