@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import axios from "axios";
-import { Grid, Paper } from "@mui/material";
+import { Grid, Paper, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import CardMedia from "@mui/material/CardMedia";
 import { Box, Typography } from "@mui/material";
@@ -23,7 +23,7 @@ import AddToGroceriesBtn from "./AddToGroceriesBtn";
 
 import "./index.css";
 
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -39,6 +39,8 @@ export default function RecipeDetails(props) {
   const { recipeDetails, setRecipeDetails, setServings, setIngredients } = useContext(recipeDetailsContext);
   const params = useParams();
   console.log("recipeDetails check", recipeDetails)
+
+  const navigate = useNavigate()
 
   useEffect(() => {
 
@@ -100,7 +102,8 @@ export default function RecipeDetails(props) {
 
   return (
 
-    <Box style={{ padding: "25px" }}>
+    <Box>
+      <Button variant="contained" onClick={() => navigate(-1)} style={{ marginBottom: "20px" }}>Back</Button>
       <Grid container spacing={2}>
         {/* Header left, aka Image */}
         <Grid container item xs={12} md={4} lg={2}>
