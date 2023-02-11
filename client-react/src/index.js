@@ -8,6 +8,7 @@ import SearchProvider from "Providers/SearchProvider";
 import FavouritesProvider from "Providers/FavouritesProvider";
 import RecipeDetailsProvider from "./Providers/RecipeDetailsProvider";
 import MealPlanProvider from "Providers/MealPlanProvider";
+import GroceryListProvider from "./Providers/GroceryListProvider";
 
 const container = document.getElementById("root");
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
@@ -18,9 +19,11 @@ root.render(
         <MealPlanProvider>
           <FavouritesProvider>
             <RecipeDetailsProvider>
-              <BrowserRouter>
-                <App />
-              </BrowserRouter>
+              <GroceryListProvider>
+                <BrowserRouter>
+                  <App />
+                </BrowserRouter>
+              </GroceryListProvider>
             </RecipeDetailsProvider>
           </FavouritesProvider>
         </MealPlanProvider>

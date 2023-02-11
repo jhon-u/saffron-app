@@ -1,14 +1,14 @@
 import React, { useEffect, useContext, useRef, useState } from "react";
 import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
+import { groceryListContext } from "../../Providers/GroceryListProvider";
 import { Grid, CardMedia, Typography, Checkbox, Button } from "@mui/material";
 import { pink } from "@mui/material/colors";
 
 export default function Ingredients() {
-  const { servings, ingredients, setIngredients, measurementUnit } =
+  const { ingredients, measurementUnit } =
     useContext(recipeDetailsContext);
+  const {setGroceriesToAdd} = useContext(groceryListContext)
 
-  const [checked, setChecked] = useState(true);
-  const [groceriesToAdd, setGroceriesToAdd] = useState(ingredients);
   const [ingredientsToRemove, setingredientsToRemove] = useState([]);
 
   const handleChange = (event, ingredientId) => {
