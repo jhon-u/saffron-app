@@ -17,6 +17,7 @@ import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useContext } from 'react';
 import { favouritesContext } from 'Providers/FavouritesProvider';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 import { Link } from "react-router-dom";
 
@@ -73,8 +74,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export default function SideBar(props) {
   const theme = useTheme();
-  const sidebarIcons = [<RestaurantIcon />, <LocalGroceryStoreIcon />, <FavoriteIcon />]
-  const urls =['/', 'grocery-list', 'favourites']
+  const sidebarIcons = [<RestaurantIcon />, <LocalGroceryStoreIcon />, <FavoriteIcon />, <CalendarMonthIcon />]
+  const urls =['/', 'grocery-list', 'favourites', 'mealplanner']
  
   return (
       <Drawer variant="permanent" open={props.open}>
@@ -86,7 +87,7 @@ export default function SideBar(props) {
         <Divider />
         <List>
 
-          {['Recipes', 'Grocery List', 'Favourites'].map((text, index) => (
+          {['Recipes', 'Grocery List', 'Favourites', 'Meal Planner'].map((text, index) => (
             <ListItem key={text}  disablePadding sx={{ display: 'block' }}>
               <ListItemButton 
                 component={Link} 
