@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 export default function Glycemic(props) {
   const { recipeDetails } = useContext(recipeDetailsContext)
@@ -9,8 +9,18 @@ export default function Glycemic(props) {
 
   return (
     <>
-      <Box>Glycemic Index {glycemicIndex}</Box>
-      <Box>Gylcemic Load {Math.round(glycemicLoad)}</Box>
+    <Typography
+          color="black"
+          font='Roboto'
+          variant="body2"
+          fontWeight='light'
+          fontSize={16}
+          sx={{ textAlign: "justify", textJustify: "inter-word" }}
+        >
+      <Box>
+        Glycemic Index: {glycemicIndex}</Box>
+      <Box>Gylcemic Load: {Math.round(glycemicLoad)}</Box>
+      </Typography>
     </>
 
   )
