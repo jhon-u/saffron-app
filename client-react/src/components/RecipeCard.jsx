@@ -54,7 +54,7 @@ export default function RecipeCard(props) {
           </div>
         </NavLink>
         <IconButton
-          style={{ position: "absolute", top: ".2em", left: ".2em" }}
+          style={{ position: "absolute", top: ".2em", left: ".2em", color: 'white', boxShadow: "2px 2px 4px rgba(0,0,0,0.8)" }}
           aria-label="add to favorites"
           onClick={() => handleFavouriteState(props.id)}
         >

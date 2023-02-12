@@ -9,7 +9,7 @@ export default function Ingredients() {
     setIngredients,
     measurementUnit
   } = useContext(recipeDetailsContext);
-  
+
   const toFraction = (value) => { // decimal to fraction
     console.log('VLAUE', value, measurementUnit)
     if (!value) return ""
@@ -36,7 +36,7 @@ export default function Ingredients() {
     useEffect(() => {
       ref.current = value;
     }, [value]);
-  
+
     return ref.current;
   };
 
@@ -47,12 +47,12 @@ export default function Ingredients() {
       const measurement = ingredient.measures
       const newAmountMetric = measurement.metric.amount * servings / previousServing
       const newAmountUS = measurement.us.amount * servings / previousServing
-      
+
       return {
         ...ingredient,
         measures: {
-          metric: {amount: newAmountMetric, unitShort: measurement.metric.unitShort, unitLong: measurement.metric.unitLong},
-	        us: {amount: newAmountUS, unitShort: measurement.us.unitShort, unitLong: measurement.us.unitLong}
+          metric: { amount: newAmountMetric, unitShort: measurement.metric.unitShort, unitLong: measurement.metric.unitLong },
+          us: { amount: newAmountUS, unitShort: measurement.us.unitShort, unitLong: measurement.us.unitLong }
         },
       };
     });
@@ -73,12 +73,14 @@ export default function Ingredients() {
           />
         </Grid>
         <Grid item xs={11} md={11} lg={11}>
-          <Typography sx={{ m: 1 }}>
+          <Typography sx={{ m: 1, fontFamily: 'Roboto' }}>
             <Typography component={"span"} sx={{ fontWeight: "bold" }}>
               {toFraction(ingredient.measures[measurementUnit].amount)}{" "}
               {ingredient.measures[measurementUnit].unitLong}
             </Typography>{" "}
-            {ingredient.originalName}
+            <Typography component={"span"} sx={{ fontWeight: "light" }}>
+              {ingredient.originalName}
+            </Typography>
           </Typography>
         </Grid>
       </Grid>
