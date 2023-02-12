@@ -5,13 +5,21 @@ import { Box, Grid, CardMedia, Typography, Checkbox } from "@mui/material";
 import { pink } from "@mui/material/colors";
 
 export default function GroceryList(props) {
-  const { groceriesToAdd, setGroceriesToAdd } = useContext(groceryListContext);
-  const { servings, ingredients, setIngredients, measurementUnit } =
-    useContext(recipeDetailsContext);
+  const {
+    groceriesToAdd,
+    setGroceriesToAdd,
+    setSortedByAisle,
+    sortedByAisle,
+    setUpdateBoughtItems,
+    updateBoughtItems,
+    setLoading,
+    loading,
+  } = useContext(groceryListContext);
+  const { measurementUnit } = useContext(recipeDetailsContext);
 
-  const sortedByAisle = () => {
+  const sortByAisle = () => {
+    console.log("New Groveries to Add", groceriesToAdd);
     const results = {};
-    console.log('CHECKING GROCERIES TO ADD', groceriesToAdd)
     for (const item of groceriesToAdd) {
       if (results.hasOwnProperty(item.aisle)) {
         results[item.aisle].push(item);
@@ -19,12 +27,14 @@ export default function GroceryList(props) {
         results[item.aisle] = [item];
       }
     }
-    return results;
+    // return results;
+    console.log("RESULTS", results);
+    setSortedByAisle(results);
+    setLoading(false);
   };
 
   const toFraction = (value) => {
     // decimal to fraction
-    console.log("VLAUE", value, measurementUnit);
     if (!value) return "";
     if (measurementUnit === "metric") return Math.floor(value);
 
@@ -44,22 +54,56 @@ export default function GroceryList(props) {
     return Math.round(d * value) + "/" + Math.round(d);
   };
 
-  const handleChange = () => {
+  const handleChange = (event, ingredient) => {
+    setLoading(true);
+    console.log('CHECKED', event.target.checked)
+    if (event.target.checked) {
+      const boughtItems = {...updateBoughtItems, [ingredient.id]: ingredient.aisle}
+      setUpdateBoughtItems(boughtItems);
+      const sortedBoughtItems = sortBoughtItems(groceriesToAdd, boughtItems);
+      setGroceriesToAdd(sortedBoughtItems);
+    }
+  };
 
+  function sortBoughtItems(groceriesToAdd, boughtItems) {
+    const results = [];
+
+    groceriesToAdd.forEach((item) => {
+      if (boughtItems.hasOwnProperty(item.id)) {
+        results.push({
+          ...item,
+          aisle: "Bought Items",
+          checked: true,
+        });
+      } else {
+        results.push(item);
+      }
+    });
+
+    results.sort(function (a, b) {
+      return (
+        (a.aisle === "Bought Items") - (b.aisle === "Bought Items") ||
+        +(a.aisle > b.aisle) ||
+        -(a.aisle < b.aisle)
+      );
+    });
+
+    return results;
   }
 
-  const ailes = sortedByAisle();
+  useEffect(() => {
+    sortByAisle();
+  }, [groceriesToAdd]);
 
-  const displayItemsByAisle = Object.keys(ailes).map((aisle, index) => {
-    console.log("MAPPPPP", ailes[aisle]);
-
+  const displayItemsByAisle = Object.keys(sortedByAisle).map((aisle, index) => {
+    console.log("MAP RUN");
     return (
       <Grid key={index} container item xs={12} md={12} lg={12}>
-        <Grid item xs={12} md={12} lg={12} sx={{m: 2}}>
+        <Grid item xs={12} md={12} lg={12} sx={{ m: 2 }}>
           <Typography>{aisle}</Typography>
         </Grid>
         <Grid container item xs={12} md={12} lg={12}>
-          {ailes[aisle]?.map((ingredient) => {
+          {sortedByAisle[aisle]?.map((ingredient) => {
             return (
               <Grid
                 key={ingredient.id}
@@ -74,7 +118,7 @@ export default function GroceryList(props) {
                   backgroundColor: "white",
                   ml: 1,
                   mb: 0.5,
-                  borderRadius: 1
+                  borderRadius: 1,
                 }}
               >
                 <Grid item xs={1} md={1} lg={1}>
@@ -98,8 +142,8 @@ export default function GroceryList(props) {
                 </Grid>
                 <Grid item xs={1} md={1} lg={1}>
                   <Checkbox
-                    // defaultChecked
-                    onChange={(event) => handleChange(event, ingredient.id)}
+                    checked={ingredient.checked ? true : false}
+                    onChange={(event) => handleChange(event, ingredient)}
                     sx={{
                       color: pink[800],
                       "&.Mui-checked": {

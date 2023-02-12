@@ -7,12 +7,24 @@ const GroceryListProvider = function(props) {
   const { ingredients } = useContext(recipeDetailsContext);
   const [groceriesToAdd, setGroceriesToAdd] = useState([]);
   const [ingredientsToRemove, setIngredientsToRemove] = useState([]);
+  const [sortedByAisle, setSortedByAisle] = useState({});
+  const [updateBoughtItems, setUpdateBoughtItems] = useState({});
+  const [loading, setLoading] = useState(false)
+
+  console.log('SORTED BY AISLE', sortedByAisle)
+  console.log('UPDATED BOUGHT ITEM', updateBoughtItems)
   
   const value = { 
     groceriesToAdd,
     setGroceriesToAdd,
     ingredientsToRemove,
-    setIngredientsToRemove
+    setIngredientsToRemove,
+    sortedByAisle,
+    setSortedByAisle,
+    updateBoughtItems,
+    setUpdateBoughtItems,
+    loading,
+    setLoading
   }
 
   return (
