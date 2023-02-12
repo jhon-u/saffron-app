@@ -14,11 +14,10 @@ export default function Description(props) {
     fontWeight='light'
     fontSize={16}
     sx={{ textAlign: "justify", textJustify: "inter-word" }}
-    >
-      <div dangerouslySetInnerHTML={{
-        __html: html,
-      }}/>
-    </Typography>
+    dangerouslySetInnerHTML={{
+      __html: html,
+    }}
+    />
   );
 }
 

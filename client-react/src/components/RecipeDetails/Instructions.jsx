@@ -8,7 +8,24 @@ export default function Instructions(props) {
   const { recipeDetails } = useContext(recipeDetailsContext)
 
   const steps = recipeDetails.instructions?.map((step, index) => {
-    return <li key={index}>{step}</li>;
+    return (
+      <li key={index}>
+        <Typography
+            color="black"
+            font='Roboto'
+            variant="body2"
+            fontWeight='light'
+            fontSize={18}
+            sx={{ textAlign: "justify", textJustify: "inter-word" }}
+          >
+          {step}
+        </Typography>
+      </li>
+    ) 
+    
+    
+    
+    
   });
 
   return (
@@ -24,16 +41,7 @@ export default function Instructions(props) {
       >
         Instructions
       </Typography>
-      <Typography
-          color="black"
-          font='Roboto'
-          variant="body2"
-          fontWeight='light'
-          fontSize={18}
-          sx={{ textAlign: "justify", textJustify: "inter-word" }}
-        >
-        <ol>{steps}</ol>
-      </Typography>
+     <ol>{steps}</ol>
     </Grid>
   );
 }
