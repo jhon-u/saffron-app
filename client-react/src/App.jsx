@@ -16,7 +16,7 @@ import LoginForm from "components/LoginForm";
 
 //Pages
 import Recipes from "./pages/Recipes";
-import GroceryList from "./pages/GroceryList";
+import Groceries from "./pages/Groceries";
 import RecipeDetails from "./components/RecipeDetails";
 import Favourites from "pages/Favourites";
 import MealPlanner from "pages/MealPlanner";
@@ -72,7 +72,7 @@ export default function App() {
             />
             <SideBar handleDrawerClose={handleDrawerClose} open={open} />
 
-            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+            <Box component="main" sx={{ backgroundColor: '#f7fafc', flexGrow: 1, p: 3 }}>
               <DrawerHeader />
               <Routes>
                 <Route
@@ -80,7 +80,7 @@ export default function App() {
                   element={<Recipes recipes={recipes} advSearch={isVisible} />}
                 />
                 <Route path="/receipes/:id" element={<RecipeDetails />} />
-                <Route path="/grocery-list" element={<GroceryList />} />
+                <Route path="/grocery-list" element={<Groceries />} />
                 <Route path="/login" element={<LoginForm />} />
                 <Route path="/favourites" element={<Favourites />} />
                 <Route path="/mealplanner" element={<MealPlanner />} />

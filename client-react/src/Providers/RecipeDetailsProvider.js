@@ -3,14 +3,17 @@ export const recipeDetailsContext = createContext();
 
 const RecipeDetailsProvider = function (props) {
   const [recipeDetails, setRecipeDetails] = useState({});
-  const [servings, setServings] = useState(0);
+  const [servings, setServings] = useState(1);
   const [ingredients, setIngredients] = useState([]);
   const [amounts, setAmounts] = useState(0);
   const [measurementUnit, setMeasurementUnit] = useState("us");
 
+  const [openGroceriesModal, setOpenGroceriesModal] = useState(false);
+
   const updateAmounts = (value) => {
     setAmounts(value);
   };
+  
 
   const value = {
     recipeDetails,
@@ -24,6 +27,8 @@ const RecipeDetailsProvider = function (props) {
     updateAmounts,
     measurementUnit,
     setMeasurementUnit,
+    openGroceriesModal,
+    setOpenGroceriesModal
   };
 
   return (

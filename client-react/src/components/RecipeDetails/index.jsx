@@ -58,29 +58,6 @@ export default function RecipeDetails(props) {
       });
   }, [params.id]);
 
-  // const dishTypes = recipeDetails.dishTypes?.map((type) => {
-  //   return <li key={type}>{type}</li>;
-  // });
-
-  // const steps = recipeDetails.instructions?.map((step, index) => {
-  //   return <li key={index}>{step}</li>;
-  // });
-
-  // const ingredients = recipeDetails.ingredients?.map((ingredient, index) => {
-  //   return (
-  //     <li key={index}>
-  //       {
-  //         <>
-  //           <span>{ingredient.amount} </span>
-  //           <span>
-  //             {ingredient.unit} {ingredient.name}
-  //           </span>
-  //         </>
-  //       }
-  //     </li>
-  //   );
-  // });
-
   const usePrevious = (value) => {
     const ref = useRef();
     useEffect(() => {
@@ -106,20 +83,21 @@ export default function RecipeDetails(props) {
       <Button variant="contained" onClick={() => navigate(-1)} style={{ marginBottom: "20px" }}>Back</Button>
       <Grid container spacing={2}>
         {/* Header left, aka Image */}
-        <Grid container item xs={12} md={4} lg={2}>
+        <Grid container item xs={12} md={4} lg={4}>
           <Grid item xs={12} md={12} lg={12}>
             <CardMedia
               component="img"
-              height="240"
-              width="240"
+              height="400"
+              width="400"
               image={recipeDetails.image}
               alt={props.title}
+              sx={{ objectFit: "contain", borderRadius: 12 }}
             />
           </Grid>
         </Grid>
 
         {/* Header right */}
-        <Grid container item xs={12} md={8} lg={10}>
+        <Grid container item xs={12} md={8} lg={8}>
           <Grid item xs={12} md={12} lg={12}>
             <Title />
             <RandomStarRating />

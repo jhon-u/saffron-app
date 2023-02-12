@@ -7,11 +7,7 @@ export default function Glycemic(props) {
   const glycemicIndex = recipeDetails.nutritionProperties["Glycemic Index"].amount
   const glycemicLoad = recipeDetails.nutritionProperties["Glycemic Load"].amount
 
-  console.log("recipeDetails check", recipeDetails);
-  console.log("glycemicindex check", glycemicIndex);
-
   return (
-
     <>
     <Typography
           color="black"
