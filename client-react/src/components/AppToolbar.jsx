@@ -94,7 +94,9 @@ export default function AppToolbar(props) {
           </IconButton>
           <Typography
             variant="h6"
+            fontFamily='Sacramento'
             noWrap
+            fontSize='2.5rem'
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >

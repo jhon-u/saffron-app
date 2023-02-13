@@ -5,6 +5,7 @@ import { authContext } from "Providers/AuthProvider"
 import { useContext, useNavigate } from "react";
 import LoginForm from "components/LoginForm";
 import { favouritesContext } from "Providers/FavouritesProvider";
+import { Box, Grid, Typography } from "@mui/material";
 
 export default function Favourites(props) {
   // const [favourites, setFavourites] = useState([]);
@@ -32,27 +33,31 @@ export default function Favourites(props) {
 
   const displayFavourites = favourites?.map((recipe) => {
     return (
-      <RecipeCard
-        key={recipe.id}
-        id={recipe.recipeid}
-        title={recipe.title}
-        image={recipe.image}
-        onClick={getRecipeId}
-      />
+      <Grid key={recipe.id} item xs={12} sm={6} md={4} lg={3}>
+        <RecipeCard
+          id={recipe.recipeid}
+          title={recipe.title}
+          image={recipe.image}
+          onClick={getRecipeId}
+        />
+      </Grid>
     );
   });
 
   return (
     <>
+      {auth && <Typography variant="h4" sx={{mb: 4}}>
+        Favourites
+      </Typography>}
       {auth && (
-        <div className="recipeList">
+        <Grid container spacing={2} justify="center" >
           {displayFavourites}
-        </div>
+        </Grid>
       )}
       {!auth && (
-        <div className="recipeList">
+        <Box>
           <LoginForm path={"/favourites"}/>
-        </div>
+        </Box>
       )}
     </>
   )

@@ -9,10 +9,10 @@ export default function Title(props) {
   return (
     <Typography 
     color="black" 
-    fontFamily='Roboto' 
+    fontFamily='Montserrat' 
     variant="h4"
     letterSpacing={1}
-    fontWeight='bold'
+    fontWeight={500}
     fontSize={30}
     textTransform='uppercase'
     >
