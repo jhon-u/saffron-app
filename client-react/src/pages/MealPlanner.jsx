@@ -111,8 +111,8 @@ function MealPlanner() {
               }}
               key={columnId}
             >
-              <h2>{column.name}</h2>
-              <div style={{ margin: 8, overflow: "scroll",
+              <h3>{column.name}</h3>
+              <div style={{ margin: 8, overflow: "auto",
                 height: "500px" }}>
                 <Droppable droppableId={columnId} key={columnId}>
                   {(provided, snapshot) => {
@@ -123,7 +123,7 @@ function MealPlanner() {
                         style={{
                           background: snapshot.isDraggingOver
                             ? "lightblue"
-                            : "lightgrey",
+                            : "inherit",
                           padding: 4,
                           width: 250,
                           minHeight: 500
@@ -144,7 +144,8 @@ function MealPlanner() {
                                     {...provided.dragHandleProps}
                                     style={{
                                       userSelect: "none",
-                                      padding: 16,
+                                      // padding: 16,
+                                      borderRadius: "25%",
                                       margin: "0 0 8px 0",
                                       minHeight: "50px",
                                       backgroundColor: snapshot.isDragging
