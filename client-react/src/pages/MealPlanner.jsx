@@ -116,6 +116,7 @@ function MealPlanner() {
         height: "100%",
         flexWrap: "wrap",
       }}
+      ref={componentRef}
     >
       <Grid container item xs={12} md={12} lg={12}>
         <Grid item xs={8} md={8} lg={8}>
@@ -123,13 +124,13 @@ function MealPlanner() {
             Meal Planner
           </Typography>
         </Grid>
-        <Grid item xs={4} md={4} lg={4}>
+        <Grid item xs={4} md={4} lg={4} sx={{display: 'flex', justifyContent: 'flex-end'}}>
           <Button onClick={handlePrint}>
             <PrintIcon />
           </Button>
         </Grid>
       </Grid>
-      <Grid item xs={12} md={12} lg={12} ref={componentRef}>
+      <Grid item xs={12} md={12} lg={12}>
         {auth && (
           <Box
             sx={{
@@ -211,6 +212,7 @@ function MealPlanner() {
                                             title={item.title}
                                             image={item.image}
                                             onClick={getRecipeId}
+                                            height={"100px"}
                                           />
                                           {/* {item.title} */}
                                         </div>
@@ -233,7 +235,7 @@ function MealPlanner() {
         )}
       </Grid>
       <Grid item xs={12} md={12} lg={12} sx={{ mb: 10 }}>
-        {!auth && <LoginForm path={"/favourites"} />}
+        {!auth && <LoginForm path={"/mealplanner"} />}
       </Grid>
     </Grid>
   );
