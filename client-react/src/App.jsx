@@ -14,6 +14,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { Paper } from "@mui/material";
 // import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -65,6 +66,9 @@ const theme = createTheme({
   palette: {
     primary: {
       main: '#734060'
+    },
+    background: {
+      default: "#f7fafc"
     }
   }
 });
@@ -130,7 +134,6 @@ export default function App() {
                 mr: 2,
                 display: { xs: "none", md: "flex" },
                 fontFamily: "Sacramento",
-                fontWeight: 700,
                 fontSize: "2.5rem",
                 letterSpacing: ".3rem",
                 color: "inherit",
@@ -278,20 +281,23 @@ export default function App() {
       </AppBar>
 
       <main>
-        <Container sx={{ py: 8 }} maxWidth="md">
-          <Routes>
-            <Route
-              path="/"
-              element={<Recipes recipes={recipes} advSearch={isVisible} />}
-            />
-            <Route path="/receipes/:id" element={<RecipeDetails />} />
-            <Route path="/grocery-list" element={<Groceries />} />
-            <Route path="/login" element={<LoginForm />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/favourites" element={<Favourites />} />
-            <Route path="/mealplanner" element={<MealPlanner />} />
-          </Routes>
-        </Container>
+                  
+          <Container sx={{ py: 8 }} maxWidth="lg">
+            <Paper elevation={3} sx={{p: 3, borderRadius: 3}} >
+              <Routes>
+                <Route
+                  path="/"
+                  element={<Recipes recipes={recipes} advSearch={isVisible} />}
+                />
+                <Route path="/receipes/:id" element={<RecipeDetails />} />
+                <Route path="/grocery-list" element={<Groceries />} />
+                <Route path="/login" element={<LoginForm />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/favourites" element={<Favourites />} />
+                <Route path="/mealplanner" element={<MealPlanner />} />
+              </Routes>
+            </Paper>
+          </Container>
       </main>
       {/* Footer */}
       {/* <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">

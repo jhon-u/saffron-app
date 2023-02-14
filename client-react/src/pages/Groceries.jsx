@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useRef, useState } from "react";
 import { groceryListContext } from "../Providers/GroceryListProvider";
 import GroceryList from "../components/GroceryList";
-import { Box, Typography, Grid, CardMedia } from "@mui/material";
+import { Box, Typography, Grid, CardMedia, Paper } from "@mui/material";
 import saffronFlower from '../assets/saffron_flower.png'
 
 export default function Groceries(props) {
