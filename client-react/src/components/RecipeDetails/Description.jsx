@@ -9,9 +9,9 @@ export default function Description(props) {
   return (
     <Typography 
     color="black" 
-    font='Roboto' 
+    fontFamily='Montserrat' 
     variant="body2"
-    fontWeight='light'
+    fontWeight={400}
     fontSize={16}
     sx={{ textAlign: "justify", textJustify: "inter-word" }}
     dangerouslySetInnerHTML={{

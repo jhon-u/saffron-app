@@ -96,7 +96,7 @@ export default function GroceryList(props) {
   }, [groceriesToAdd]);
 
   const displayItemsByAisle = Object.keys(sortedByAisle).map((aisle, index) => {
-    console.log("MAP RUN");
+    
     return (
       <Grid key={index} container item xs={12} md={12} lg={12}>
         <Grid item xs={12} md={12} lg={12} sx={{ m: 2 }}>
