@@ -5,6 +5,7 @@ import { authContext } from "Providers/AuthProvider"
 import { useContext, useNavigate } from "react";
 import LoginForm from "components/LoginForm";
 import { favouritesContext } from "Providers/FavouritesProvider";
+import { Box } from "@mui/material";
 
 export default function MealPlans(props) {
   // const [favourites, setFavourites] = useState([]);
@@ -45,9 +46,9 @@ export default function MealPlans(props) {
   return (
     <>
       
-        <div className="recipeList">
+        <Box>
           {displayFavourites}
-        </div>
+        </Box>
   
     </>
   )
