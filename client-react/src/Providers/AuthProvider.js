@@ -3,8 +3,6 @@ export const authContext = createContext();
 
 
 const AuthProvider = function(props) {
- 
-
   const [auth, setAuth] = useState(false)
   const [user, setUser] = useState(null)
 
@@ -17,6 +15,7 @@ const AuthProvider = function(props) {
   const logout = function() {
     setAuth(false);
     setUser(null);
+    setFavourites([])
   }
 
 
