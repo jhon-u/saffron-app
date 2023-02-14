@@ -46,7 +46,7 @@ export default function Favourites(props) {
 
   return (
     <>
-      {auth && <Typography variant="h4" sx={{mb: 4}}>
+      {auth && <Typography variant="h4" sx={{ mb: 3, color: "#233748" }}>
         Favourites
       </Typography>}
       {auth && (

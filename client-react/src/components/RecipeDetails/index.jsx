@@ -120,8 +120,8 @@ export default function RecipeDetails(props) {
           </Grid>
         </Grid>
 
-        {/* Body Right */}
-        <Grid container item xs={12} md={8} lg={8}>
+        {/* Body Left */}
+        <Grid container item xs={12} md={8} lg={8} sx={{p: 2}}>
           <Grid container item xs={12} md={12} lg={12}>
             <Grid item xs={12} md={12} lg={12}>
               <Typography
@@ -154,7 +154,7 @@ export default function RecipeDetails(props) {
           </Grid>
         </Grid>
 
-        {/* Body Left */}
+        {/* Body Right */}
 
         <Grid container item xs={12} md={4} lg={4}>
           <Grid item xs={12} md={12} lg={12}>

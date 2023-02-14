@@ -7,52 +7,51 @@ import { StrictModeDroppable as Droppable } from "helpers/StrictMode.Droppable";
 import { useContext, useNavigate } from "react";
 import { favouritesContext } from "Providers/FavouritesProvider";
 import RecipeCard from "components/RecipeCard";
-import { authContext } from "Providers/AuthProvider"
+import { authContext } from "Providers/AuthProvider";
 import LoginForm from "components/LoginForm";
-import { Box } from "@mui/system";
+import { Box, Typography, Grid } from "@mui/material";
 
 function MealPlanner() {
-  const { favourites } = useContext(favouritesContext)
+  const { favourites } = useContext(favouritesContext);
 
   const itemsFromBackend = favourites;
   const columnsFromBackend = {
     [1]: {
       name: "Favourites",
-      items: itemsFromBackend
+      items: itemsFromBackend,
     },
     [2]: {
       name: "Monday",
-      items: []
+      items: [],
     },
     [3]: {
       name: "Tuesday",
-      items: []
+      items: [],
     },
     [4]: {
       name: "Wednesday",
-      items: []
+      items: [],
     },
     [5]: {
       name: "Thursday",
-      items: []
+      items: [],
     },
     [6]: {
       name: "Friday",
-      items: []
+      items: [],
     },
     [7]: {
       name: "Saturday",
-      items: []
+      items: [],
     },
     [8]: {
       name: "Sunday",
-      items: []
-    }
-
+      items: [],
+    },
   };
-  
+
   const [columns, setColumns] = useState(columnsFromBackend);
-  const { auth, user } = useContext(authContext)
+  const { auth, user } = useContext(authContext);
 
   const onDragEnd = (result, columns, setColumns) => {
     if (!result.destination) return;
@@ -69,14 +68,13 @@ function MealPlanner() {
         ...columns,
         [source.droppableId]: {
           ...sourceColumn,
-          items: sourceItems
+          items: sourceItems,
         },
         [destination.droppableId]: {
           ...destColumn,
-          items: destItems
-        }
+          items: destItems,
+        },
       });
-      
     } else {
       const column = columns[source.droppableId];
       const copiedItems = [...column.items];
@@ -86,107 +84,141 @@ function MealPlanner() {
         ...columns,
         [source.droppableId]: {
           ...column,
-          items: copiedItems
-        }
+          items: copiedItems,
+        },
       });
     }
   };
 
   const getRecipeId = (id) => {
-    setRecipeId(id)
-  }
+    setRecipeId(id);
+  };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", height: "100%", flexWrap: "wrap" }}>
-    {auth && (
-      <DragDropContext
-        onDragEnd={result => onDragEnd(result, columns, setColumns)}
-      >
-        {Object.entries(columns).map(([columnId, column], index) => {
-          return (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center" 
-              }}
-              key={columnId}
+    <Grid
+      container item
+      xs={12}
+      md={12}
+      lg={12}
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        height: "100%",
+        flexWrap: "wrap",
+      }}
+    >
+      <Grid item xs={12} md={12} lg={12}>
+        <Typography variant="h4" sx={{ mb: 3, color: "#233748" }}>
+          Meal Planner
+        </Typography>
+      </Grid>
+      <Grid item xs={12} md={12} lg={12}>
+        {auth && (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              height: "100%",
+              flexWrap: "wrap",
+            }}
+          >
+            <DragDropContext
+              onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
             >
-              <Box style={{color: "#734060", fontSize: "1.5rem", fontFamily: "Helvetica" }}>{column.name}</Box>
-              <div style={{ margin: 8, overflow: "auto",
-                height: "500px" }}>
-                <Droppable droppableId={columnId} key={columnId}>
-                  {(provided, snapshot) => {
-                    return (
-                      <div
-                        {...provided.droppableProps}
-                        ref={provided.innerRef}
-                        style={{
-                          background: snapshot.isDraggingOver
-                            ? "#966081"
-                            : "inherit",
-                          padding: 4,
-                          width: 250,
-                          minHeight: 500
-                        }}
-                      >
-                        {column.items.map((item, index) => {
+              {Object.entries(columns).map(([columnId, column], index) => {
+                return (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                    key={columnId}
+                  >
+                    <Box
+                      style={{
+                        color: "#734060",
+                        fontSize: "1.5rem",
+                        fontFamily: "Helvetica",
+                      }}
+                    >
+                      {column.name}
+                    </Box>
+                    <div
+                      style={{ margin: 8, overflow: "auto", height: "500px" }}
+                    >
+                      <Droppable droppableId={columnId} key={columnId}>
+                        {(provided, snapshot) => {
                           return (
-                            <Draggable
-                              key={item.id}
-                              draggableId={item.id.toString()}
-                              index={index}
-                            >
-                              {(provided, snapshot) => {
-                                return (
-                                  <div
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                    style={{
-                                      userSelect: "none",
-                                      // padding: 16,
-                                      borderRadius: "25%",
-                                      margin: "0 0 8px 0",
-                                      minHeight: "50px",
-                                      backgroundColor: snapshot.isDragging
-                                        ? "#263B4A"
-                                        : "#456C86",
-                                      color: "white",
-                                      ...provided.draggableProps.style
-                                    }}
-                                  >
-                                    <RecipeCard
-                                      // key={recipe.id}
-                                      id={item.recipeid}
-                                      title={item.title}
-                                      image={item.image}
-                                      onClick={getRecipeId}
-                                    />
-                                    {/* {item.title} */}
-                                  </div>
-                                );
+                            <div
+                              {...provided.droppableProps}
+                              ref={provided.innerRef}
+                              style={{
+                                background: snapshot.isDraggingOver
+                                  ? "#966081"
+                                  : "inherit",
+                                padding: 4,
+                                width: 250,
+                                minHeight: 500,
                               }}
-                            </Draggable>
+                            >
+                              {column.items.map((item, index) => {
+                                return (
+                                  <Draggable
+                                    key={item.id}
+                                    draggableId={item.id.toString()}
+                                    index={index}
+                                  >
+                                    {(provided, snapshot) => {
+                                      return (
+                                        <div
+                                          ref={provided.innerRef}
+                                          {...provided.draggableProps}
+                                          {...provided.dragHandleProps}
+                                          style={{
+                                            userSelect: "none",
+                                            // padding: 16,
+                                            borderRadius: "25%",
+                                            margin: "0 0 8px 0",
+                                            minHeight: "50px",
+                                            backgroundColor: snapshot.isDragging
+                                              ? "#263B4A"
+                                              : "#456C86",
+                                            color: "white",
+                                            ...provided.draggableProps.style,
+                                          }}
+                                        >
+                                          <RecipeCard
+                                            // key={recipe.id}
+                                            id={item.recipeid}
+                                            title={item.title}
+                                            image={item.image}
+                                            onClick={getRecipeId}
+                                          />
+                                          {/* {item.title} */}
+                                        </div>
+                                      );
+                                    }}
+                                  </Draggable>
+                                );
+                              })}
+                              {provided.placeholder}
+                            </div>
                           );
-                        })}
-                        {provided.placeholder}
-                      </div>
-                    );
-                  }}
-                </Droppable>
-              </div>
-            </div>
-          );
-        })}
-      </DragDropContext>
-    )}
-    {!auth && (
-      <div className="recipeList">
-        <LoginForm path={"/favourites"}/>
-      </div>
-    )}
-    </div>
+                        }}
+                      </Droppable>
+                    </div>
+                  </div>
+                );
+              })}
+            </DragDropContext>
+          </Box>
+        )}
+      </Grid>
+      <Grid item xs={12} md={12} lg={12} sx={{ mb: 10 }}>
+        {!auth && <LoginForm path={"/favourites"} />}
+      </Grid>
+    </Grid>
   );
 }
 
