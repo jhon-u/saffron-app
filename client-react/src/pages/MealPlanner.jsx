@@ -212,6 +212,7 @@ function MealPlanner() {
                                             title={item.title}
                                             image={item.image}
                                             onClick={getRecipeId}
+                                            height={"100px"}
                                           />
                                           {/* {item.title} */}
                                         </div>
@@ -234,7 +235,7 @@ function MealPlanner() {
         )}
       </Grid>
       <Grid item xs={12} md={12} lg={12} sx={{ mb: 10 }}>
-        {!auth && <LoginForm path={"/favourites"} />}
+        {!auth && <LoginForm path={"/mealplanner"} />}
       </Grid>
     </Grid>
   );

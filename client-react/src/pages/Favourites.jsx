@@ -39,6 +39,7 @@ export default function Favourites(props) {
           title={recipe.title}
           image={recipe.image}
           onClick={getRecipeId}
+          height={"300px"}
         />
       </Grid>
     );
