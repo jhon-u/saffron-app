@@ -39,7 +39,7 @@ import LoginForm from "components/LoginForm";
 
 //Pages
 import Recipes from "./pages/Recipes";
-import Groceries from "./pages/Groceries";
+import Groceries from "pages/Groceries";
 import RecipeDetails from "./components/RecipeDetails";
 import Favourites from "pages/Favourites";
 import MealPlanner from "pages/MealPlanner";
