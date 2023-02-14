@@ -9,6 +9,7 @@ export default function Glycemic(props) {
 
   return (
     <>
+    <Typography variant="h6">Glycemic</Typography>
     <Typography
           variant="body1"
           sx={{ textAlign: "justify", textJustify: "inter-word" }}

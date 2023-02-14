@@ -15,7 +15,7 @@ export default function NutritionScore(props) {
   return (
     <>
       <Typography
-        variant="h4"
+        variant="h6"
         letterSpacing={1}
       >
         <SignalCellularAltIcon

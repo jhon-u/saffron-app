@@ -34,24 +34,26 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function RecipeDetails(props) {
-  const [loading, setLoading] = useState(true)
-  const [starRating, setStarRating] = useState(Math.floor(Math.random() * 5) + 1);
-  const { recipeDetails, setRecipeDetails, setServings, setIngredients } = useContext(recipeDetailsContext);
+  const [loading, setLoading] = useState(true);
+  const [starRating, setStarRating] = useState(
+    Math.floor(Math.random() * 5) + 1
+  );
+  const { recipeDetails, setRecipeDetails, setServings, setIngredients } =
+    useContext(recipeDetailsContext);
   const params = useParams();
-  console.log("recipeDetails check", recipeDetails)
+  console.log("recipeDetails check", recipeDetails);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
-
     axios
       .get(`/api/recipes/:${params.id}`)
       .then((res) => {
         console.log("RES DATA", res.data);
         setRecipeDetails(res.data);
-        setServings(res.data.servings)
-        setIngredients(res.data.ingredients)
-        setLoading(false)
+        setServings(res.data.servings);
+        setIngredients(res.data.ingredients);
+        setLoading(false);
       })
       .catch((err) => {
         setRecipeDetails({ error: err.message });
@@ -78,9 +80,14 @@ export default function RecipeDetails(props) {
   };
 
   return (
-
     <Box>
-      <Button variant="contained" onClick={() => navigate(-1)} style={{ marginBottom: "20px" }}>Back</Button>
+      <Button
+        variant="contained"
+        onClick={() => navigate(-1)}
+        style={{ marginBottom: "20px" }}
+      >
+        Back
+      </Button>
       <Grid container spacing={2}>
         {/* Header left, aka Image */}
         <Grid container item xs={12} md={4} lg={4}>
@@ -121,7 +128,9 @@ export default function RecipeDetails(props) {
                 variant="h4"
                 letterSpacing={1}
                 sx={{ paddingBottom: "12px" }}
-              >Ingredients</Typography>
+              >
+                Ingredients
+              </Typography>
             </Grid>
             {!loading && <Ingredients />}
           </Grid>
@@ -149,17 +158,22 @@ export default function RecipeDetails(props) {
 
         <Grid container item xs={12} md={4} lg={4}>
           <Grid item xs={12} md={12} lg={12}>
-            {!loading && <NutritionScore />}
+            {!loading &&
+              <>
+                <NutritionScore />
+                <NutritionList />
+                <Glycemic />
+              </>
+            }
           </Grid>
-          <Grid item xs={12} md={12} lg={12}>
+          {/* <Grid item xs={12} md={12} lg={12}>
             {!loading && <NutritionList />}
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
             {!loading && <Glycemic />}
-          </Grid>
+          </Grid> */}
         </Grid>
       </Grid>
     </Box>
-
   );
 }
