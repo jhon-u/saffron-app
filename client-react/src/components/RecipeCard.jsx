@@ -44,8 +44,6 @@ export default function RecipeCard(props) {
             color: "white",
             bottom: ".5em",
             left: "50%",
-            fontFamily: "roboto",
-            fontWeight: "bold",
             transform: `translate(-50%,0)`,
             width: "90%"
           }}>

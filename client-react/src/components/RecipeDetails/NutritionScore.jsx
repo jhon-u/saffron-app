@@ -15,12 +15,8 @@ export default function NutritionScore(props) {
   return (
     <>
       <Typography
-        color="rgba(25,118,210,255)"
-        font='Roboto'
         variant="h4"
         letterSpacing={1}
-        fontWeight='bold'
-        fontSize={30}
       >
         <SignalCellularAltIcon
           fontSize='large'
@@ -30,11 +26,7 @@ export default function NutritionScore(props) {
 
       <Box style={{ paddingTop: "10px" }}>
         <Typography
-          color="black"
-          font='Roboto'
           variant="body2"
-          fontWeight='light'
-          fontSize={16}
           sx={{ textAlign: "justify", textJustify: "inter-word" }}
         >
           Nutrition Score: {Math.round(nutritionScore)}

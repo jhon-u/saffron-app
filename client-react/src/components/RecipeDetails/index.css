@@ -13,35 +13,10 @@
   margin-right:3%;
 
 }
-.ingredients li {
-  font-family:"Roboto Condensed", sans-serif;
-}
-.instructions {
+
+/* .instructions {
   width:60%;
-}
-
-h3 {
-  font-family: roboto;
-  font-size:2em;
-  line-height:1;
-  margin:1em 0 .5em;
-  padding-bottom:.25em;
-  font-weight:400;
-  color:#6f87e5;
-  border-bottom:1px solid #6f87e5;;
-}
-
-h2 {
-  font-family: roboto;
-  font-size:2em;
-  line-height:1; 
-  font-weight:400;
-  color:#6f87e5;
-  margin-left: .3em;
-  padding-top: .5em;
-  padding-bottom: .5em;
-
-}
+} */
 
 ul {
 list-style: none;

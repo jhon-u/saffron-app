@@ -8,12 +8,8 @@ export default function Title(props) {
 
   return (
     <Typography 
-    color="black" 
-    fontFamily='Montserrat' 
     variant="h4"
     letterSpacing={1}
-    fontWeight={500}
-    fontSize={30}
     textTransform='uppercase'
     >
       {recipeDetails.title}

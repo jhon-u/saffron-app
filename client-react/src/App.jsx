@@ -69,7 +69,16 @@ const theme = createTheme({
     },
     background: {
       default: "#f7fafc"
-    }
+    },
+  },
+  typography: {
+    fontFamily: [
+      'Montserrat',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif'
+    ].join(','),
+    fontWeight: 500,
   }
 });
 
@@ -195,7 +204,6 @@ export default function App() {
                 display: { xs: "flex", md: "none" },
                 flexGrow: 1,
                 fontFamily: "monospace",
-                fontWeight: 700,
                 letterSpacing: ".3rem",
                 color: "inherit",
                 textDecoration: "none",

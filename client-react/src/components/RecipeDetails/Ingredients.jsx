@@ -78,12 +78,12 @@ export default function Ingredients() {
           />
         </Grid>
         <Grid item xs={11} md={11} lg={11}>
-          <Typography sx={{ m: 1, fontFamily: 'Roboto' }}>
+          <Typography sx={{ m: 1}}>
             <Typography component={"span"} sx={{ fontWeight: "bold" }}>
               {toFraction(ingredient.measures[measurementUnit].amount)}{" "}
               {ingredient.measures[measurementUnit].unitLong}
             </Typography>{" "}
-            <Typography component={"span"} sx={{ fontWeight: "light" }}>
+            <Typography component={"span"}>
               {ingredient.originalName}
             </Typography>
           </Typography>

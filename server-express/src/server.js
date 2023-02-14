@@ -106,6 +106,7 @@ app.get("/api/recipes/:id", (req, res) => {
     title: recipeDetails.title,
     servings: recipeDetails.servings,
     description: recipeDetails.summary,
+    cookTime: recipeDetails.readyInMinutes,
     image: recipeDetails.image,
     diet: recipeDetails.diet,
     source: recipeDetails.sourceUrl,

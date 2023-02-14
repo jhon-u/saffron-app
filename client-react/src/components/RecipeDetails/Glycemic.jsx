@@ -10,11 +10,7 @@ export default function Glycemic(props) {
   return (
     <>
     <Typography
-          color="black"
-          font='Roboto'
-          variant="body2"
-          fontWeight='light'
-          fontSize={16}
+          variant="body1"
           sx={{ textAlign: "justify", textJustify: "inter-word" }}
         >
       <Box>

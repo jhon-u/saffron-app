@@ -8,11 +8,7 @@ export default function Description(props) {
 
   return (
     <Typography 
-    color="black" 
-    fontFamily='Montserrat' 
-    variant="body2"
-    fontWeight={400}
-    fontSize={16}
+    variant="body1"
     sx={{ textAlign: "justify", textJustify: "inter-word" }}
     dangerouslySetInnerHTML={{
       __html: html,

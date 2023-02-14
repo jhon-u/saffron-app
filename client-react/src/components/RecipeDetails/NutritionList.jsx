@@ -37,7 +37,7 @@ export default function NutritionList(props) {
   return (
     <>
       
-    <TableContainer component={Paper}>
+    <TableContainer sx={{width: '100%'}} component={Paper}>
       <Table sx={{ minWidth: 200 }} aria-label="simple table">
         <TableHead>
           <TableRow>

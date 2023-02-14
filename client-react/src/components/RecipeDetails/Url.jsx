@@ -9,7 +9,7 @@ export default function Url(props) {
 
   return (
     <Link href={recipeDetails.source} color="rgba(25,118,210,255)" underline='hover'>
-      <Typography font='Roboto' variant="subtitle2">
+      <Typography variant="subtitle2">
         <b>{recipeDetails.source}</b>
       </Typography>
     </Link>

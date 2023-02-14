@@ -106,7 +106,7 @@ export default function RecipeDetails(props) {
             <Url />
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
-            <CookTime />
+            {!loading && <CookTime />}
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
             <Description />
@@ -114,16 +114,12 @@ export default function RecipeDetails(props) {
         </Grid>
 
         {/* Body Right */}
-        <Grid container item xs={12} md={8} lg={9}>
+        <Grid container item xs={12} md={8} lg={8}>
           <Grid container item xs={12} md={12} lg={12}>
             <Grid item xs={12} md={12} lg={12}>
               <Typography
-                color="rgba(25,118,210,255)"
-                font='Roboto'
                 variant="h4"
                 letterSpacing={1}
-                fontWeight='bold'
-                fontSize={30}
                 sx={{ paddingBottom: "12px" }}
               >Ingredients</Typography>
             </Grid>
@@ -132,10 +128,10 @@ export default function RecipeDetails(props) {
 
           {/* Servings, Measurements and Add to Groceries */}
           <Grid sx={{ mt: 3 }} container item xs={12} md={12} lg={12}>
-            <Grid item xs={12} md={4} lg={4}>
+            <Grid item xs={12} md={4} lg={5}>
               {!loading && <Servings />}
             </Grid>
-            <Grid item xs={12} md={4} lg={4}>
+            <Grid item xs={12} md={4} lg={3}>
               {!loading && <MeasuresSelector />}
             </Grid>
             <Grid item xs={12} md={4} lg={4}>
@@ -151,7 +147,7 @@ export default function RecipeDetails(props) {
 
         {/* Body Left */}
 
-        <Grid container item xs={12} md={4} lg={3}>
+        <Grid container item xs={12} md={4} lg={4}>
           <Grid item xs={12} md={12} lg={12}>
             {!loading && <NutritionScore />}
           </Grid>
