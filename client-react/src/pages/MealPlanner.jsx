@@ -1,6 +1,6 @@
 import MealPlans from "components/MealPlans";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef  } from "react";
 import ReactDOM from "react-dom";
 import { DragDropContext, Draggable } from "react-beautiful-dnd";
 import { StrictModeDroppable as Droppable } from "helpers/StrictMode.Droppable";
@@ -9,10 +9,19 @@ import { favouritesContext } from "Providers/FavouritesProvider";
 import RecipeCard from "components/RecipeCard";
 import { authContext } from "Providers/AuthProvider";
 import LoginForm from "components/LoginForm";
-import { Box, Typography, Grid } from "@mui/material";
+import { Box, Typography, Grid, Button } from "@mui/material";
+import PrintIcon from '@mui/icons-material/Print';
+
+// import ReactToPrint from 'react-to-print'
+import { useReactToPrint } from 'react-to-print'
 
 function MealPlanner() {
   const { favourites } = useContext(favouritesContext);
+  const componentRef = useRef();
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  })
 
   const itemsFromBackend = favourites;
   const columnsFromBackend = {
@@ -96,7 +105,8 @@ function MealPlanner() {
 
   return (
     <Grid
-      container item
+      container
+      item
       xs={12}
       md={12}
       lg={12}
@@ -107,12 +117,19 @@ function MealPlanner() {
         flexWrap: "wrap",
       }}
     >
-      <Grid item xs={12} md={12} lg={12}>
-        <Typography variant="h4" sx={{ mb: 3, color: "#233748" }}>
-          Meal Planner
-        </Typography>
+      <Grid container item xs={12} md={12} lg={12}>
+        <Grid item xs={8} md={8} lg={8}>
+          <Typography variant="h4" sx={{ mb: 3, color: "#233748" }}>
+            Meal Planner
+          </Typography>
+        </Grid>
+        <Grid item xs={4} md={4} lg={4}>
+          <Button onClick={handlePrint}>
+            <PrintIcon />
+          </Button>
+        </Grid>
       </Grid>
-      <Grid item xs={12} md={12} lg={12}>
+      <Grid item xs={12} md={12} lg={12} ref={componentRef}>
         {auth && (
           <Box
             sx={{
