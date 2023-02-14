@@ -9,6 +9,7 @@ import { favouritesContext } from "Providers/FavouritesProvider";
 import RecipeCard from "components/RecipeCard";
 import { authContext } from "Providers/AuthProvider"
 import LoginForm from "components/LoginForm";
+import { Box } from "@mui/system";
 
 function MealPlanner() {
   const { favourites } = useContext(favouritesContext)
@@ -111,7 +112,7 @@ function MealPlanner() {
               }}
               key={columnId}
             >
-              <h3>{column.name}</h3>
+              <Box style={{color: "#734060", fontSize: "1.5rem", fontFamily: "Helvetica" }}>{column.name}</Box>
               <div style={{ margin: 8, overflow: "auto",
                 height: "500px" }}>
                 <Droppable droppableId={columnId} key={columnId}>
@@ -122,7 +123,7 @@ function MealPlanner() {
                         ref={provided.innerRef}
                         style={{
                           background: snapshot.isDraggingOver
-                            ? "lightblue"
+                            ? "#966081"
                             : "inherit",
                           padding: 4,
                           width: 250,
