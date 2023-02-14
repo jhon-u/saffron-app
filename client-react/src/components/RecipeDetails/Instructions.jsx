@@ -11,11 +11,7 @@ export default function Instructions(props) {
     return (
       <li key={index}>
         <Typography
-            color="black"
-            font='Roboto'
-            variant="body2"
-            fontWeight='light'
-            fontSize={18}
+            variant="body1"
             sx={{ textAlign: "justify", textJustify: "inter-word" }}
           >
           {step}
@@ -31,12 +27,7 @@ export default function Instructions(props) {
   return (
     <Grid item xs={11} md={11} lg={11}>
       <Typography 
-        color="rgba(25,118,210,255)"
-        font='Roboto'
         variant="h4"
-        letterSpacing={1}
-        fontWeight='bold'
-        fontSize={30}
         sx={{ paddingBottom: "12px"}}
       >
         Instructions

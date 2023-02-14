@@ -9,11 +9,12 @@ import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
 
 const StyledButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText(blueGrey[50]),
-  backgroundColor: blueGrey[50],
-  borderColor: blueGrey[200],
+  backgroundColor: '#734060',
+  borderColor: '#734060',
+  color: '#FFFFFF',
   "&:hover": {
-    backgroundColor: blueGrey[100],
-    borderColor: blueGrey[300]
+    backgroundColor: '#A87193',
+    borderColor: '#A87193'
   }
 }));
 
@@ -21,18 +22,18 @@ const StyledInput = styled(TextField)({
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
       borderRadius: 0,
-      borderColor: blueGrey[200]
+      borderColor: '#734060'
     },
     "&:hover fieldset": {
-      borderColor: blueGrey[300]
+      borderColor: '#734060'
     },
     "&.Mui-focused fieldset": {
-      borderColor: blueGrey[500]
+      borderColor: '#734060'
     },
     "& input": {
       textAlign: "center",
       width: 30,
-      color: blueGrey[700]
+      color: '#734060'
     }
   }
 });
