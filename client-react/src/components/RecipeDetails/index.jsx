@@ -47,7 +47,7 @@ export default function RecipeDetails(props) {
 
   useEffect(() => {
     axios
-      .get(`/api/recipes/:${params.id}`)
+      .get(`/api/recipes/${params.id}`)
       .then((res) => {
         console.log("RES DATA", res.data);
         setRecipeDetails(res.data);
@@ -56,7 +56,7 @@ export default function RecipeDetails(props) {
         setLoading(false);
       })
       .catch((err) => {
-        setRecipeDetails({ error: err.message });
+        console.log(err);
       });
   }, [params.id]);
 
