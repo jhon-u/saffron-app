@@ -104,7 +104,7 @@ export default function Recipes(props) {
       </Collapse>
       {!loading && (
         <Grid container spacing={2} justify="center">
-          {!showSearch && displayRecipes(props.recipes.results)}
+          {!showSearch && displayRecipes(props.recipes)}
           {showSearch && displayRecipes(searchResults)}
         </Grid>
       )}

@@ -26,6 +26,7 @@ const {
 const db = require("../configs/db.config");
 const { getFavourites } = require("../db/queries/favourites");
 const { default: axios } = require("axios");
+const { randomRecipes } = require("../services/api/random-recipes");
 
 // serve static files from ../build (needed for React)
 const cwd = process.cwd();
@@ -36,13 +37,21 @@ app.use(express.static(public));
 // Do Not make a route for "/" or it will override public
 
 app.get("/api/recipes", (req, res) => {
-  // callSpoonacular().then((data) => {
-
-  // })
-  // console.log(data.results);
-  // console.log(instructionData[0]);
-  res.json({ version: "1.01", results: data.results });
+  console.log("server check ")
+  randomRecipes().then((data) => {
+    res.json(data);
+  })
 });
+
+
+// app.get("/api/recipes", (req, res) => {
+//   // callSpoonacular().then((data) => {
+
+//   // })
+//   // console.log(data.results);
+//   // console.log(instructionData[0]);
+//   res.json({ version: "1.01", results: data.results });
+// });
 
 app.get("/api/recipes/:id", (req, res) => {
   // https://api.spoonacular.com/recipes/{id}/information&includeNutrition=true
