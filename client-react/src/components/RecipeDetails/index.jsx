@@ -38,7 +38,7 @@ export default function RecipeDetails(props) {
   const [starRating, setStarRating] = useState(
     Math.floor(Math.random() * 5) + 1
   );
-  const { recipeDetails, setRecipeDetails, setServings, setIngredients } =
+  const { recipeDetails, setRecipeDetails, setServings, setIngredients, nutrition, setNutrition } =
     useContext(recipeDetailsContext);
   const params = useParams();
   console.log("recipeDetails check", recipeDetails);
@@ -54,6 +54,7 @@ export default function RecipeDetails(props) {
         setServings(res.data.servings);
         setIngredients(res.data.ingredients);
         setLoading(false);
+        setNutrition(res.data.nutrition)
       })
       .catch((err) => {
         console.log(err);

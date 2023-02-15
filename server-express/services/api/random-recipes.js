@@ -11,7 +11,6 @@ const randomRecipes = () => {
   return axios.request(options)
     .then(function (response) {
     const filterData = response.data.recipes.filter((recipe) => {
-      console.log("fileter check", recipe.image, recipe.title, recipe.id)
       return recipe.image !== undefined 
     })
       return filterData;

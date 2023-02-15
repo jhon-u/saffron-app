@@ -65,9 +65,9 @@ export default function Ingredients() {
     return Math.round(d * value) + "/" + Math.round(d);
   };
 
-  const ingredientsList = ingredients?.map((ingredient) => {
+  const ingredientsList = ingredients?.map((ingredient, index) => {
     return (
-      <Grid key={ingredient.id} container item xs={12} md={12} lg={6}>
+      <Grid key={index} container item xs={12} md={12} lg={6}>
         <Grid item xs={1} md={1} lg={1}>
           <CardMedia
             component="img"

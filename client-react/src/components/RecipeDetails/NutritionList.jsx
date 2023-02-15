@@ -11,13 +11,14 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
 export default function NutritionList(props) {
-  const { recipeDetails } = useContext(recipeDetailsContext);
-  const nd = recipeDetails.nutrition;
-
-  function createData(name, calories, fat, carbs, protein) {
+  const { recipeDetails, nutrition } = useContext(recipeDetailsContext);
+  const nd = nutrition;
+  console.log("recipeDetails from nutritionlist page", recipeDetails)
+  const createData = (name, calories, fat, carbs, protein) => {
     return { name, calories, fat, carbs, protein };
   }
-
+  
+  
   const rows = [
     createData(
       "Calories (kcal)",
@@ -53,7 +54,7 @@ export default function NutritionList(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {rows?.map((row) => (
               <TableRow
                 key={row.name}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

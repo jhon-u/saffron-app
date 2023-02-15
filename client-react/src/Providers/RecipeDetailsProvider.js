@@ -7,6 +7,7 @@ const RecipeDetailsProvider = function (props) {
   const [ingredients, setIngredients] = useState([]);
   const [amounts, setAmounts] = useState(0);
   const [measurementUnit, setMeasurementUnit] = useState("us");
+  const [nutrition, setNutrition] = useState([]);
 
   const [openGroceriesModal, setOpenGroceriesModal] = useState(false);
 
@@ -28,7 +29,9 @@ const RecipeDetailsProvider = function (props) {
     measurementUnit,
     setMeasurementUnit,
     openGroceriesModal,
-    setOpenGroceriesModal
+    setOpenGroceriesModal,
+    nutrition,
+    setNutrition
   };
 
   return (
