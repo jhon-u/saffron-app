@@ -10,9 +10,7 @@ const instructionsRecipes = axios.get(`https://api.spoonacular.com/recipes/${id}
     instructionsRecipes
   ]).then((all) => {
     const [details, instructions] = all
-    // console.log("days.data check", days.data)
-    console.log("ALL CHECK ON RECIPE-DETAILS-REAL...instructions", instructions.data[0].steps)
-
+   
     return { details: details.data, instructions: instructions.data[0].steps }
   })
     .catch(err => console.log(err))

@@ -28,6 +28,7 @@ const { getFavourites } = require("../db/queries/favourites");
 const { default: axios } = require("axios");
 const { randomRecipes } = require("../services/api/random-recipes");
 const { detailRecipes } = require("../services/api/recipe-details-real");
+const { searchRecipes } = require("../services/api/search");
 
 // serve static files from ../build (needed for React)
 const cwd = process.cwd();
@@ -142,15 +143,16 @@ app.get("/api/mealplan", (req, res) => {
 
 app.post("/api/search", (req, res) => {
   console.log("api/search req.body check", req.body);
+  searchRecipes(req.body).then((data) => {
+    res.json(data)
+  })
 
-  const dietString = req.body.diet.toString();
-  const intolerancesString = req.body.intolerances.toString(nutritionData.properties);
 
   // const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.API_KEY}&diet=${dietString}&intolerances=${intolerancesString}&minProtein=${req.body.protein[0]}&maxProtein=${req.body.protein[1]}&minFat=${req.body.fat[0]}&maxFat=${req.body.fat[1]}&minCarbs=${req.body.carbs[0]}&maxCarbs=${req.body.carbs[1]}&number=10&nutrition=false`
 
-  setTimeout(() => {
-    res.json(search);
-  }, 1000);
+  // setTimeout(() => {
+  //   res.json(search);
+  // }, 1000);
 
   // axios.get(url)
   //   .then((result) => {

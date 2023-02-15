@@ -21,6 +21,7 @@ const searchData = () => {
   const data = { diet, intolerances, carbs, fat, protein }
   axios.post("/api/search", data)
     .then((result) => {
+      console.log("result check axios advanced search", result)
       setSearchResults(result.data)
       setLoading(false)
     })
