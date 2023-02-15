@@ -27,7 +27,7 @@ export default function RecipeCard(props) {
   return (
     <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <Box sx={{ position: "relative" }}>
-        <NavLink to={`/receipes/${props.id}`} state={props.id}>
+        <NavLink to={`/recipes/${props.id}`} state={props.id}>
           <CardMedia
             sx={{
               height: `${props.height}`,

@@ -26,6 +26,7 @@ export default function Recipes(props) {
   const { favourites } = useContext(favouritesContext);
   const { searchResults, loading, showSearch } = useContext(searchContext);
 
+  console.log("props check recipes.jsx", props)
   const getRecipeId = (id) => {
     setRecipeId(id);
   };

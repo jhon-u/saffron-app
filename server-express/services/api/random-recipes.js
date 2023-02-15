@@ -4,14 +4,15 @@ const axios = require("axios");
 const randomRecipes = () => {
   const options = {
     method: 'GET',
-    url: `https://api.spoonacular.com/recipes/random?number=2&apiKey=${process.env.API_KEY}`,
+    url: `https://api.spoonacular.com/recipes/random?number=20&apiKey=${process.env.API_KEY}`,
     
   };
 
   return axios.request(options)
     .then(function (response) {
     const filterData = response.data.recipes.filter((recipe) => {
-      return recipe.image !== undefined || recipe.image !== "" || recipe.image !== null
+      console.log("fileter check", recipe.image, recipe.title, recipe.id)
+      return recipe.image !== undefined 
     })
       return filterData;
   }).catch(function (error) {

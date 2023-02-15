@@ -51,6 +51,7 @@ import MealPlanner from "pages/MealPlanner";
 import SignUp from "./pages/SignUp";
 
 import lisaAvatar from "./assets/lisa.png";
+import Spinner from "components/Spinner";
 
 const pages = ["Recipes", "Groceries", "Favourites", "Planner"];
 const urls = ["/", "grocery-list", "favourites", "mealplanner"];
@@ -130,9 +131,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function App(props) {
   const { auth, user, logout } = useContext(authContext);
-  const { setFavourites } = useContext(favouritesContext) 
-  
-  const [recipes, setRecipes] = useState({});
+  const { setFavourites } = useContext(favouritesContext)
+  const [loading, setLoading] = useState(true)
+  const [recipes, setRecipes] = useState([]);
   const [open, setOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const recipeId = useLocation();
@@ -164,15 +165,18 @@ export default function App(props) {
     logout();
     handleCloseUserMenu()
   }
-
+  console.log("apps jsx check before useeffect")
   useEffect(() => {
+    console.log("axios check")
     axios
       .get("/api/recipes")
       .then((res) => {
-        setRecipes(res.data);
+        console.log("app.jsx axios res", res.data)
+        setRecipes(res.data)
+        setLoading(false);
       })
       .catch((err) => {
-        setRecipes({ error: err.message });
+        console.log("useEffect froma app.jsx", err);
       });
   }, []);
 
@@ -355,22 +359,29 @@ export default function App(props) {
       </AppBar>
 
       <main>
-        <Container sx={{ py: 8 }} maxWidth="lg">
-          <Paper elevation={3} sx={{ p: 3, borderRadius: 3 }}>
-            <Routes>
-              <Route
-                path="/"
-                element={<Recipes recipes={recipes} advSearch={isVisible} />}
-              />
-              <Route path="/receipes/:id" element={<RecipeDetails />} />
-              <Route path="/grocery-list" element={<Groceries />} />
-              <Route path="/login" element={<LoginForm />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/favourites" element={<Favourites />} />
-              <Route path="/mealplanner" element={<MealPlanner />} />
-            </Routes>
-          </Paper>
-        </Container>
+        {/* {!loading && ( */}
+          <Container sx={{ py: 8 }} maxWidth="lg">
+            <Paper elevation={3} sx={{ p: 3, borderRadius: 3 }}>
+              <Routes>
+                <Route
+                  path="/"
+                  element={<Recipes recipes={recipes} advSearch={isVisible} />}
+                />
+                <Route path="/recipes/:id" element={<RecipeDetails />} />
+                <Route path="/grocery-list" element={<Groceries />} />
+                <Route path="/login" element={<LoginForm />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/favourites" element={<Favourites />} />
+                <Route path="/mealplanner" element={<MealPlanner />} />
+              </Routes>
+            </Paper>
+          </Container>
+        {/* // )} */}
+        {/* {loading && (
+          <Box >
+            <Spinner />
+          </Box>
+        )} */}
       </main>
       {/* Footer */}
       {/* <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
@@ -389,5 +400,6 @@ export default function App(props) {
       </Box> */}
       {/* End footer */}
     </ThemeProvider>
+
   );
 }

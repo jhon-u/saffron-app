@@ -27,6 +27,7 @@ const db = require("../configs/db.config");
 const { getFavourites } = require("../db/queries/favourites");
 const { default: axios } = require("axios");
 const { randomRecipes } = require("../services/api/random-recipes");
+const { detailRecipes } = require("../services/api/recipe-details-real");
 
 // serve static files from ../build (needed for React)
 const cwd = process.cwd();
@@ -63,68 +64,74 @@ app.get("/api/recipes/:id", (req, res) => {
   //diet - array of strings
   //spoonacularSourceUrl
   //instructions: https://api.spoonacular.com/recipes/{id}/analyzedInstructions
+  console.log("req.body api recipes", req.params.id)
 
-  const instructions = (instructionData) => {
-    const steps = instructionData[0].steps;
-    const result = [];
-    for (const i in steps) {
-      result.push(steps[i].step);
-    }
-    return result;
-  };
-
-  const nutrition = (nutrients) => {
-    const result = {};
-
-    const nutritionValues = [
-      "Calories",
-      "Fat",
-      "Carbohydrates",
-      "Sugar",
-      "Protein",
-      "Sodium",
-      "Fiber",
-    ];
-
-    for (const nutrient of nutrients) {
-      if(nutritionValues.indexOf(nutrient.name) !== -1) {
-        result[nutrient.name] = {
-          amount: nutrient.amount,
-          percentOfDailyNeeds: nutrient.percentOfDailyNeeds
+  detailRecipes(req.params.id).then((data) => {
+    // console.log("data check instructions and details", data.instructions)
+    const instructions = (steps) => {
+      // const steps = instructionData[0].steps;
+      // console.log("steps check on server", steps)
+      const result = [];
+      for (const i in steps) {
+        result.push(steps[i].step);
+      }
+      return result;
+    };
+  
+    const nutrition = (nutrients) => {
+      const result = {};
+  
+      const nutritionValues = [
+        "Calories",
+        "Fat",
+        "Carbohydrates",
+        "Sugar",
+        "Protein",
+        "Sodium",
+        "Fiber",
+      ];
+  
+      for (const nutrient of nutrients) {
+        if(nutritionValues.indexOf(nutrient.name) !== -1) {
+          result[nutrient.name] = {
+            amount: nutrient.amount,
+            percentOfDailyNeeds: nutrient.percentOfDailyNeeds
+          }
         }
       }
-    }
-
-    return result;
-  };
-
-  function nutritionProperties (properties) {
-    const result = {}
-    
-    for (const property of properties) {
-      result[property.name] = {
-        amount: property.amount,
+  
+      return result;
+    };
+  
+    function nutritionProperties (properties) {
+      const result = {}
+      
+      for (const property of properties) {
+        result[property.name] = {
+          amount: property.amount,
+        }
       }
+  
+      return result;
     }
-
-    return result;
-  }
-
-  res.json({
-    id: recipeDetails.id,
-    title: recipeDetails.title,
-    servings: recipeDetails.servings,
-    description: recipeDetails.summary,
-    cookTime: recipeDetails.readyInMinutes,
-    image: recipeDetails.image,
-    diet: recipeDetails.diet,
-    source: recipeDetails.sourceUrl,
-    ingredients: recipeDetails.extendedIngredients,
-    instructions: instructions(instructionData),
-    dishTypes: recipeDetails.dishTypes,
-    nutrition: nutrition(recipeDetails.nutrition.nutrients),
-    nutritionProperties: nutritionProperties(recipeDetails.nutrition.properties)
-  });
+    console.log("data check on server api route", data)
+    res.json({
+      id: data.details.id,
+      title: data.details.title,
+      servings: data.details.servings,
+      description: data.details.summary,
+      cookTime: data.details.readyInMinutes,
+      image: data.details.image,
+      diet: data.details.diet,
+      source: data.details.sourceUrl,
+      ingredients: data.details.extendedIngredients,
+      instructions: instructions(data.instructions),
+      dishTypes: data.details.dishTypes,
+      nutrition: nutrition(data.details.nutrition.nutrients),
+      nutritionProperties: nutritionProperties(data.details.nutrition.properties)
+    });
+  })
+  
 });
 
 app.get("/api/mealplan", (req, res) => {
