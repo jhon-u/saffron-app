@@ -1,12 +1,10 @@
-import { useState, useEffect, useContext, useRef } from "react";
+import { useEffect, useContext, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   Box,
   Typography,
-  Skeleton,
   Grid,
   Button,
-  CardMedia,
 } from "@mui/material";
 import axios from "axios";
 
@@ -32,7 +30,6 @@ import "./index.css";
 
 export default function RecipeDetails(props) {
   const {
-    recipeDetails,
     setRecipeDetails,
     setServings,
     setIngredients,
@@ -40,7 +37,6 @@ export default function RecipeDetails(props) {
   } = useContext(recipeDetailsContext);
   const { loading, setLoading } = useContext(loadingContext);
 
-  // const [starRating] = useState(Math.floor(Math.random() * 5) + 1);
   const params = useParams();
   const navigate = useNavigate();
 
@@ -58,25 +54,6 @@ export default function RecipeDetails(props) {
         console.log(err);
       });
   }, []);
-
-  // const usePrevious = (value) => {
-  //   const ref = useRef();
-  //   useEffect(() => {
-  //     ref.current = value;
-  //   }, [value]);
-
-  //   return ref.current;
-  // };
-
-  // const previousRating = usePrevious(starRating);
-
-  // const RandomStarRating = () => {
-  //   return (
-  //     <Box sx={{ "& > legend": { mt: 2 } }}>
-  //       <Rating name="read-only" value={previousRating} readOnly />
-  //     </Box>
-  //   );
-  // };
 
   return (
     <Box>
