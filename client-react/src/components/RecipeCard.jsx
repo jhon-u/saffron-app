@@ -2,15 +2,17 @@ import { React, useContext, useState } from "react";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import IconButton from "@mui/material/IconButton";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { NavLink } from "react-router-dom";
 import { favouritesContext } from "Providers/FavouritesProvider";
+import { loadingContext } from "../Providers/LoadingProvider";
 
 export default function RecipeCard(props) {
   const [isHovered, setIsHovered] = useState(false);
   const { saveFavourites, isFavourite, deleteFavourite } =
     useContext(favouritesContext);
+  const {setLoading} = useContext(loadingContext)
 
   const handleFavouriteState = async (recipeid) => {
     if (isFavourite(recipeid)) {
@@ -41,6 +43,7 @@ export default function RecipeCard(props) {
             alt={props.title}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            onClick={() => setLoading(true)}
           />
           <Box
             className="title"
@@ -53,9 +56,9 @@ export default function RecipeCard(props) {
               width: "90%",
             }}
           >
-            <span sx={{ textShadow: "3px 3px 6px rgba(0,0,0,1)" }}>
+            <Typography sx={{ textShadow: "0 0 12px rgb(79 79 106 / 6%)", fontWeight: 'bold' }}>
               {props.title}
-            </span>
+            </Typography>
           </Box>
         </NavLink>
         <IconButton

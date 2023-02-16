@@ -2,8 +2,8 @@ import React, { useRef } from "react";
 import RecipeCard from "../components/RecipeCard";
 import AdvancedSearch from "../components/AdvancedSearch";
 import { useState, useContext } from "react";
-import { favouritesContext } from "Providers/FavouritesProvider";
 import { searchContext } from "Providers/SearchProvider";
+import { loadingContext } from "../Providers/LoadingProvider";
 
 import saffronFlower from "../assets/saffron_flower.png";
 
@@ -14,19 +14,16 @@ import {
   Box,
   Collapse,
   Grid,
-  Container,
   Typography,
   Stack,
   Button,
 } from "@mui/material";
 
 export default function Recipes(props) {
-  const [recipeId, setRecipeId] = useState(null);
+  const [setRecipeId] = useState(null);
+  const { loading } = useContext(loadingContext);
+  const { searchResults, showSearch } = useContext(searchContext);
 
-  const { favourites } = useContext(favouritesContext);
-  const { searchResults, loading, showSearch } = useContext(searchContext);
-
-  console.log("props check recipes.jsx", props)
   const getRecipeId = (id) => {
     setRecipeId(id);
   };

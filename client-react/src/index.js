@@ -9,25 +9,28 @@ import FavouritesProvider from "Providers/FavouritesProvider";
 import RecipeDetailsProvider from "./Providers/RecipeDetailsProvider";
 import MealPlanProvider from "Providers/MealPlanProvider";
 import GroceryListProvider from "./Providers/GroceryListProvider";
+import LoadingProvider from "./Providers/LoadingProvider";
 
 const container = document.getElementById("root");
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
 root.render(
   <React.StrictMode>
-    <AuthProvider>
-      <SearchProvider>
-        <MealPlanProvider>
-          <FavouritesProvider>
-            <RecipeDetailsProvider>
-              <GroceryListProvider>
-                <BrowserRouter>
-                  <App />
-                </BrowserRouter>
-              </GroceryListProvider>
-            </RecipeDetailsProvider>
-          </FavouritesProvider>
-        </MealPlanProvider>
-      </SearchProvider>
-    </AuthProvider>
+    <LoadingProvider>
+      <AuthProvider>
+        <SearchProvider>
+          <MealPlanProvider>
+            <FavouritesProvider>
+              <RecipeDetailsProvider>
+                <GroceryListProvider>
+                  <BrowserRouter>
+                    <App />
+                  </BrowserRouter>
+                </GroceryListProvider>
+              </RecipeDetailsProvider>
+            </FavouritesProvider>
+          </MealPlanProvider>
+        </SearchProvider>
+      </AuthProvider>
+    </LoadingProvider>
   </React.StrictMode>
 );
