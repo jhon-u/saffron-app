@@ -22,7 +22,7 @@ import Ingredients from "./Ingredients";
 import Servings from "./Servings";
 import MeasuresSelector from "./MeasuresSelector";
 import AddToGroceriesBtn from "./AddToGroceriesBtn";
-import RandomStarRating from "./Rating";
+import RandomStarRating from "./RandomStarRating";
 import RecipeImage from "./RecipeImage";
 
 import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
