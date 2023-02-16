@@ -9,23 +9,11 @@ app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const { callSpoonacular } = require("../services/api/spoonnacular");
-// const demoData = require('../services/api/demo-data');
-const { data } = require("../services/api/demo-data");
-const { instructionData } = require("../services/api/instructions");
-const { recipeDetails } = require("../services/api/recipe-details");
-const { search } = require("../services/api/advanced-search");
-const { nutritionData } = require("../services/api/nutrition");
 const { oneWeekMealPlan } = require("../services/api/mealplan-oneweek");
 
-const {
-  getAllUsers,
-  getUserById,
-  getUserByEmail,
-} = require("../db/queries/users");
+const { getUserByEmail } = require("../db/queries/users");
 const db = require("../configs/db.config");
 const { getFavourites } = require("../db/queries/favourites");
-const { default: axios } = require("axios");
 const { randomRecipes } = require("../services/api/random-recipes");
 const { detailRecipes } = require("../services/api/recipe-details-real");
 const { searchRecipes } = require("../services/api/search");
@@ -36,8 +24,6 @@ const public = path.join(cwd, "..", "public");
 console.log("public dir: ", public);
 app.use(express.static(public));
 
-// Do Not make a route for "/" or it will override public
-
 app.get("/api/recipes", (req, res) => {
   console.log("server check ")
   randomRecipes().then((data) => {
@@ -45,33 +31,10 @@ app.get("/api/recipes", (req, res) => {
   })
 });
 
-
-// app.get("/api/recipes", (req, res) => {
-//   // callSpoonacular().then((data) => {
-
-//   // })
-//   // console.log(data.results);
-//   // console.log(instructionData[0]);
-//   res.json({ version: "1.01", results: data.results });
-// });
-
 app.get("/api/recipes/:id", (req, res) => {
-  // https://api.spoonacular.com/recipes/{id}/information&includeNutrition=true
-  // extendedIngredients - array of objects
-  //id
-  //title
-  //sevings
-  //image
-  //diet - array of strings
-  //spoonacularSourceUrl
-  //instructions: https://api.spoonacular.com/recipes/{id}/analyzedInstructions
-  console.log("req.body api recipes", req.params.id)
-
   detailRecipes(req.params.id).then((data) => {
-    // console.log("data check instructions and details", data.instructions)
+
     const instructions = (steps) => {
-      // const steps = instructionData[0].steps;
-      // console.log("steps check on server", steps)
       const result = [];
       for (const i in steps) {
         result.push(steps[i].step);
@@ -146,22 +109,6 @@ app.post("/api/search", (req, res) => {
   searchRecipes(req.body).then((data) => {
     res.json(data)
   })
-
-
-  // const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.API_KEY}&diet=${dietString}&intolerances=${intolerancesString}&minProtein=${req.body.protein[0]}&maxProtein=${req.body.protein[1]}&minFat=${req.body.fat[0]}&maxFat=${req.body.fat[1]}&minCarbs=${req.body.carbs[0]}&maxCarbs=${req.body.carbs[1]}&number=10&nutrition=false`
-
-  // setTimeout(() => {
-  //   res.json(search);
-  // }, 1000);
-
-  // axios.get(url)
-  //   .then((result) => {
-  //     console.log(result.data.results)
-  //     res.json({
-  //       data: result.data.results
-  //     })
-  //   })
-  //   .catch((error) => console.log(error))
 });
 
 app.post("/api/recipes/delete", function (req, res) {
@@ -194,7 +141,6 @@ app.post("/favourites", (req, res) => {
 
   db.query(addFavQuery, values)
     .then((result) => {
-      //result.rows is what we are looking for
       res.json(result.rows);
     })
     .catch((err) => res.send(err));

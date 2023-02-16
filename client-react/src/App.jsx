@@ -2,14 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import AppBar from "@mui/material/AppBar";
 import Button from "@mui/material/Button";
-import CameraIcon from "@mui/icons-material/PhotoCamera";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import CssBaseline from "@mui/material/CssBaseline";
-import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -17,27 +10,19 @@ import Container from "@mui/material/Container";
 import { Paper } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
 import { styled, alpha } from "@mui/material/styles";
-// import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-// import AppBar from '@mui/material/AppBar';
-// import Box from '@mui/material/Box';
-// import Toolbar from '@mui/material/Toolbar';
 import IconButton from "@mui/material/IconButton";
-// import Typography from '@mui/material/Typography';
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import TuneIcon from "@mui/icons-material/Tune";
-// import Container from '@mui/material/Container';
 import Avatar from "@mui/material/Avatar";
-// import Button from '@mui/material/Button';
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 
 import { Link, Route, Routes, useLocation } from "react-router-dom";
 import { authContext } from "./Providers/AuthProvider";
+import { loadingContext } from "./Providers/LoadingProvider";
 import { favouritesContext } from "./Providers/FavouritesProvider";
 
 import LoginForm from "components/LoginForm";
@@ -51,24 +36,10 @@ import MealPlanner from "pages/MealPlanner";
 import SignUp from "./pages/SignUp";
 
 import lisaAvatar from "./assets/lisa.png";
-import Spinner from "components/Spinner";
 
 const pages = ["Recipes", "Groceries", "Favourites", "Planner"];
 const urls = ["/", "grocery-list", "favourites", "mealplanner"];
 const settings = ["Logout"];
-
-// function Copyright() {
-//   return (
-//     <Typography variant="body2" color="text.secondary" align="center">
-//       {"Copyright © "}
-//       <Link color="inherit" href="#">
-//         Saffron
-//       </Link>{" "}
-//       {new Date().getFullYear()}
-//       {"."}
-//     </Typography>
-//   );
-// }
 
 const theme = createTheme({
   palette: {
@@ -80,10 +51,10 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["Montserrat", '"Helvetica Neue"', "Arial", "sans-serif"].join(
+    fontFamily: ["Open Sans", '"Helvetica Neue"', "Arial", "sans-serif"].join(
       ","
     ),
-    fontWeight: 500,
+    fontWeight: 400,
   },
 });
 
@@ -131,8 +102,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function App(props) {
   const { auth, user, logout } = useContext(authContext);
-  const { setFavourites } = useContext(favouritesContext)
-  const [loading, setLoading] = useState(true)
+  const { loading, setLoading } = useContext(loadingContext);
+  const { setFavourites } = useContext(favouritesContext);
   const [recipes, setRecipes] = useState([]);
   const [open, setOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -163,16 +134,15 @@ export default function App(props) {
   const handleLogOut = () => {
     setFavourites([]);
     logout();
-    handleCloseUserMenu()
-  }
-  console.log("apps jsx check before useeffect")
+    handleCloseUserMenu();
+  };
+  console.log("apps jsx check before useeffect");
   useEffect(() => {
-    console.log("axios check")
+    console.log("axios check");
     axios
       .get("/api/recipes")
       .then((res) => {
-        console.log("app.jsx axios res", res.data)
-        setRecipes(res.data)
+        setRecipes(res.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -359,47 +329,23 @@ export default function App(props) {
       </AppBar>
 
       <main>
-        {/* {!loading && ( */}
-          <Container sx={{ py: 8 }} maxWidth="lg">
-            <Paper elevation={3} sx={{ p: 3, borderRadius: 3 }}>
-              <Routes>
-                <Route
-                  path="/"
-                  element={<Recipes recipes={recipes} advSearch={isVisible} />}
-                />
-                <Route path="/recipes/:id" element={<RecipeDetails />} />
-                <Route path="/grocery-list" element={<Groceries />} />
-                <Route path="/login" element={<LoginForm />} />
-                <Route path="/signup" element={<SignUp />} />
-                <Route path="/favourites" element={<Favourites />} />
-                <Route path="/mealplanner" element={<MealPlanner />} />
-              </Routes>
-            </Paper>
-          </Container>
-        {/* // )} */}
-        {/* {loading && (
-          <Box >
-            <Spinner />
-          </Box>
-        )} */}
+        <Container sx={{ py: 8 }} maxWidth="lg">
+          <Paper elevation={3} sx={{ p: 3, borderRadius: 3 }}>
+            <Routes>
+              <Route
+                path="/"
+                element={<Recipes recipes={recipes} advSearch={isVisible} />}
+              />
+              <Route path="/recipes/:id" element={<RecipeDetails />} />
+              <Route path="/grocery-list" element={<Groceries />} />
+              <Route path="/login" element={<LoginForm />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/favourites" element={<Favourites />} />
+              <Route path="/mealplanner" element={<MealPlanner />} />
+            </Routes>
+          </Paper>
+        </Container>
       </main>
-      {/* Footer */}
-      {/* <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="text.secondary"
-          component="p"
-        >
-          Something here to give the footer a purpose!
-        </Typography>
-        <Copyright />
-      </Box> */}
-      {/* End footer */}
     </ThemeProvider>
-
   );
 }

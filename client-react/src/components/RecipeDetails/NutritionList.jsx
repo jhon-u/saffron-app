@@ -10,41 +10,48 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-export default function NutritionList(props) {
-  const { recipeDetails, nutrition } = useContext(recipeDetailsContext);
-  const nd = nutrition;
-  console.log("recipeDetails from nutritionlist page", recipeDetails)
-  const createData = (name, calories, fat, carbs, protein) => {
-    return { name, calories, fat, carbs, protein };
-  }
+export default function NutritionList() {
+  const { nutrition } = useContext(recipeDetailsContext);
   
-  
-  const rows = [
-    createData(
-      "Calories (kcal)",
-      nd.Calories.amount,
-      nd.Calories.percentOfDailyNeeds
-    ),
-    createData(
-      "Carbohydrates (g)",
-      nd.Carbohydrates.amount,
-      nd.Carbohydrates.percentOfDailyNeeds
-    ),
-    createData("Fat (g)", nd.Fat.amount, nd.Fat.percentOfDailyNeeds),
-    createData("Fiber (g)", nd.Fiber.amount, nd.Fiber.percentOfDailyNeeds),
-    createData(
-      "Protein (g)",
-      nd.Protein.amount,
-      nd.Protein.percentOfDailyNeeds
-    ),
-    createData("Sodium (mg)", nd.Sodium.amount, nd.Sodium.percentOfDailyNeeds),
-    createData("Sugar (g)", nd.Sugar.amount, nd.Sugar.percentOfDailyNeeds),
-  ];
+  const createRows = () => {
+
+    const results = []
+    if( Object.keys(nutrition).length > 0) {
+      for(const key of Object.keys(nutrition)) {
+        const row = {
+          name: key === 'Calories' ? "Calories (kcal)" : key === 'Sodium' ? "Sodium (mg)" : key + ' (g)',
+          amount: nutrition[key].amount,
+          percentOfDailyNeeds: nutrition[key].percentOfDailyNeeds
+        }
+    
+        results.push(row)
+      }
+    }
+
+    return results
+  };
+
+  const rows = createRows();
+
+  const dataRows = rows?.map((row) => {
+    return (
+      <TableRow
+        key={row.name}
+        sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+      >
+        <TableCell component="th" scope="row">
+          {row.name}
+        </TableCell>
+        <TableCell align="right">{row.amount}</TableCell>
+        <TableCell align="right">{row.percentOfDailyNeeds}</TableCell>
+      </TableRow>
+    );
+  });
 
   return (
     <Box sx={{ my: 4 }}>
       <Typography variant="h6">Nutrition per serving</Typography>
-      <TableContainer  component={Paper}>
+      <TableContainer component={Paper}>
         <Table sx={{ minWidth: 200 }} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -53,24 +60,11 @@ export default function NutritionList(props) {
               <TableCell align="right">% of Daily Needs</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
-            {rows?.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+          <TableBody>{dataRows}</TableBody>
         </Table>
       </TableContainer>
       <Typography variant="body1">
-      Percent Daily Values based on a 2,000 calorie diet.
+        Percent Daily Values based on a 2,000 calorie diet.
       </Typography>
     </Box>
   );

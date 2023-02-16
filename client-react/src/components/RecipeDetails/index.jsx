@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import axios from "axios";
-import { Grid, Paper, Button } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { Grid, Button } from "@mui/material";
 import CardMedia from "@mui/material/CardMedia";
 import { Box, Typography } from "@mui/material";
 import Rating from "@mui/material/Rating";
@@ -15,7 +14,7 @@ import CookTime from "./CookTime";
 import Instructions from "./Instructions";
 
 import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
-
+import { loadingContext } from "../../Providers/LoadingProvider";
 import Ingredients from "./Ingredients";
 import Servings from "./Servings";
 import MeasuresSelector from "./MeasuresSelector";
@@ -25,41 +24,36 @@ import "./index.css";
 
 import { useParams, useNavigate } from "react-router-dom";
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
-
 export default function RecipeDetails(props) {
-  const [loading, setLoading] = useState(true);
-  const [starRating, setStarRating] = useState(
-    Math.floor(Math.random() * 5) + 1
-  );
-  const { recipeDetails, setRecipeDetails, setServings, setIngredients, nutrition, setNutrition } =
-    useContext(recipeDetailsContext);
-  const params = useParams();
-  console.log("recipeDetails check", recipeDetails);
+  const {
+    recipeDetails,
+    setRecipeDetails,
+    setServings,
+    setIngredients,
+    nutrition,
+    setNutrition,
+  } = useContext(recipeDetailsContext);
+  const { loading, setLoading } = useContext(loadingContext);
 
+  const [starRating] = useState(Math.floor(Math.random() * 5) + 1);
+  const params = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
       .get(`/api/recipes/${params.id}`)
       .then((res) => {
-        console.log("RES DATA", res.data);
         setRecipeDetails(res.data);
         setServings(res.data.servings);
         setIngredients(res.data.ingredients);
         setLoading(false);
-        setNutrition(res.data.nutrition)
+        console.log("NUTRITION", res.data.nutrition)
+        setNutrition(res.data.nutrition);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [params.id]);
+  }, []);
 
   const usePrevious = (value) => {
     const ref = useRef();
@@ -81,100 +75,104 @@ export default function RecipeDetails(props) {
   };
 
   return (
-    <Box>
-      <Button
-        variant="contained"
-        onClick={() => navigate(-1)}
-        style={{ marginBottom: "20px" }}
-      >
-        Back
-      </Button>
-      <Grid container spacing={2}>
-        {/* Header left, aka Image */}
-        <Grid container item xs={12} md={4} lg={4}>
-          <Grid item xs={12} md={12} lg={12}>
-            <CardMedia
-              component="img"
-              height="400"
-              width="400"
-              image={recipeDetails.image}
-              alt={props.title}
-              sx={{ objectFit: "contain", borderRadius: 12 }}
-            />
-          </Grid>
-        </Grid>
-
-        {/* Header right */}
-        <Grid container item xs={12} md={8} lg={8}>
-          <Grid item xs={12} md={12} lg={12}>
-            <Title />
-            <RandomStarRating />
-          </Grid>
-          <Grid item xs={12} md={12} lg={12}>
-            <Url />
-          </Grid>
-          <Grid item xs={12} md={12} lg={12}>
-            {!loading && <CookTime />}
-          </Grid>
-          <Grid item xs={12} md={12} lg={12}>
-            <Description />
-          </Grid>
-        </Grid>
-
-        {/* Body Left */}
-        <Grid container item xs={12} md={8} lg={8} sx={{p: 2}}>
-          <Grid container item xs={12} md={12} lg={12}>
-            <Grid item xs={12} md={12} lg={12}>
-              <Typography
-                variant="h4"
-                letterSpacing={1}
-                sx={{ paddingBottom: "12px" }}
-              >
-                Ingredients
-              </Typography>
+    <>
+      {!loading && (
+        <Box>
+          <Button
+            variant="contained"
+            onClick={() => navigate(-1)}
+            style={{ marginBottom: "20px" }}
+          >
+            Back
+          </Button>
+          <Grid container spacing={2}>
+            {/* Header left, aka Image */}
+            <Grid container item xs={12} md={4} lg={4}>
+              <Grid item xs={12} md={12} lg={12}>
+                <CardMedia
+                  component="img"
+                  height="400"
+                  width="400"
+                  image={recipeDetails.image}
+                  alt={props.title}
+                  sx={{ objectFit: "contain", borderRadius: 12 }}
+                />
+              </Grid>
             </Grid>
-            {!loading && <Ingredients />}
-          </Grid>
 
-          {/* Servings, Measurements and Add to Groceries */}
-          <Grid sx={{ mt: 3 }} container item xs={12} md={12} lg={12}>
-            <Grid item xs={12} md={4} lg={5}>
-              {!loading && <Servings />}
+            {/* Header right */}
+            <Grid container item xs={12} md={8} lg={8}>
+              <Grid item xs={12} md={12} lg={12}>
+                <Title />
+                <RandomStarRating />
+              </Grid>
+              <Grid item xs={12} md={12} lg={12}>
+                <Url />
+              </Grid>
+              <Grid item xs={12} md={12} lg={12}>
+                {!loading && <CookTime />}
+              </Grid>
+              <Grid item xs={12} md={12} lg={12}>
+                <Description />
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={4} lg={3}>
-              {!loading && <MeasuresSelector />}
+
+            {/* Body Left */}
+            <Grid container item xs={12} md={8} lg={8} sx={{ p: 2 }}>
+              <Grid container item xs={12} md={12} lg={12}>
+                <Grid item xs={12} md={12} lg={12}>
+                  <Typography
+                    variant="h4"
+                    letterSpacing={1}
+                    sx={{ paddingBottom: "12px" }}
+                  >
+                    Ingredients
+                  </Typography>
+                </Grid>
+                {!loading && <Ingredients />}
+              </Grid>
+
+              {/* Servings, Measurements and Add to Groceries */}
+              <Grid sx={{ mt: 3 }} container item xs={12} md={12} lg={12}>
+                <Grid item xs={12} md={4} lg={5}>
+                  {!loading && <Servings />}
+                </Grid>
+                <Grid item xs={12} md={4} lg={3}>
+                  {!loading && <MeasuresSelector />}
+                </Grid>
+                <Grid item xs={12} md={4} lg={4}>
+                  {!loading && <AddToGroceriesBtn />}
+                </Grid>
+              </Grid>
+
+              {/* Instructions */}
+              <Grid item xs={12} md={12} lg={12}>
+                <Instructions />
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={4} lg={4}>
-              {!loading && <AddToGroceriesBtn />}
-            </Grid>
-          </Grid>
 
-          {/* Instructions */}
-          <Grid item xs={12} md={12} lg={12}>
-            <Instructions />
-          </Grid>
-        </Grid>
+            {/* Body Right */}
 
-        {/* Body Right */}
-
-        <Grid container item xs={12} md={4} lg={4}>
-          <Grid item xs={12} md={12} lg={12}>
-            {!loading &&
-              <>
-                <NutritionScore />
-                <NutritionList />
-                <Glycemic />
-              </>
-            }
-          </Grid>
-          {/* <Grid item xs={12} md={12} lg={12}>
+            <Grid container item xs={12} md={4} lg={4}>
+              <Grid item xs={12} md={12} lg={12}>
+                {!loading && (
+                  <>
+                    <NutritionScore />
+                    <NutritionList />
+                    <Glycemic />
+                  </>
+                )}
+              </Grid>
+              {/* <Grid item xs={12} md={12} lg={12}>
             {!loading && <NutritionList />}
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
             {!loading && <Glycemic />}
           </Grid> */}
-        </Grid>
-      </Grid>
-    </Box>
+            </Grid>
+          </Grid>
+        </Box>
+      )}
+    </>
   );
 }

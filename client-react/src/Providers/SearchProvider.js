@@ -10,7 +10,6 @@ const SearchProvider = function(props) {
   const [ fat, setFat ] = useState([10, 50])
   const [ protein, setProtein ] = useState([10, 50])
   const [ searchResults, setSearchResults ] = useState([])
-  const [loading, setLoading] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
   
   const value = { 
@@ -26,8 +25,6 @@ const SearchProvider = function(props) {
     setProtein, 
     searchResults, 
     setSearchResults,
-    loading,
-    setLoading,
     showSearch,
     setShowSearch
   }

@@ -4,14 +4,15 @@ import DropDowns from "./DropDowns";
 import RangeSlider from "./RangeSlider";
 import { useContext } from "react";
 import { searchContext } from "Providers/SearchProvider";
+import { loadingContext } from "../../Providers/LoadingProvider";
 import axios from "axios";
 
 const dietChoices = ["Gluten Free", "Ketogenic", "Vegan", "Vegetarian", "Paleo"]
 const intoleranceChoices = ["Dairy", "Egg", "Shellfish", "Seafood", "Peanut", "Soy", "Gluten", "Grain", "Wheat", "Sulfite"]
 
 export default function AdvancedSearch() {
-
-const { diet, intolerances, carbs, fat, protein, setSearchResults, setLoading, setShowSearch
+const {setLoading} = useContext(loadingContext)
+const { diet, intolerances, carbs, fat, protein, setSearchResults, setShowSearch
 } = useContext(searchContext)
 
 const searchData = () => {
