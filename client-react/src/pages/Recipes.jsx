@@ -17,6 +17,7 @@ import {
   Typography,
   Stack,
   Button,
+  Skeleton,
 } from "@mui/material";
 
 export default function Recipes(props) {
@@ -44,6 +45,14 @@ export default function Recipes(props) {
     });
   };
 
+  const displaySkeleton = [...Array(8)].map((item, index) => {
+    return (
+      <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+        <Skeleton variant="rounded" height={300} />
+      </Grid>
+    );
+  });
+
   return (
     <Box>
       {/* Hero unit */}
@@ -62,7 +71,7 @@ export default function Recipes(props) {
             align="center"
             color="text.primary"
             gutterBottom
-            sx={{fontFamily: "Sacramento", fontSize: '6rem'}}
+            sx={{ fontFamily: "Sacramento", fontSize: "6rem" }}
           >
             Saffron
           </Typography>
@@ -100,17 +109,21 @@ export default function Recipes(props) {
       <Collapse in={props.advSearch} timeout={"auto"}>
         <AdvancedSearch />
       </Collapse>
-      {!loading && (
+      {loading ? (
+        <Grid container spacing={2} justify="center">
+          {displaySkeleton}
+        </Grid>
+      ) : (
         <Grid container spacing={2} justify="center">
           {!showSearch && displayRecipes(props.recipes)}
           {showSearch && displayRecipes(searchResults)}
         </Grid>
       )}
-      {loading && (
+      {/* {loading && (
         <Box>
           <Spinner />
         </Box>
-      )}
+      )} */}
     </Box>
   );
 }

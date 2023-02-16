@@ -329,8 +329,8 @@ export default function App(props) {
       </AppBar>
 
       <main>
-        <Container sx={{ py: 8 }} maxWidth="lg">
-          <Paper elevation={3} sx={{ p: 3, borderRadius: 3 }}>
+        <Container sx={{ py: 8, maxWidth: "lg" }} >
+          <Paper elevation={3} sx={{ p: 3, minHeight: '80vh',  borderRadius: 3 }}>
             <Routes>
               <Route
                 path="/"

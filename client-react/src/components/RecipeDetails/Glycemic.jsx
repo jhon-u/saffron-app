@@ -7,10 +7,15 @@ export default function Glycemic(props) {
   const { recipeDetails } = useContext(recipeDetailsContext);
   const { loading } = useContext(loadingContext);
 
-  // const glycemicIndex = recipeDetails.nutritionProperties["Glycemic Index"].amount
-  // const glycemicLoad = recipeDetails.nutritionProperties["Glycemic Load"].amount
+  const GlycemicIndex = () => {
+      return recipeDetails.nutritionProperties["Glycemic Index"].amount;
+  };
 
-  
+  const GlycemicLoad = () => {
+    return Math.round(
+      recipeDetails.nutritionProperties["Glycemic Load"].amount
+    );
+  };
 
   return (
     <>
@@ -26,17 +31,13 @@ export default function Glycemic(props) {
                 variant="body1"
                 sx={{ textAlign: "justify", textJustify: "inter-word" }}
               >
-                Glycemic Index:{" "}
-                {recipeDetails.nutritionProperties["Glycemic Index"].amount}
+                Glycemic Index: {!loading && <GlycemicIndex />}
               </Typography>
             </Grid>
 
             <Grid item xs={12} md={12} lg={12}>
               <Typography variant="body1">
-                Gylcemic Load:{" "}
-                {Math.round(
-                  recipeDetails.nutritionProperties["Glycemic Load"].amount
-                )}
+                Gylcemic Load: {!loading && <GlycemicLoad />}
               </Typography>
             </Grid>
           </Grid>

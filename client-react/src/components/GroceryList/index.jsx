@@ -3,6 +3,7 @@ import { groceryListContext } from "../../Providers/GroceryListProvider";
 import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
 import { Box, Grid, CardMedia, Typography, Checkbox } from "@mui/material";
 import { pink } from "@mui/material/colors";
+import { loadingContext } from "../../Providers/LoadingProvider";
 
 export default function GroceryList(props) {
   const {
@@ -12,10 +13,9 @@ export default function GroceryList(props) {
     sortedByAisle,
     setUpdateBoughtItems,
     updateBoughtItems,
-    setLoading,
-    loading,
   } = useContext(groceryListContext);
   const { measurementUnit } = useContext(recipeDetailsContext);
+  const { setLoading } = useContext(loadingContext)
 
   const sortByAisle = () => {
     console.log("New Groveries to Add", groceriesToAdd);

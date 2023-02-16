@@ -14,7 +14,6 @@ export default function NutritionList() {
   const { nutrition } = useContext(recipeDetailsContext);
   
   const createRows = () => {
-
     const results = []
     if( Object.keys(nutrition).length > 0) {
       for(const key of Object.keys(nutrition)) {
@@ -51,7 +50,7 @@ export default function NutritionList() {
   return (
     <Box sx={{ my: 4 }}>
       <Typography variant="h6">Nutrition per serving</Typography>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} variant="outlined" elevation={0}>
         <Table sx={{ minWidth: 200 }} aria-label="simple table">
           <TableHead>
             <TableRow>
