@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
-import { Box, Typography, Grid } from "@mui/material";
+import { Box, Paper, Typography, Grid } from "@mui/material";
 import { loadingContext } from "../../Providers/LoadingProvider";
 
 export default function Glycemic(props) {
@@ -20,8 +20,8 @@ export default function Glycemic(props) {
   return (
     <>
       {!loading && (
-        <Box>
-          <Grid container item xs={12} md={12} lg={12}>
+        <Paper variant="outlined" elevation={0}>
+          <Grid container item xs={12} md={12} lg={12} sx={{m: 1}}>
             <Grid item xs={12} md={12} lg={12}>
               <Typography variant="h6">Glycemic</Typography>
             </Grid>
@@ -41,7 +41,7 @@ export default function Glycemic(props) {
               </Typography>
             </Grid>
           </Grid>
-        </Box>
+        </Paper>
       )}
     </>
   );

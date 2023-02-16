@@ -62,7 +62,7 @@ export default function NutritionList() {
           <TableBody>{dataRows}</TableBody>
         </Table>
       </TableContainer>
-      <Typography variant="body1">
+      <Typography variant="subtitle2" sx={{mt: 1, color: '#717f94'}}>
         Percent Daily Values based on a 2,000 calorie diet.
       </Typography>
     </Box>

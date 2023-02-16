@@ -75,6 +75,7 @@ export default function Ingredients() {
             width="24"
             src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`}
             alt={ingredient.name}
+            sx={{ objectFit: "contain" }}
           />
         </Grid>
         <Grid item xs={11} md={11} lg={11}>

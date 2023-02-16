@@ -26,7 +26,8 @@ export default function RangeSlider(props) {
         {props.name}: between {value[0]} and {value[1]} {props.unit}
       </Typography>
       <Slider
-        getAriaLabel={() => "Temperature range"}
+        size="small"
+        getAriaLabel={() => "range"}
         value={value}
         onChange={handleChange}
         valueLabelDisplay="auto"
