@@ -8,7 +8,7 @@ export default function CookTime(props) {
   console.log('COOK TIME', recipeDetails)
   return (
     <Typography
-      variant="body1"
+      variant="body2"
       sx={{ display: "flex", alignItems: "center", paddingBottom: "12px", paddingTop: "10px"}}
     >
       <AccessTimeIcon style={{ marginRight: "8px", verticalAlign: "bottom" }} />
