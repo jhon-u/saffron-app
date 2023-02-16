@@ -18,7 +18,7 @@ export default function RandomStarRating() {
 
   return (
     <Box sx={{ "& > legend": { mt: 2 } }}>
-      <Rating name="read-only" value={previousRating} readOnly />
+      <Rating name="read-only" value={previousRating || 0} readOnly />
     </Box>
   );
 }
