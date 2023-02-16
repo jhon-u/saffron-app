@@ -23,6 +23,7 @@ import Servings from "./Servings";
 import MeasuresSelector from "./MeasuresSelector";
 import AddToGroceriesBtn from "./AddToGroceriesBtn";
 import RandomStarRating from "./Rating";
+import RecipeImage from "./RecipeImage";
 
 import { recipeDetailsContext } from "../../Providers/RecipeDetailsProvider";
 import { loadingContext } from "../../Providers/LoadingProvider";
@@ -89,16 +90,7 @@ export default function RecipeDetails(props) {
       <Grid container spacing={2}>
         {/* Header left, aka Image */}
         <Grid container item xs={12} md={4} lg={4}>
-          <Grid item xs={12} md={12} lg={12}>
-            <CardMedia
-              component="img"
-              height="auto"
-              width="400"
-              image={recipeDetails.image}
-              alt={props.title}
-              sx={{ objectFit: "contain", borderRadius: 2 }}
-            />
-          </Grid>
+          <RecipeImage />
         </Grid>
 
         {/* Header right */}
@@ -108,7 +100,7 @@ export default function RecipeDetails(props) {
             <RandomStarRating />
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
-            <Url />
+            {!loading && <Url />}
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
             <CookTime />
@@ -122,13 +114,15 @@ export default function RecipeDetails(props) {
         <Grid container item xs={12} md={8} lg={8} sx={{ p: 2 }}>
           <Grid container item xs={12} md={12} lg={12}>
             <Grid item xs={12} md={12} lg={12}>
-              <Typography
-                variant="h4"
-                letterSpacing={1}
-                sx={{ paddingBottom: "12px" }}
-              >
-                Ingredients
-              </Typography>
+              {!loading && (
+                <Typography
+                  variant="h4"
+                  letterSpacing={1}
+                  sx={{ paddingBottom: "12px" }}
+                >
+                  Ingredients
+                </Typography>
+              )}
             </Grid>
             {!loading && <Ingredients />}
           </Grid>
@@ -148,7 +142,7 @@ export default function RecipeDetails(props) {
 
           {/* Instructions */}
           <Grid item xs={12} md={12} lg={12}>
-            <Instructions />
+            {!loading && <Instructions />}
           </Grid>
         </Grid>
 

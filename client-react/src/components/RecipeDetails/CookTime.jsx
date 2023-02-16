@@ -30,7 +30,7 @@ export default function CookTime() {
       }}
     >
       <AccessTimeIcon sx={{ marginRight: "8px", verticalAlign: "bottom" }} />
-      Ready in: &nbsp; <b>{!loading && <CookingTime />}</b>&nbsp; minutes
+      Ready in: &nbsp; <b>{<CookingTime />}</b>&nbsp; minutes
     </Typography>
     )
     
