@@ -1,6 +1,6 @@
 import MealPlans from "components/MealPlans";
 import axios from "axios";
-import React, { useState, useEffect, useRef  } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import { DragDropContext, Draggable } from "react-beautiful-dnd";
 import { StrictModeDroppable as Droppable } from "helpers/StrictMode.Droppable";
@@ -10,10 +10,10 @@ import RecipeCard from "components/RecipeCard";
 import { authContext } from "Providers/AuthProvider";
 import LoginForm from "components/LoginForm";
 import { Box, Typography, Grid, Button } from "@mui/material";
-import PrintIcon from '@mui/icons-material/Print';
+import PrintIcon from "@mui/icons-material/Print";
 
 // import ReactToPrint from 'react-to-print'
-import { useReactToPrint } from 'react-to-print'
+import { useReactToPrint } from "react-to-print";
 
 function MealPlanner() {
   const { favourites } = useContext(favouritesContext);
@@ -21,7 +21,7 @@ function MealPlanner() {
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-  })
+  });
 
   const itemsFromBackend = favourites;
   const columnsFromBackend = {
@@ -124,7 +124,13 @@ function MealPlanner() {
             Meal Planner
           </Typography>
         </Grid>
-        <Grid item xs={4} md={4} lg={4} sx={{display: 'flex', justifyContent: 'flex-end'}}>
+        <Grid
+          item
+          xs={4}
+          md={4}
+          lg={4}
+          sx={{ display: "flex", justifyContent: "flex-end" }}
+        >
           <Button onClick={handlePrint}>
             <PrintIcon />
           </Button>
@@ -172,9 +178,6 @@ function MealPlanner() {
                               {...provided.droppableProps}
                               ref={provided.innerRef}
                               style={{
-                                background: snapshot.isDraggingOver
-                                  ? "#966081"
-                                  : "inherit",
                                 padding: 4,
                                 width: 250,
                                 minHeight: 500,

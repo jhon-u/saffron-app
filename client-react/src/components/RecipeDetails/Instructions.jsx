@@ -8,7 +8,7 @@ export default function Instructions(props) {
 
   const steps = recipeDetails.instructions?.map((step, index) => {
     return (
-      <Grid container item xs={12} md={12} lg={12} sx={{ m: 1 }}>
+      <Grid key={index} container item xs={12} md={12} lg={12} sx={{ m: 1 }}>
         <Grid item xs={12} md={12} lg={12}>
           <Typography
             variant="body1"
